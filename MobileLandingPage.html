@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="m1app">
+<head>
+    <title>M1-Mobile</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../Js/slick-1.8.0/slick/slick.css">
+    <link rel="stylesheet" href="../Js/slick-1.8.0/slick/slick-theme.css">
+    <link rel="stylesheet" href="../Css/Style.css">
+	<script>
+	
+	</script>
+</head>
+<body>
+  <nav class="m1-header navbar navbar-default navbar-fixed-top "  ng-controller="headerController">
+        <div class="container-fluid">
+		
+            <div class="navbar-header desktop col-xs-4 left">
+                <a class="navbar-brand" href="javaScript:void(0);">
+                    <img src="../Images/M1-logo-1x.png" class="img-circle img-responsive" alt="M1 Logo">
+                </a>
+                <ul class="nav navbar-nav list-inline peronalbussiness hidden-xs">
+                    <li class=""><a class="peronalbussinesslink active" href="javaScript:void(0)">Personal</a></li>
+                    <li class=""><a class="peronalbussinesslink" href="javaScript:void(0)">Business</a></li>
+                </ul>
+           </div>
+               
+	
+       
+
+            <div class="collapse navbar-collapse center" id="myNavbar">
+			     <button type="button" class="navbar-toggle collapsed modale" data-toggle="collapse" data-target="#myNavbar" data-label-expanded="Close" aria-expanded="false">
+                    <span class="icon-bar top-bar"></span>
+                    <span class="icon-bar middle-bar"></span>
+                    <span class="icon-bar bottom-bar"></span>
+                </button>
+                <ul class="nav navbar-nav list-inline peronalbussiness hidden-md hidden-lg hidden-sm">
+                    <li class=""><a class="peronalbussinesslink active" href="javaScript:void(0)" >Personal</a></li>
+                    <li class=""><a class="peronalbussinesslink inactive" href="javaScript:void(0)">Business</a></li>
+                </ul>
+				 
+
+                <ul class="nav navbar-nav navHeaderLinksCenetr dark" class="navpersonal">
+                    <li class="dropdown opened">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mobile </a>
+						 <!--<span class="caret hidden-sm hidden-md hidden-lg pull-right"></span></a>-->
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Devices</a></li>
+                            <li><a href="#">Plans with Devices</a></li>
+                            <li><a href="#">SIM-Only Plans</a></li>
+                            <li><a href="#">Specials</a></li>
+                            <li><a href="#">Add-ons</a></li>
+                            <li><a href="#">Prepaid</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Broadband </a>
+						 <!--<span class="caret hidden-sm hidden-md hidden-lg pull-right"></span></a>-->
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Plans</a></li>
+                            <li><a href="#">Devices</a></li>
+                            <li><a href="#">Add-ons</a></li>
+                            <li><a href="#">Fixed Voice</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Travel</a>
+						 <!--<span class="caret hidden-sm hidden-md hidden-lg pull-right"></span></a>-->
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Going Overseas</a></li>
+                            <li><a href="#">Visiting Singapore</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Digital Services</a>
+						 <!--<span class="caret hidden-sm hidden-md hidden-lg pull-right"></span></a>-->
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Music & Entertainment</a></li>
+                            <li><a href="#">Security</a></li>
+                            <li><a href="#">Finance</a></li>
+                            <li><a href="#">Others</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Deals</a>
+						 <!--<span class="caret hidden-sm hidden-md hidden-lg pull-right"></span></a>-->
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Phones & Tablets</a></li>
+                            <li><a href="#">Mobile</a></li>
+                            <li><a href="#">Broadband</a></li>
+                            <li><a href="#">Bundles</a></li>
+                            <li><a href="#">Others</a></li>
+                        </ul>
+
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About Us</a>
+						<!--<span class="caret hidden-sm hidden-md hidden-lg pull-right"></span></a>-->
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Our Company</a></li>
+                            <li><a href="#">Investors</a></li>
+                            <li><a href="#">News</a></li>
+                            <li><a href="#">Partnerships</a></li>
+                            <li><a href="#">Regulatory information</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul>
+
+                    </li>
+                </ul>
+
+               
+
+            </div>
+			 <div class="navbar-header mobile right dark">
+			     <ul class="nav navbar-nav toplinksheader dark">
+                    <li><a href="#"><img src="../Images/Nav-Locator-icon-1x.png" alt="Smiley face" class="hidden-xs hidden-sm"></a></li>
+                    <li><a href="#"><img src="../Images/Nav-Login-icon-1x.png" alt="Smiley face"></a></li>
+                    <li><a href="#"><img src="../Images/Nav-ShoppingCart-icon-1x.png" alt="Smiley face" ><sup class="badge">5</sup></a></li>
+                    <li><a href="#"><img src="../Images/Nav-Search-icon-1x.png" alt="Smiley face"></span></a></li>
+
+                 </ul>
+				 <ul class="nav navbar-nav toplinksheader light">
+                    <li><a href="#"><img src="../Images/Nav-Locator-icon-white-1x.png" alt="Smiley face" class="hidden-xs hidden-sm"></a></li>
+                    <li><a href="#"><img src="../Images/Nav-Login-icon-white-1x.png" alt="Smiley face"></a></li>
+                    <li><a href="#"><img src="../Images/Nav-ShoppingCart-icon-white-1x.png" alt="Smiley face" ><sup class="badge">5</sup></a></li>
+                    <li><a href="#"><img src="../Images/Nav-Search-icon-white-1x.png" alt="Smiley face"></span></a></li>
+
+                 </ul>
+				
+
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar" data-label-expanded="Close" aria-expanded="false" style="text-align: -webkit-right;">
+                    <span class="icon-bar top-bar" style="width: 20px;"></span>
+                    <span class="icon-bar middle-bar" style="width: 25px;"></span>
+                    <span class="icon-bar bottom-bar" style="width: 30px;"></span>
+                </button>
+
+            </div>
+        </div>
+		
+    </nav>
+	
+   <div class="container-fluid">
+      <!--  <div class="row">
+            <div class="col-md-8 col-md-offset-2 col-xs-12">
+                <thumbnail-component  max-images="4"> </thumbnail-component>
+            </div>
+        </div>
+		<div class="row">
+           <page-banner align="left"> </page-banner>
+        </div>
+		
+		
+		<div class="row">
+            <page-banner2></page-banner2>
+        </div>
+		<div class="row">
+            <page-banner align="right"> </page-banner>
+        </div>
+		<div class="row">
+		<div class="col-md-8 col-md-offset-2 col-xs-12">
+		<carousel-components max="3" min="1"></carousel-components>
+		</div>
+		</div>
+		<div class="row">
+		<div class="col-md-10 col-md-offset-1 col-xs-12">
+		<carousel-components max="4" min="2"></carousel-components>
+		</div>
+		</div>-->
+		
+		
+		<div ng-controller="carouselController">
+		<div class="row">
+		 <div class="col-md-12 col-xs-12 component-heading theme-dark ">
+		 <h1 class="font-heading1">Special benefits </h1>
+		 
+		 <h3 class="font-heading3">JUST FOR YOU</h3>
+		 </div>
+		
+		</div>
+		<div class="row">
+		 <div class="col-md-10 col-md-offset-1 col-xs-12">
+		<div class="slider image-crausel-type-1" carousel-components ng-cloak maxItem="4" minItem="5" speed="900" autoplay="false" infinite="true" autoplaySpeed="600">
+		<div class="thumbnail speacial-carausel"  ng-repeat="x in records track by $index">
+				<!--
+					<a href="" target="_blank"><img src="{{x.thumbanailUrl}}" alt="Lights"> 
+					<div class="caption">
+					<p class="heading">Seniors</p>
+					<p class="description">Enjoy free calls to more numbers,because you deserve it.</p>
+					</div>
+					</a>
+				-->
+				<video width="100%" controls  id="myVideo{{$index}}" class="all-video"  ng-click="playbtn($index)" >
+				  <source  src="{{x.thumbanailUrl}}" type="video/mp4">
+				  <source src="{{x.thumbanailUrl}}" type="video/ogg">
+				  Your browser does not support the video tag.
+				</video>				
+		
+		</div>
+		</div>
+		</div>
+		</div>
+		<div class="row">
+		 <div class="col-md-12 col-xs-12 component-viewall-Link">
+		 <span class="viewall-link font-body8">VIEW ALL SPeCIAL</span>
+		 </div>
+		</div>
+		
+			<div class="row">
+		 <div class="col-md-12 col-xs-12 component-heading theme-dark ">
+		 <h1 class="font-heading1">Some add-ons to enhance </h1>
+		 
+		 <h3 class="font-heading3">your lifestyle</h3>
+		 </div>
+		
+		</div>
+		
+		<div class="row">
+		 <div class="col-md-10 col-md-offset-1 col-xs-12">
+		<div class="slider image-crausel-type-text" carousel-components ng-cloak maxItem="1" minItem="1" speed="600" autoplay="false" infinite="true">
+		<div class="thumbnail" ng-repeat="x in records track by $index">
+				<a href="" target="_blank">
+				<div class="caption">
+				<p class="heading font-body7">Premium IDD02</p>
+				<p class="description font-body6">No registration fee.No monthly subscription.Every reason to keep in touch.</p>
+				</div>
+				</a>
+		</div>
+		</div>
+		</div>
+		</div>
+		
+			<div class="row">
+		 <div class="col-md-12 col-xs-12 component-viewall-Link">
+		 <span class="viewall-link font-body8">VIEW ALL add-ons</span>
+		 </div>
+		</div>
+	
+	   </div>
+		
+		
+		
+	
+
+
+
+
+		
+
+</div>
+ <footer class="footer m1" ng-controller="footerController">
+        <div class="container-fluid">
+          <div class="row top-arrow">
+                <a href="javaScript:void(0);" target="_blank" ng-click="scrollToTop()">
+                    <img src="../Images/BackToTop-1x.png" class="center-block img-responsive gotopButton" alt="go up">
+                </a>
+            </div>
+            <div class="row">
+                <div class="col-lg-offset-1 col-md-10 col-md-offset-1 col-lg-10 hidden-xs">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default ">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="accordion-toggle collapsed">
+                                        Mobile
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
+                                <div class="panel-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="#">Devices</li>
+                                        <li class="list-group-item"><a href="#">Plans with Devices</a></li>
+                                        <li class="list-group-item"><a href="#">SIM-Only Plans</a></li>
+                                        <li class="list-group-item"><a href="#">Specials</a></li>
+                                        <li class="list-group-item"><a href="#">Add-ons</a></li>
+                                        <li class="list-group-item"><a href="#">Prepaid</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default ">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="accordion-toggle collapsed">
+                                        Broadband
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse2" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="#">Plans</a></li>
+                                        <li class="list-group-item"><a href="#">Devices</a></li>
+                                        <li class="list-group-item"><a href="#">Add-ons</a></li>
+                                        <li class="list-group-item"><a href="#">Fixed Voice</a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default ">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="accordion-toggle collapsed">
+                                        Travel
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse3" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="#">Going Overseas</a></li>
+                                        <li class="list-group-item"><a href="#">Visiting Singapore</a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default ">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse0" class="accordion-toggle collapsed">
+                                        Digital Services
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse0" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="#">Music & Entertainment</li>
+                                        <li class="list-group-item"><a href="#">Security</a></li>
+                                        <li class="list-group-item"><a href="#">Finance</a></li>
+                                        <li class="list-group-item"><a href="#">Others</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default ">
+                            <div class="panel-heading accordion">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" class="accordion-toggle collapsed">
+                                        Deals
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse4" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="#">Phones & Tablets</li>
+                                        <li class="list-group-item"><a href="#">Mobile</a></li>
+                                        <li class="list-group-item"><a href="#">Braodband</a></li>
+                                        <li class="list-group-item"><a href="#">Bundles</a></li>
+                                        <li class="list-group-item"><a href="#">others</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default  ">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" class="accordion-toggle collapsed">
+                                        My Account
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse5" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="#">Manage Account</a></li>
+                                        <li class="list-group-item"><a href="#">Bills & Payments</a></li>
+                                        <li class="list-group-item"><a href="#">Rewards</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default  ">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse6" class="accordion-toggle collapsed">
+                                        About Us
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse6" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="#">Our Company</a></li>
+                                        <li class="list-group-item"><a href="#">Investors</a></li>
+                                        <li class="list-group-item"><a href="#">News</a></li>
+                                        <li class="list-group-item"><a href="#">Patnerships</a></li>
+                                        <li class="list-group-item"><a href="#">Regulatory Information</a></li>
+                                        <li class="list-group-item"><a href="#">Careers</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default  ">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" class="accordion-toggle collapsed">
+                                        Support
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse7" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="#">Tips & Tricks</a></li>
+                                        <li class="list-group-item"><a href="#">FAQ</a></li>
+                                        <li class="list-group-item"><a href="#">User Guides</a></li>
+                                        <li class="list-group-item"><a href="#">Contact US</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		     <div class='row'>
+			 
+			 <div class="col-md-10 col-md-offset-1 padding-zero">
+			
+			<div class="col-xs-12 col-md-6 col-sm-6 col-lg-6 footer-download padding-zero">
+		
+			     <img src='../Images/Footer-Download-icon-GooglePlay-1x.png' alt='Get it on Google Play' class="img img-responsive">
+			
+        			
+			    <img src='../Images/Footer-Download-icon-AppStore-1x.png' alt='Download on the App Store' class="img img-responsive">
+			
+			</div>
+			<div class='col-xs-12 col-sm-6 pull-left footer-social col-md-6 col-lg-6'>
+			    <span><img src='../Images/Social-Icon-Facebook-1x.png' alt='Facebook'></span>
+			     <span><img src='../Images/Social-Icon-Youtube-1x.png' alt='YouTube'></span>
+				 <span><img src='../Images/Social-Icon-Linkedin-1x.png' alt='LinkedIn'></span>
+			 </div>
+			</div>
+			 
+			 </div>
+        </div>
+
+    </footer>
+
+    <script src="../Js/jquery-3.3.1.min.js"></script>
+	<script src="../Js/slick-1.8.0/slick/slick.min.js"></script>
+    <script src="../Js/angular-1.6.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-sanitize.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
+   
+	
+	 <script src="../Js/app.js"></script>
+</body>
+</html>
