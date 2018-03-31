@@ -73,17 +73,32 @@ m1app.controller('carouselController', function($scope,$rootScope,$timeout,$wind
 		subDetail1:"$70/mth",
 		subDetail2:"on mySIM@ 70",
       }];  
-	  $scope.peviesvedio="";
+	  
+	  $scope.autoplay=[
+	  				    { 
+							"autoplay": "false",
+							"video":"myVideo0",
+							"videoid":"myVideo"							
+						},
+						{
+							
+						}
+					];
+	  
+	  
 	  	//play pause btn
 	 
+	 //auto play
+	 
+	 
+	 var recoedLength=$scope.records.length;
+	 //for stop all vedio and play one video
 	  $scope.playbtn = function(curentvideo) {
 		//outer current
-		var myvideocurrent="myVideo"+curentvideo;	
+		var myvideocurrent=$scope.autoplay[0].videoid+curentvideo;	
 		var currentvideo=document.getElementById(myvideocurrent);
-		console.log(myvideocurrent);
-		for(var i=0;i<$scope.records.length;i++){
-			//internal current
-			var videotobepause="myVideo"+i;
+		for(var i=0;i<recoedLength;i++){
+			var videotobepause=$scope.autoplay[0].videoid+i;
 			console.log(videotobepause);
 			var vid= document.getElementById(videotobepause);
 			//or
@@ -92,17 +107,48 @@ m1app.controller('carouselController', function($scope,$rootScope,$timeout,$wind
 			//cuurent compare with previeous
 			if(myvideocurrent!= videotobepause)
 				vid.pause(); 
+
 		}
+		//toggele play and pause 
 		if(currentvideo.paused){
 			currentvideo.play(); 
 			
 		}else{
-			currentvideo.pause()();
+			currentvideo.pause();
 		}
 	  };
 	  
+	  //autoplay video
+	  $timeout(function () {
+			var video=$scope.autoplay[0].video;
+			var autoplay=$scope.autoplay[0].autoplay
+			var autoplaydom = document.getElementById(video);
+			autoplaydom.autoplay =autoplay;
+			autoplaydom.load();
+	  }, 1000);	  
+		
+
 	  
-	  
+/*
+			$timeout(function () {
+				  //var myvideocurrent="myVideo"+curentvideo;	
+					for(var i=0;i<recoedLength;i++){
+						  var allvideo="myVideo"+i;
+						  console.log(allvideo+"play");
+						  var currentvideo = document.getElementById(allvideo);
+						  currentvideo.onplay= function() {
+								//$scope.playbtn(i);
+								
+						 }			  
+					}			
+		    }, 1000);	  
+*/	
+		
+	  //
+	  /*var vid1 = document.getElementsByClassName("myVideo");
+            vid1.onplay= function() {
+             alert("click");
+      }; */
  });
   m1app.controller('headerController', function($scope,$timeout,$window) {
 	angular.element($window).bind("scroll", function() {
@@ -306,7 +352,5 @@ m1app.directive("carouselComponents",function($timeout){
         },
 		 controllerAs: 'ctrl'
 	}
-	
-	
 	
 });

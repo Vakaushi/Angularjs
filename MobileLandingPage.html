@@ -180,8 +180,8 @@
 		</div>
 		<div class="row">
 		 <div class="col-md-10 col-md-offset-1 col-xs-12">
-		<div class="slider image-crausel-type-1" carousel-components ng-cloak maxItem="4" minItem="5" speed="900" autoplay="false" infinite="true" autoplaySpeed="600">
-		<div class="thumbnail speacial-carausel"  ng-repeat="x in records track by $index">
+		<div class="slider image-crausel-type-1" carousel-components ng-cloak maxItem="4" minItem="5" speed="900" autoplay="true" infinite="true" autoplaySpeed="600">
+		<div class="thumbnail speacial-carausel myVideo"  ng-repeat="x in records track by $index">
 				<!--
 					<a href="" target="_blank"><img src="{{x.thumbanailUrl}}" alt="Lights"> 
 					<div class="caption">
@@ -190,7 +190,7 @@
 					</div>
 					</a>
 				-->
-				<video width="100%" controls  id="myVideo{{$index}}" class="all-video"  ng-click="playbtn($index)" >
+				<video width="100%" controls  id="myVideo{{$index}}" ng-click="playbtn($index)">
 				  <source  src="{{x.thumbanailUrl}}" type="video/mp4">
 				  <source src="{{x.thumbanailUrl}}" type="video/ogg">
 				  Your browser does not support the video tag.
