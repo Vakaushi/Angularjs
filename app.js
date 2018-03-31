@@ -76,8 +76,8 @@ m1app.controller('carouselController', function($scope,$rootScope,$timeout,$wind
 	  
 	  $scope.autoplay=[
 	  				    { 
-							"autoplay": "false",
-							"video":"myVideo0",
+							"autoplayvideo": "false",
+							"videotobeautoplay":"myVideo0",
 							"videoid":"myVideo"							
 						},
 						{
@@ -120,10 +120,11 @@ m1app.controller('carouselController', function($scope,$rootScope,$timeout,$wind
 	  
 	  //autoplay video
 	  $timeout(function () {
-			var video=$scope.autoplay[0].video;
-			var autoplay=$scope.autoplay[0].autoplay
+			var video=$scope.autoplay[0].videotobeautoplay;
+			var autoplay=$scope.autoplay[0].autoplayvideo;
 			var autoplaydom = document.getElementById(video);
-			autoplaydom.autoplay =autoplay;
+			//console.log(autoplay);
+			autoplaydom.autoplay =JSON.parse(autoplay);
 			autoplaydom.load();
 	  }, 1000);	  
 		
@@ -297,11 +298,12 @@ m1app.directive("carouselComponents",function($timeout){
         scope: {
            
         }, 
-		controller: function($element,){
-
-     
+		controller: function($element,$scope){	
+				var videotag=$element.find(".video");
+				console.log(videotag);
 		},
 		link: function (scope, element, attrs) {
+			
 			var minItem=parseInt(attrs.minitem);
 			var maxItem=parseInt(attrs.maxitem);
 			var speed= parseInt(attrs.speed);
