@@ -6,9 +6,15 @@ m1app.filter('html', ['$sce', function ($sce) {
     };
 }]);
 
-m1app.controller('carouselController', function($scope,$rootScope,$timeout,$window,$document) {
-	$scope.records = [{
-        thumbanailUrl: "./vid1.mp4",
+m1app.service('productService', function() {
+   var autoplay=[{ 
+					"autoplayvideo": "true",
+					"videotobeautoplay":"myVideo0",
+					"videoid":"myVideo",
+					"previousvideo":"myVideo0"
+				 }];
+  var record =[{
+        thumbanailUrl: "./small.mp4",
         caption: "HUAWEI1",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -16,49 +22,49 @@ m1app.controller('carouselController', function($scope,$rootScope,$timeout,$wind
 		subDetail2:"on mySIM@ 70",
 		
       }, {
-        thumbanailUrl: "./vid1.mp4",
+        thumbanailUrl: "./small.mp4",
         caption: "APPLE2",
 		description:"Mate 10 Pro",
 		price:"$398",
 		subDetail1:"$70/mth",
 		subDetail2:"on mySIM@ 70",
       }, {
-        thumbanailUrl: "./vid1.mp4",
+        thumbanailUrl: "./small.mp4",
          caption: "SAMSUNG3",
 		description:"Mate 10 Pro",
 		price:"$398",
 		subDetail1:"$70/mth",
 		subDetail2:"on mySIM@ 70",
       }, {
-        thumbanailUrl: "./vid1.mp4",
+        thumbanailUrl: "./small.mp4",
         caption: "HUAWEI4",
 		description:"Mate 10 Pro",
 		price:"$398",
 		subDetail1:"$70/mth",
 		subDetail2:"on mySIM@ 70",
       },{
-        thumbanailUrl: "./vid1.mp4",
+        thumbanailUrl: "./small.mp4",
          caption: "HUAWEI5",
 		description:"Mate 10 Pro",
 		price:"$398",
 		subDetail1:"$70/mth",
 		subDetail2:"on mySIM@ 70",
       },{
-        thumbanailUrl: "./vid1.mp4",
+        thumbanailUrl: "./small.mp4",
         caption: "HUAWEI6",
 		description:"Mate 10 Pro",
 		price:"$398",
 		subDetail1:"$70/mth",
 		subDetail2:"on mySIM@ 70",
       },{
-        thumbanailUrl: "./vid1.mp4",
+        thumbanailUrl: "./small.mp4",
         caption: "HUAWEI7",
 		description:"Mate 10 Pro",
 		price:"$398",
 		subDetail1:"$70/mth",
 		subDetail2:"on mySIM@ 70",
       },{
-        thumbanailUrl: "./vid1.mp4",
+        thumbanailUrl: "./small.mp4",
         caption: "HUAWEI8",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -66,87 +72,41 @@ m1app.controller('carouselController', function($scope,$rootScope,$timeout,$wind
 		subDetail2:"on mySIM@ 70",
       },
 	  {
-        thumbanailUrl: "./vid1.mp4",
+        thumbanailUrl: "./small.mp4",
          caption: "HUAWEI9",
 		description:"Mate 10 Pro",
 		price:"$398",
 		subDetail1:"$70/mth",
 		subDetail2:"on mySIM@ 70",
-      }];  
-	  
-	  $scope.autoplay=[
-	  				    { 
-							"autoplayvideo": "true",
-							"videotobeautoplay":"myVideo0",
-							"videoid":"myVideo"							
-						}
-					];
-	  
-	  
-	  	//play pause btn
-	 
-	 //auto play
-	 
-	 
-	 var recoedLength=$scope.records.length;
-	 //for stop all vedio and play one video
-	  $scope.playbtn = function(curentvideo) {
-		//outer current
-		var myvideocurrent=$scope.autoplay[0].videoid+curentvideo;	
-		var currentvideo=document.getElementById(myvideocurrent);
-		for(var i=0;i<recoedLength;i++){
-			var videotobepause=$scope.autoplay[0].videoid+i;
-			console.log(videotobepause);
-			var vid= document.getElementById(videotobepause);
-			//or
-			//angular.element(videotobepause);
-			
-			//cuurent compare with previeous
-			if(myvideocurrent!= videotobepause)
-				vid.pause(); 
+      }];
 
-		}
-		//toggele play and pause 
-		if(currentvideo.paused){
-			currentvideo.play(); 
-			
-		}else{
-			currentvideo.pause();
-		}
-	  };
-	  
-	  //autoplay video
-	  $timeout(function () {
-			var video=$scope.autoplay[0].videotobeautoplay;
-			var autoplay=$scope.autoplay[0].autoplayvideo;
-			var autoplaydom = document.getElementById(video);
-			//console.log(autoplay);
-			autoplaydom.autoplay =JSON.parse(autoplay);
-			autoplaydom.load();
-	  }, 1000);	  
-		
+  var addProduct = function(newObj) {
+      record.push(newObj);
+  };
 
-	  
-/*
-			$timeout(function () {
-				  //var myvideocurrent="myVideo"+curentvideo;	
-					for(var i=0;i<recoedLength;i++){
-						  var allvideo="myVideo"+i;
-						  console.log(allvideo+"play");
-						  var currentvideo = document.getElementById(allvideo);
-						  currentvideo.onplay= function() {
-								//$scope.playbtn(i);
-								
-						 }			  
-					}			
-		    }, 1000);	  
-*/	
-		
-	  //
-	  /*var vid1 = document.getElementsByClassName("myVideo");
-            vid1.onplay= function() {
-             alert("click");
-      }; */
+  var getrecord = function(){
+      return record;
+  };
+  var autoplayjson=function(){
+      return autoplay;
+  };
+  var addProduct = function(newObj) {
+      record.push(newObj);
+  };
+  var updatevideo = function(updatevalue) {
+	  autoplay[0].previousvideo=updatevalue;
+  };
+  
+  return {
+    addProduct: addProduct,
+    getrecord: getrecord,
+	autoplay: autoplayjson,
+	updateautoplay:updatevideo
+ };
+});
+
+m1app.controller('carouselController', function($scope,$rootScope,$timeout,$window,$document,productService) {
+	$scope.records = productService.getrecord();  	
  });
   m1app.controller('headerController', function($scope,$timeout,$window) {
 	angular.element($window).bind("scroll", function() {
@@ -287,89 +247,128 @@ m1app.directive("pageBanner2", function(colVal) {
         controllerAs: 'ctrl'
     };
 });
-m1app.directive("carouselComponents",function($timeout){
+m1app.directive("carouselComponents",function($timeout,productService){
 	return{
-
         restrict: "A",
-        
         scope: {
-           
         }, 
 		controller: function($element,$scope){	
 				var videotag=$element.find(".video");
-				console.log(videotag);
+				console.log(videotag);	
 		},
 		link: function (scope, element, attrs) {
 			
-			function myFunction(){
-			
-			var vediotag = element.find('video');
-			console.log(vediotag.length);
-			
-			/*vediotag.on('click', function(event) {
-				alert("click");
-			}); */
-			
-				
-			}
-			
-			scope.$on('$viewContentLoaded', myFunction);
-			
-			/*
-			var vediotag=element[0].querySelector('.video');
-			vediotag.on('click', function(event) {
-				alert("click");
-			});
-			*/
+			element=element;
 			var minItem=parseInt(attrs.minitem);
 			var maxItem=parseInt(attrs.maxitem);
 			var speed= parseInt(attrs.speed);
-		    autoplay= JSON.parse(attrs.autoplay);
+		    var autoplay= JSON.parse(attrs.autoplay);
 			var infinite=JSON.parse(attrs.infinite);
 			var autoplaySpeed= parseInt(attrs.autoplayspeed);
 			var queryResult = element[0].querySelector('.slider');
             var wrappedQueryResult = angular.element(queryResult);
-			
-			$timeout(function () {
-			
-		    element.slick({
-			speed:speed,
-			autoplay: autoplay,
-            infinite: infinite,
-			autoplaySpeed: autoplaySpeed,
-            centerMode: false,
-            centerPadding: '40px',
-            slidesToShow: maxItem,
-			slidesToScroll: maxItem,
-			arrows: true,
-			dots:true,
-			draggable:false,
-			focusOnSelect:false,
-			pauseOnFocus:false,
-			pauseOnHover:false,
-		    prevArrow: "<img class='a-left control-c prev slick-prev' src='../Images/leftarrow.png'>",
-            nextArrow:"<img class='a-right control-c next slick-next' src='../Images/rightarrow.png'>",
-			
-		   responsive: [
-			{
-			  breakpoint: 767,
-			  settings: {
-				autoplay: false,
-				infinite: true,
-				arrows: false,
-				dots:true,
-				centerMode: true,
-				centerPadding: '40px',
-				slidesToShow: minItem>1?2:1,
-				initialSlide: minItem>1?1:0,
-			  }
-			}
-		  ]
- 
-         });
-		 }, 1);
+			//vedio tag click	
+			//slick function		
+			scope.slickintialization=function(){
+				$timeout(function () {
+						
+						element.slick({
+						speed:speed,
+						autoplay: autoplay,
+						infinite: infinite,
+						autoplaySpeed: autoplaySpeed,
+						centerMode: false,
+						centerPadding: '40px',
+						slidesToShow: maxItem,
+						slidesToScroll: maxItem,
+						arrows: true,
+						dots:true,
+						draggable:false,
+						focusOnSelect:false,
+						pauseOnFocus:false,
+						pauseOnHover:false,
+						prevArrow: "<img class='a-left control-c prev slick-prev' src='../Images/leftarrow.png'>",
+						nextArrow:"<img class='a-right control-c next slick-next' src='../Images/rightarrow.png'>",
+						
+					   responsive: [
+						{
+						  breakpoint: 767,
+						  settings: {
+							autoplay: false,
+							infinite: true,
+							arrows: false,
+							dots:true,
+							centerMode: true,
+							centerPadding: '40px',
+							slidesToShow: minItem>1?2:1,
+							initialSlide: minItem>1?1:0,
+						  }
+						}
+					  ]
+			 
+					 });
+				}, 1);
+			};
+			//plug intialization
+			scope.slickintialization();
         },
 		 controllerAs: 'ctrl'
 	}
 	
 });
+
+m1app.directive("videoTag",function($timeout,productService){
+	return{
+        restrict: "A",
+        scope: {
+				data: "="
+        },
+		controller: function($element,$scope){	
+			//console.log($scope.records.length);
+		},
+		link: function (scope, element, attrs) {
+		//varible declaration
+		scope.records = productService.getrecord();
+		scope.autoplay=productService.autoplay();
+		
+		element.bind("click",function(event){
+				result = document.getElementsByClassName("image-crausel-type-1");
+				var wrappedResult = angular.element(document.querySelector(".image-crausel-type-1"));
+			    alert(wrappedResult.attr('autoplay'));
+				scope.playpausse(event,);
+			});	
+			//play pause vedio
+			scope.playpausse=function(event){
+				//current video
+				var currentvideo=event.target.id;
+				//dom element
+				var currentvideodom=document.getElementById(currentvideo);
+				//previous video
+				var previeousvideo=scope.autoplay[0].previousvideo;
+				if(currentvideo != previeousvideo){
+					//previous video should stop			
+					//dom element
+					var previeousvideodom=document.getElementById(previeousvideo);
+					previeousvideodom.pause();
+					productService.updateautoplay(currentvideo);
+				}
+				if(currentvideodom.paused){
+					currentvideodom.play(); 
+					
+				}else{
+					currentvideodom.pause();
+				}					
+			};
+			//autoplay video
+			  $timeout(function () {
+					var video=scope.autoplay[0].videotobeautoplay;
+					var autoplay=scope.autoplay[0].autoplayvideo;
+					var autoplaydom = document.getElementById(video);
+					//console.log(autoplay);
+					autoplaydom.autoplay =JSON.parse(autoplay);
+					autoplaydom.load();
+			  }, 1000);				
+        }
+	}
+});
+
