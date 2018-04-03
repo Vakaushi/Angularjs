@@ -180,7 +180,7 @@
 		</div>
 		<div class="row">
 		 <div class="col-md-10 col-md-offset-1 col-xs-12">
-		<div class="slider image-crausel-type-1" carousel-components ng-cloak maxItem="4" minItem="5" speed="900" autoplay="false" infinite="true" autoplaySpeed="600">
+		<div class="slider image-crausel-type-1" carousel-components ng-cloak maxItem="5" minItem="7" speed="900" autoplay="true" infinite="true" autoplaySpeed="600">
 		<div class="thumbnail speacial-carausel myVideo"  ng-repeat="x in records track by $index">
 				<!--
 					<a href="" target="_blank"><img src="{{x.thumbanailUrl}}" alt="Lights"> 
@@ -190,11 +190,18 @@
 					</div>
 					</a>
 				-->
-				<video width="100%" class="video" controls video-tag  id="myVideo{{$index}}" data="s">
+				<!--<div class="play-pause" ng-if="x.controls!=''" controls></div>-->
+				
+				<video width="100%"  ng-if="x.controls==''"   class="video"  video-tag  id="myVideo{{$index}}" data="s">
 				  <source  src="{{x.thumbanailUrl}}" type="video/mp4">
 				  <source src="{{x.thumbanailUrl}}" type="video/ogg">
 				  Your browser does not support the video tag.
-				</video>				
+				</video>		
+				<video width="100%"  ng-if="x.controls=='controls'" controls  class="video"  video-tag  id="myVideo{{$index}}" data="s" ng-click="showhide($index)">
+				  <source  src="{{x.thumbanailUrl}}" type="video/mp4">
+				  <source src="{{x.thumbanailUrl}}" type="video/ogg">
+				  Your browser does not support the video tag.
+				</video>			
 		
 		</div>
 		</div>
@@ -445,12 +452,10 @@
 
     <script src="../Js/jquery-3.3.1.min.js"></script>
 	<script src="../Js/slick-1.8.0/slick/slick.min.js"></script>
-    <script src="../Js/angular-1.6.7/angular.min.js"></script>
+	<script src="../Js/angular-1.6.7/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-sanitize.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
-   
-	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
 	 <script src="../Js/app.js"></script>
 </body>
 </html>

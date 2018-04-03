@@ -301,25 +301,19 @@ m1app.directive("carouselComponents",function($timeout,productService){
 		},
 		link: function (scope, element, attrs) {
 
-			element.bind("click",function(event){
-				alert("slick");
-				//a=false;
-				//element.slick.refresh()
-				element.slick('slickSetOption', 'autoplay', false, false);	
-			});	
 			element=element;
-			var minItem=parseInt(attrs.minitem);
-			var maxItem=parseInt(attrs.maxitem);
-			var speed= parseInt(attrs.speed);
-		    var autoplay= JSON.parse(attrs.autoplay);
-			var infinite=JSON.parse(attrs.infinite);
-			var autoplaySpeed= parseInt(attrs.autoplayspeed);
-			queryResult = element[0].querySelector('.slider');
-            var wrappedQueryResult = angular.element(queryResult);
+			//var minItem=parseInt(attrs.minitem);
+			//var maxItem=parseInt(attrs.maxitem);
+			//var speed= parseInt(attrs.speed);
+		    //var autoplay= JSON.parse(attrs.autoplay);
+			//var infinite=JSON.parse(attrs.infinite);
+			//var autoplaySpeed= parseInt(attrs.autoplayspeed);
+			//queryResult = element[0].querySelector('.slider');
+            //var wrappedQueryResult = angular.element(queryResult);
 			
 			//vedio tag click	
 			//slick function		
-			scope.slickintialization=function(){
+			scope.slickintialization=function(minItem,maxItem,speed,autoplay,infinite,autoplaySpeed){
 				$timeout(function () {
 						alert("call slick"+autoplay);
 						element.slick({
@@ -359,11 +353,13 @@ m1app.directive("carouselComponents",function($timeout,productService){
 					 });
 				}, 1);
 			};
-			scope.slickintialization();	
 			//plug intialization
-
-			
-					
+			element.bind("click",function(event){
+				//alert("click directive");
+				element.slick('slickSetOption', 'autoplay', true, true);	
+				//scope.slickintialization();
+			});	
+			scope.slickintialization(4,3,3000,false,true,600);			
         },
 		 controllerAs: 'ctrl'
 	}
