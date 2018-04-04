@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
 	<link rel="stylesheet" href="../Js/slick-1.8.0/slick/slick.css">
     <link rel="stylesheet" href="../Js/slick-1.8.0/slick/slick-theme.css">
     <link rel="stylesheet" href="../Css/Style.css">
@@ -12,7 +13,7 @@
 	
 	</script>
 </head>
-<body>
+<body class="">
   <nav class="m1-header navbar navbar-default navbar-fixed-top "  ng-controller="headerController">
         <div class="container-fluid">
 		
@@ -171,16 +172,37 @@
 		
 		<div ng-controller="carouselController">
 		<div class="row">
-		 <div class="col-md-12 col-xs-12 component-heading theme-dark ">
-		 <h1 class="font-heading1">Special benefits </h1>
-		 
-		 <h3 class="font-heading3">JUST FOR YOU</h3>
-		 </div>
-		
+            <div class="col-md-12 col-xs-12 component-heading theme-dark ">
+            <h1 class="font-heading1">Special benefits </h1>
+            
+            <h3 class="font-heading3">JUST FOR YOU</h3>
+            </div>
 		</div>
+        <div class="col-xs-6">
+                <div class="circleplaypause">
+              `        <span class="glyphicon glyphicon-pause"></span>
+                       <span class="glyphicon glyphicon-play"></span>
+                </div>
+				<video width="100%"  poster="../Images/ContentImage-4Tiles-Carousel-Seniors-1x.jpg" video-tag   controls  class="outer-carousel"   id="video1" data="s">
+				  <source  src="./vid2.mp4" type="video/mp4">
+				  <source src="./vid2.mp4" type="video/ogg">
+				  Your browser does not support the video tag.
+				</video>
+        </div>
+        <div class="col-xs-6">
+                <div class="circleplaypause">
+              `        <span class="glyphicon glyphicon-pause"></span>
+                       <span class="glyphicon glyphicon-play"></span>
+                </div>
+				<video width="100%"  poster="../Images/ContentImage-4Tiles-Carousel-Seniors-1x.jpg" video-tag     class="outer-carousel"    id="video2" data="s">
+				  <source  src="./vid2.mp4" type="video/mp4">
+				  <source src="./vid2.mp4" type="video/ogg">
+				  Your browser does not support the video tag.
+				</video>
+        </div>                
 		<div class="row">
 		 <div class="col-md-10 col-md-offset-1 col-xs-12">
-		<div class="slider image-crausel-type-1" carousel-components ng-cloak maxItem="4" minItem="5" speed="900" autoplay="false" infinite="true" autoplaySpeed="600">
+		<div class="slider image-crausel-type-1" carousel-components ng-cloak maxItem="4" minItem="6" speed="900" autoplay="false" infinite="true" autoplaySpeed="600">
 		<div class="thumbnail speacial-carausel myVideo"  ng-repeat="x in records track by $index">
 				<!--
 					<a href="" target="_blank"><img src="{{x.thumbanailUrl}}" alt="Lights"> 
@@ -191,15 +213,17 @@
 					</a>
 				-->
 				<!--<div class="play-pause" ng-if="x.controls!=''" controls></div>-->
-				
-				<video width="100%"  ng-if="x.controls==''"   class="video"  video-tag  id="myVideo{{$index}}" data="s">
-				  <source  src="{{x.thumbanailUrl}}" type="video/mp4">
-				  <source src="{{x.thumbanailUrl}}" type="video/ogg">
+                <div class="circleplaypause">
+                       <span class="glyphicon glyphicon-play"></span>
+                </div>				
+				<video width="100%"  ng-if="x.controls ==''" poster="{{x.thumbanailUrl}}"   class="video carosule-video"  video-tag  id="myVideo{{$index}}" data="s">
+				  <source  src="{{x.videorul}}" type="video/mp4">
+				  <source src="{{x.videorul}}" type="video/ogg">
 				  Your browser does not support the video tag.
 				</video>		
-				<video width="100%"  ng-if="x.controls=='controls'" controls  class="video"  video-tag  id="myVideo{{$index}}" data="s" ng-click="showhide($index)">
-				  <source  src="{{x.thumbanailUrl}}" type="video/mp4">
-				  <source src="{{x.thumbanailUrl}}" type="video/ogg">
+				<video width="100%"  ng-if="x.controls =='controls'" poster="{{x.thumbanailUrl}}" controls  class="video carosule-video"  video-tag  id="myVideo{{$index}}" data="s" ng-click="showhide($index)">
+				  <source  src="{{x.videorul}}" type="video/mp4">
+				  <source src="{{x.videorul}}" type="video/ogg">
 				  Your browser does not support the video tag.
 				</video>			
 		

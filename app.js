@@ -15,7 +15,8 @@ m1app.service('productService', function() {
 					"playbygridvalue":false
 				 }];
   var record =[{
-        thumbanailUrl: "./small.mp4",
+		thumbanailUrl:"../Images/ContentImage-4Tiles-Carousel-Seniors-1x.jpg",
+        videorul: "./vid2.mp4",
         caption: "HUAWEI1",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -24,7 +25,8 @@ m1app.service('productService', function() {
 		controls:"controls"
 		
       }, {
-        thumbanailUrl: "./small.mp4",
+		thumbanailUrl:"../Images/ContentImage-4Tiles-Carousel-Youth-1x.jpg",  
+        videorul: "./vid1.mp4",
         caption: "APPLE2",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -32,7 +34,8 @@ m1app.service('productService', function() {
 		subDetail2:"on mySIM@ 70",
 		controls:"controls"
       }, {
-        thumbanailUrl: "./small.mp4",
+		thumbanailUrl:"../Images/ContentImage-4Tiles-product1-1x.jpg",  
+        videorul: "./vid2.mp4",
          caption: "SAMSUNG3",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -40,7 +43,8 @@ m1app.service('productService', function() {
 		subDetail2:"on mySIM@ 70",
 		controls:""
       }, {
-        thumbanailUrl: "./small.mp4",
+		thumbanailUrl:"../Images/ContentImage-4Tiles-product2-1x.jpg",  
+        videorul: "./vid2.mp4",
         caption: "HUAWEI4",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -48,7 +52,8 @@ m1app.service('productService', function() {
 		subDetail2:"on mySIM@ 70",
 		controls:"controls"
       },{
-        thumbanailUrl: "./small.mp4",
+		thumbanailUrl:"../Images/ContentImage-4Tiles-product3-1x.jpg",  
+        videorul: "./vid2.mp4",
          caption: "HUAWEI5",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -56,7 +61,8 @@ m1app.service('productService', function() {
 		subDetail2:"on mySIM@ 70",
 		controls:"controls"
       },{
-        thumbanailUrl: "./small.mp4",
+		thumbanailUrl:"../Images/ContentImage-4Tiles-product4-1x.jpg",  
+        videorul: "./vid2.mp4",
         caption: "HUAWEI6",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -64,7 +70,8 @@ m1app.service('productService', function() {
 		subDetail2:"on mySIM@ 70",
 		controls:"controls"
       },{
-        thumbanailUrl: "./small.mp4",
+		thumbanailUrl:"../Images/ContentImage-4Tiles-Carousel-Seniors-1x.jpg",  
+        videorul: "./vid2.mp4",
         caption: "HUAWEI7",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -72,7 +79,8 @@ m1app.service('productService', function() {
 		subDetail2:"on mySIM@ 70",
 		controls:"controls"
       },{
-        thumbanailUrl: "./small.mp4",
+		thumbanailUrl:"../Images/ContentImage-4Tiles-Carousel-Seniors-1x.jpg",  
+        videorul: "./vid2.mp4",
         caption: "HUAWEI8",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -81,7 +89,8 @@ m1app.service('productService', function() {
 		controls:"controls"
       },
 	  {
-        thumbanailUrl: "./small.mp4",
+		thumbanailUrl:"../Images/ContentImage-4Tiles-Carousel-Seniors-1x.jpg",
+        videorul: "./vid2.mp4",
          caption: "HUAWEI9",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -119,7 +128,7 @@ m1app.service('productService', function() {
  };
 });
 
-m1app.controller('carouselController', function($scope,$rootScope,$timeout,$window,$document,productService) {
+m1app.controller('carouselController', function($scope,$timeout,$window,$document,productService) {
 
 	$scope.records = productService.getrecord();  	
 	var recordslength=$scope.records.length;
@@ -134,20 +143,16 @@ m1app.controller('carouselController', function($scope,$rootScope,$timeout,$wind
 			autoplaydom.load();
 	  },500);	
 		//vedio play btn
-/*		$timeout(function () {
+		
+		$timeout(function () {
 				for(var i=0;i<recordslength;i++){
-					alert(i);
 					var id="myVideo"+i;
 					var doc=document.getElementById(id);
 					doc.onplay=function(){
-						alert("clcik");
-							if(flag){
-								$rootScope.playpausse(event);
-							}
+
 					}
 				}
-		},1000);		
-*/	
+		},1000);	
  });
   m1app.controller('headerController', function($scope,$timeout,$window) {
 	angular.element($window).bind("scroll", function() {
@@ -159,9 +164,6 @@ m1app.controller('carouselController', function($scope,$rootScope,$timeout,$wind
     }
 	
 	 });
-	  
-
-
 /*		for(var i=0;i<scope.records;i++){
 		}	 	 
 */
@@ -176,8 +178,6 @@ m1app.controller('carouselController', function($scope,$rootScope,$timeout,$wind
 };
 
  });
-
-
 m1app.service("colVal", function() {
     this.getValue = function(numberOfImages) {
         return parseInt(12/parseInt(numberOfImages));
@@ -196,23 +196,23 @@ m1app.directive("thumbnailComponent", function(colVal) {
             btnTxt: '@',
             btnBorderColor: '@'
         },
-         template: '<div class="thumbnail col-md-{{ctrl.maxColVal}} col-xs-12" ng-repeat="imageDetail in ctrl.records"> <img ng-src="{{imageDetail.thumbanailUrl}}" alt="{{imageDetail.caption}}" style="width:100%"> <div class="caption"> <h4>{{imageDetail.caption}}</h4> </div> <div class="description"> <p>Get more done on your Device wherever you are.</p> <button type="button" class="btn btn-default">View Plans</button></div></div>',
+         template: '<div class="thumbnail col-md-{{ctrl.maxColVal}} col-xs-12" ng-repeat="imageDetail in ctrl.records"> <img ng-src="{{imageDetail.videorul}}" alt="{{imageDetail.caption}}" style="width:100%"> <div class="caption"> <h4>{{imageDetail.caption}}</h4> </div> <div class="description"> <p>Get more done on your Device wherever you are.</p> <button type="button" class="btn btn-default">View Plans</button></div></div>',
          controller: function($attrs) {
             this.minColVal = colVal.getValue($attrs.minImages);
             this.maxColVal = colVal.getValue($attrs.maxImages);
 			
 			this.records = [{
-          thumbanailUrl: "../Images/nature.jpg",
+          videorul: "../Images/nature.jpg",
           caption: "MOBILE",
       }, {
-        thumbanailUrl: "../Images/nature2.jpg",
+        videorul: "../Images/nature2.jpg",
         caption: "BROADBAND",
       }, {
-       thumbanailUrl: "../Images/nature3.jpg",
+       videorul: "../Images/nature3.jpg",
         caption: "TRAVEL",
       },
 	  {
-       thumbanailUrl: "../Images/nature4.jpg",
+       videorul: "../Images/nature4.jpg",
         caption: "TRAVEL",
       }];
       },
@@ -234,13 +234,13 @@ template: "<div class='col-md-12 col-sm-12 col-xs-12 page-banner thumbnail paddi
             this.maxColVal = colVal.getValue($attrs.maxImages);
 			
 			this.records = [{
-          thumbanailUrl: "../Images/lights.jpg",
+          videorul: "../Images/lights.jpg",
           caption: "Plans with Devices",
       }, {
-        thumbanailUrl: "../Images/fjords.jpg",
+        videorul: "../Images/fjords.jpg",
         caption: "SIM Only",
       }, {
-       thumbanailUrl: "../Images/nature.jpg",
+       videorul: "../Images/nature.jpg",
         caption: "Prepaid",
       },];
       },
@@ -283,13 +283,13 @@ m1app.directive("pageBanner2", function(colVal) {
             this.maxColVal = colVal.getValue($attrs.maxImages);
 			
 			this.records = [{
-          thumbanailUrl: "../Images/lights.jpg",
+          videorul: "../Images/lights.jpg",
           caption: "MOBILE",
       }, {
-        thumbanailUrl: "../Images/fjords.jpg",
+        videorul: "../Images/fjords.jpg",
         caption: "BROADBAND",
       }, {
-       thumbanailUrl: "../Images/nature.jpg",
+       videorul: "../Images/nature.jpg",
         caption: "TRAVEL",
       },];
       },
@@ -307,12 +307,6 @@ m1app.directive("carouselComponents",function($timeout,productService){
 		},
 		link: function (scope, element, attrs) {
 
-			element.bind("click",function(event){
-				//alert("slick");
-				//a=false;
-				//element.slick.refresh()
-				element.slick('slickSetOption', 'autoplay', false, false);	
-			});	
 			element=element;
 			var minItem=parseInt(attrs.minitem);
 			var maxItem=parseInt(attrs.maxitem);
@@ -365,18 +359,21 @@ m1app.directive("carouselComponents",function($timeout,productService){
 					 });
 				}, 1);
 			};
+			element.bind("click",function(event){
+				//alert("slick");
+				//a=false;
+				//element.slick.refresh()
+				element.slick('slickSetOption', 'autoplay', false, false);	
+			});				
 			scope.slickintialization();	
-			//plug intialization
-
-			
-					
+			//plug intialization			
         },
 		 controllerAs: 'ctrl'
 	}
 	
 });
 
-m1app.directive("videoTag",function($timeout,productService,$rootScope){
+m1app.directive("videoTag",function($timeout,productService){
 	return{
         restrict: "A",
         scope: {
@@ -385,44 +382,45 @@ m1app.directive("videoTag",function($timeout,productService,$rootScope){
 		controller: function($element,$scope){	
 			//console.log($scope.records.length);
 		},
-		link: function (scope, element, attrs,rootScope) {
-		//varible declaration
-		scope.records = productService.getrecord();
-		scope.autoplay=productService.autoplay();
-		flag=true;
-
-		//video click
-		element.bind("click",function(event){
-				//set the vaible by screen
-				flag=false;
-				carosuleelement=scope.autoplay[0].carosuleelement;
-				rootScope.playpausse(event);	
-		});	
-		//play pause vedio
-		rootScope.playpausse=function(event,carosuleelement){
-			//current video
-			var currentvideo=event.target.id;
-			//dom element
-			var currentvideodom=document.getElementById(currentvideo);
-			//previous video
-			var previeousvideo=scope.autoplay[0].previousvideo;
-			if(currentvideo != previeousvideo){
-				//previous video should stop			
+		link: function (scope, element, attrs) {
+			//varible declaration
+			scope.records = productService.getrecord();
+			scope.autoplay=productService.autoplay();
+			flag=true;
+			
+			//video click
+			element.bind("click",function(event){
+					var active=element.siblings('.circleplaypause');
+					//play pause inner Carousel Video
+					flag=false;
+					carosuleelement=scope.autoplay[0].carosuleelement;
+					scope.playPauseCarouselVideo(event);
+			});	
+			//play pause Carousel vedio
+			scope.playPauseCarouselVideo=function(event){
+				//current video
+				var currentvideo=event.target.id;
 				//dom element
-				var previeousvideodom=document.getElementById(previeousvideo);
-				previeousvideodom.pause();
-				productService.updateautoplay(currentvideo);
-			}
-			if(currentvideodom.paused){
-				currentvideodom.play();
-				flag=true;				
-				//carosuleelement.slick('slickSetOption', 'autoplay', false, false);
-			}else{
-				currentvideodom.pause();
-				//carosuleelement.slick('slickSetOption', 'autoplay', true, true);
-			}					
-		};
-		
+				var currentvideodom=document.getElementById(currentvideo);
+				//previous video
+				var previeousvideo=scope.autoplay[0].previousvideo;
+				if(currentvideo != previeousvideo){
+					//previous video should stop			
+					//dom element
+					var previeousvideodom=document.getElementById(previeousvideo);
+					previeousvideodom.pause();
+					productService.updateautoplay(currentvideo);
+				}
+				if(currentvideodom.paused){
+					currentvideodom.play();
+					//element.slick('slickSetOption', 'autoplay', false, false);			
+					//carosuleelement.slick('slickSetOption', 'autoplay', false, false);
+				}else{
+					currentvideodom.pause();
+					element.slick('slickSetOption', 'autoplay', true,true);	
+					//carosuleelement.slick('slickSetOption', 'autoplay', true, true);
+				}					
+			};
         }
 	}
 });
