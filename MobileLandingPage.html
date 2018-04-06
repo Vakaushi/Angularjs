@@ -178,11 +178,26 @@
             <h3 class="font-heading3">JUST FOR YOU</h3>
             </div>
 		</div>
+        <div class="col-xs-12">
+                <div class="circleplay">
+                       <span class="glyphicon glyphicon-play"></span>
+                </div>  
+                <div class="circlepause">
+                       <span class="glyphicon glyphicon-pause"></span>
+                </div>	                           
+				<video width="100%"  poster="../Images/ContentImage-4Tiles-Carousel-Seniors-1x.jpg" video-tag   controls  class="outer-carousel"   id="video3" data="s">
+				  <source  src="./vid2.mp4" type="video/mp4">
+				  <source src="./vid2.mp4" type="video/ogg">
+				  Your browser does not support the video tag.
+				</video>
+        </div>        
         <div class="col-xs-6">
-                <div class="circleplaypause">
-              `        <span class="glyphicon glyphicon-pause"></span>
+                <div class="circleplay">
                        <span class="glyphicon glyphicon-play"></span>
                 </div>
+                <div class="circlepause">
+                       <span class="glyphicon glyphicon-pause"></span>
+                </div>	                
 				<video width="100%"  poster="../Images/ContentImage-4Tiles-Carousel-Seniors-1x.jpg" video-tag   controls  class="outer-carousel"   id="video1" data="s">
 				  <source  src="./vid2.mp4" type="video/mp4">
 				  <source src="./vid2.mp4" type="video/ogg">
@@ -190,10 +205,12 @@
 				</video>
         </div>
         <div class="col-xs-6">
-                <div class="circleplaypause">
-              `        <span class="glyphicon glyphicon-pause"></span>
+                <div class="circleplay">
                        <span class="glyphicon glyphicon-play"></span>
                 </div>
+                <div class="circlepause">
+                       <span class="glyphicon glyphicon-pause"></span>
+                </div>	                
 				<video width="100%"  poster="../Images/ContentImage-4Tiles-Carousel-Seniors-1x.jpg" video-tag     class="outer-carousel"    id="video2" data="s">
 				  <source  src="./vid2.mp4" type="video/mp4">
 				  <source src="./vid2.mp4" type="video/ogg">
@@ -213,9 +230,12 @@
 					</a>
 				-->
 				<!--<div class="play-pause" ng-if="x.controls!=''" controls></div>-->
-                <div class="circleplaypause">
+                <div class="circleplay">
                        <span class="glyphicon glyphicon-play"></span>
-                </div>				
+                </div>		
+                <div class="circlepause">
+                       <span class="glyphicon glyphicon-pause"></span>
+                </div>		
 				<video width="100%"  ng-if="x.controls ==''" poster="{{x.thumbanailUrl}}"   class="video carosule-video"  video-tag  id="myVideo{{$index}}" data="s">
 				  <source  src="{{x.videorul}}" type="video/mp4">
 				  <source src="{{x.videorul}}" type="video/ogg">
@@ -248,7 +268,7 @@
 		
 		<div class="row">
 		 <div class="col-md-10 col-md-offset-1 col-xs-12">
-		<div class="slider image-crausel-type-text" carousel-components ng-cloak maxItem="1" minItem="1" speed="600" autoplay="false" infinite="true">
+		<div class="slider image-crausel-type-text" carousel-components ng-cloak maxItem="1" minItem="1" speed="600" autoplay="true" infinite="true">
 		<div class="thumbnail" ng-repeat="x in records track by $index">
 				<a href="" target="_blank">
 				<div class="caption">

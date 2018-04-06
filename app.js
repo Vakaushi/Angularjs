@@ -1,4 +1,5 @@
 var m1app = angular.module("m1app", ["ngSanitize","ui.bootstrap"]);
+
 m1app.filter('html', ['$sce', function ($sce) {
     return function (text) {
         return $sce.trustAsHtml(text);
@@ -8,16 +9,14 @@ m1app.filter('html', ['$sce', function ($sce) {
 m1app.service('productService', function() {
    var autoplay=[{ 
 					"autoplayvideo": "true",
-					"videotobeautoplay":"myVideo0",
+					"videotobeautoplay":"myVideo0s",
 					"videoid":"myVideo",
 					"previousvideo":"myVideo0",
-					"playbygridvalue":false,
-					"carosuleelement":""
-					
+					"playbygridvalue":false
 				 }];
   var record =[{
 		thumbanailUrl:"../Images/ContentImage-4Tiles-Carousel-Seniors-1x.jpg",
-        videorul: "./small.mp4",
+        videorul: "./vid2.mp4",
         caption: "HUAWEI1",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -27,7 +26,7 @@ m1app.service('productService', function() {
 		
       }, {
 		thumbanailUrl:"../Images/ContentImage-4Tiles-Carousel-Youth-1x.jpg",  
-        videorul: "./small.mp4",
+        videorul: "./vid1.mp4",
         caption: "APPLE2",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -36,7 +35,7 @@ m1app.service('productService', function() {
 		controls:"controls"
       }, {
 		thumbanailUrl:"../Images/ContentImage-4Tiles-product1-1x.jpg",  
-        videorul: "./small.mp4",
+        videorul: "./vid2.mp4",
          caption: "SAMSUNG3",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -45,7 +44,7 @@ m1app.service('productService', function() {
 		controls:""
       }, {
 		thumbanailUrl:"../Images/ContentImage-4Tiles-product2-1x.jpg",  
-        videorul: "./small.mp4",
+        videorul: "./vid2.mp4",
         caption: "HUAWEI4",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -54,7 +53,7 @@ m1app.service('productService', function() {
 		controls:"controls"
       },{
 		thumbanailUrl:"../Images/ContentImage-4Tiles-product3-1x.jpg",  
-        videorul: "./small.mp4",
+        videorul: "./vid2.mp4",
          caption: "HUAWEI5",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -63,7 +62,7 @@ m1app.service('productService', function() {
 		controls:"controls"
       },{
 		thumbanailUrl:"../Images/ContentImage-4Tiles-product4-1x.jpg",  
-        videorul: "./small.mp4",
+        videorul: "./vid2.mp4",
         caption: "HUAWEI6",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -72,7 +71,7 @@ m1app.service('productService', function() {
 		controls:"controls"
       },{
 		thumbanailUrl:"../Images/ContentImage-4Tiles-Carousel-Seniors-1x.jpg",  
-        videorul: "./small.mp4",
+        videorul: "./vid2.mp4",
         caption: "HUAWEI7",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -81,7 +80,7 @@ m1app.service('productService', function() {
 		controls:"controls"
       },{
 		thumbanailUrl:"../Images/ContentImage-4Tiles-Carousel-Seniors-1x.jpg",  
-        videorul: "./small.mp4",
+        videorul: "./vid2.mp4",
         caption: "HUAWEI8",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -91,7 +90,7 @@ m1app.service('productService', function() {
       },
 	  {
 		thumbanailUrl:"../Images/ContentImage-4Tiles-Carousel-Seniors-1x.jpg",
-        videorul: "./small.mp4",
+        videorul: "./vid2.mp4",
          caption: "HUAWEI9",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -119,19 +118,13 @@ m1app.service('productService', function() {
   var updateplaybygrid = function(value) {
 	  autoplay[0].playbygridvalue=value;
   };  
-
-  var updatecarosuleelement = function(value) {
-	  autoplay[0].carosuleelement=value;
-  };  
-  
   
   return {
     addProduct: addProduct,
     getrecord: getrecord,
 	autoplay: autoplayjson,
 	updateautoplay:updatevideo,
-	updateplaybygrid:updateplaybygrid,
-	updatecarosuleelement:updatecarosuleelement
+	updateplaybygrid:updateplaybygrid
  };
 });
 
@@ -149,17 +142,7 @@ m1app.controller('carouselController', function($scope,$timeout,$window,$documen
 			autoplaydom.autoplay =JSON.parse(autoplay);
 			autoplaydom.load();
 	  },500);	
-		//vedio play btn
-		
-		$timeout(function () {
-				for(var i=0;i<recordslength;i++){
-					var id="myVideo"+i;
-					var doc=document.getElementById(id);
-					doc.onplay=function(){
-
-					}
-				}
-		},1000);	
+	
  });
   m1app.controller('headerController', function($scope,$timeout,$window) {
 	angular.element($window).bind("scroll", function() {
@@ -310,21 +293,20 @@ m1app.directive("carouselComponents",function($timeout,productService){
         }, 
 		controller: function($element,$scope){	
 				var videotag=$element.find(".video");
-				console.log(videotag);	
+
 		},
 		link: function (scope, element, attrs) {
-
 			element=element;
-			productService.updatecarosuleelement(element);
 			var minItem=parseInt(attrs.minitem);
 			var maxItem=parseInt(attrs.maxitem);
 			var speed= parseInt(attrs.speed);
-		    var autoplay= JSON.parse(attrs.autoplay);
+		    autoplay= JSON.parse(attrs.autoplay);
 			var infinite=JSON.parse(attrs.infinite);
 			var autoplaySpeed= parseInt(attrs.autoplayspeed);
 			queryResult = element[0].querySelector('.slider');
             var wrappedQueryResult = angular.element(queryResult);
-			
+			//carosule element update
+			productService.updateplaybygrid(element);
 			//vedio tag click	
 			//slick function		
 			scope.slickintialization=function(){
@@ -367,11 +349,8 @@ m1app.directive("carouselComponents",function($timeout,productService){
 					 });
 				}, 1);
 			};
-			element.bind("click",function(event){
-				//alert("slick");
-				//a=false;
-				//element.slick.refresh()
-				element.slick('slickSetOption', 'autoplay', false, false);	
+			element.bind("click",function(event){	
+				element.slick('slickSetOption', 'autoplay', false, false);
 			});				
 			scope.slickintialization();	
 			//plug intialization			
@@ -388,32 +367,44 @@ m1app.directive("videoTag",function($timeout,productService){
 				data: "="
         },
 		controller: function($element,$scope){	
-			//console.log($scope.records.length);
 		},
 		link: function (scope, element, attrs) {
 			//varible declaration
 			scope.records = productService.getrecord();
-			scope.autoplay=productService.autoplay();
+		    scope.autoplay=productService.autoplay();			
 			//play check
 			flagbygrid=true;
-			flagonplay=true;
-			//carosule element update
-			carosuleelement=scope.autoplay[0].carosuleelement;
+			//play call two times
+			playpausestop=true;
+			//auto play hide
+			//carosule element update			
 			element.bind("play",function(event){
+					var currentvideo=event.target.id;
+				    //hide playbtn
+					element.siblings('.circleplay').hide();	
+					element.siblings('.circlepause').hide();			
+					//dom element
 					if(flagbygrid){
-						playpausestop=false;
-						scope.playPauseCarouselVideo(event,true);
-					}else {
-						flagbygrid=true;
-					}
+						//playicon show hide							
+							playpausestop=false;
+							scope.playPauseCarouselVideo(event,true);
+						}else {
+							flagbygrid=true;
+						}
 					playpausestop=true;
 			});
-			
+			//this is pause function 
+			element.bind("pause",function(event){
+					element.siblings('.circlepause').show();
+			});
 			//video click
-			
 			element.bind("click",function(event){
 					flagbygrid=false
-					var active=element.siblings('.circleplaypause');
+					//carosuleelement store
+					//carosuleelement=scope.autoplay[0].playbygridvalue;
+					//carosuleelement.slick('slickSetOption', 'autoplay', false, false);
+				    //hide playbtn
+					element.siblings('.circleplay').hide();
 					//play pause inner Carousel Video
 					if(event.target.className!="outer-carousel"){
 						scope.playPauseCarouselVideo(event,true);
@@ -422,7 +413,7 @@ m1app.directive("videoTag",function($timeout,productService){
 					}					
 			});	
 			//play pause Carousel vedio
-			scope.playPauseCarouselVideo=function(event,flagcarosule){
+			scope.playPauseCarouselVideo=function(event,flagcarosule){			
 				//current video
 				var currentvideo=event.target.id;
 				//dom element
@@ -436,22 +427,24 @@ m1app.directive("videoTag",function($timeout,productService){
 					previeousvideodom.pause();
 					productService.updateautoplay(currentvideo);
 				}
-				if(playpausestop){
-					if(currentvideodom.paused){
+				if(currentvideodom.paused){
+					if(playpausestop){	
 						currentvideodom.play();
-						if(flagcarosule){
-							carosuleelement.slick('slickSetOption', 'autoplay', false, false);
-						}
-						//element.slick('slickSetOption', 'autoplay', false, false);			
+					}
+					if(flagcarosule){
 						//carosuleelement.slick('slickSetOption', 'autoplay', false, false);
-					}else{
-						currentvideodom.pause();	
-						if(flagcarosule){
-							carosuleelement.slick('slickSetOption', 'autoplay', true, true);
-						}
-					}										
-				}
+					}
+				}else{
+					if(playpausestop){	
+						currentvideodom.pause();
+					}
+					if(flagcarosule){
+						//carosuleelement.slick('slickSetOption', 'autoplay', autoplay, true);
+					}
+				}									
 			};
+
+			
         }
 	}
 });
