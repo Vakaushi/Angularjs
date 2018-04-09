@@ -9,14 +9,13 @@ m1app.filter('html', ['$sce', function ($sce) {
 m1app.service('productService', function() {
    var autoplay=[{ 
 					"autoplayvideo": "true",
-					"videotobeautoplay":"myVideo0s",
+					"videotobeautoplay":"myVideo0",
 					"videoid":"myVideo",
 					"previousvideo":"myVideo0",
 					"playbygridvalue":false
 				 }];
   var record =[{
-		thumbanailUrl:"../Images/ContentImage-4Tiles-Carousel-Seniors-1x.jpg",
-        videorul: "./vid2.mp4",
+        thumbanailUrl: "./vid2.mp4",
         caption: "HUAWEI1",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -25,8 +24,7 @@ m1app.service('productService', function() {
 		controls:"controls"
 		
       }, {
-		thumbanailUrl:"../Images/ContentImage-4Tiles-Carousel-Youth-1x.jpg",  
-        videorul: "./vid1.mp4",
+        thumbanailUrl: "./vid2.mp4",
         caption: "APPLE2",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -34,8 +32,7 @@ m1app.service('productService', function() {
 		subDetail2:"on mySIM@ 70",
 		controls:"controls"
       }, {
-		thumbanailUrl:"../Images/ContentImage-4Tiles-product1-1x.jpg",  
-        videorul: "./vid2.mp4",
+        thumbanailUrl: "./vid2.mp4",
          caption: "SAMSUNG3",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -43,8 +40,7 @@ m1app.service('productService', function() {
 		subDetail2:"on mySIM@ 70",
 		controls:""
       }, {
-		thumbanailUrl:"../Images/ContentImage-4Tiles-product2-1x.jpg",  
-        videorul: "./vid2.mp4",
+        thumbanailUrl: "./vid2.mp4",
         caption: "HUAWEI4",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -52,8 +48,7 @@ m1app.service('productService', function() {
 		subDetail2:"on mySIM@ 70",
 		controls:"controls"
       },{
-		thumbanailUrl:"../Images/ContentImage-4Tiles-product3-1x.jpg",  
-        videorul: "./vid2.mp4",
+        thumbanailUrl: "./vid2.mp4",
          caption: "HUAWEI5",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -61,8 +56,7 @@ m1app.service('productService', function() {
 		subDetail2:"on mySIM@ 70",
 		controls:"controls"
       },{
-		thumbanailUrl:"../Images/ContentImage-4Tiles-product4-1x.jpg",  
-        videorul: "./vid2.mp4",
+        thumbanailUrl: "./vid2.mp4",
         caption: "HUAWEI6",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -70,8 +64,7 @@ m1app.service('productService', function() {
 		subDetail2:"on mySIM@ 70",
 		controls:"controls"
       },{
-		thumbanailUrl:"../Images/ContentImage-4Tiles-Carousel-Seniors-1x.jpg",  
-        videorul: "./vid2.mp4",
+        thumbanailUrl: "./vid2.mp4",
         caption: "HUAWEI7",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -79,8 +72,7 @@ m1app.service('productService', function() {
 		subDetail2:"on mySIM@ 70",
 		controls:"controls"
       },{
-		thumbanailUrl:"../Images/ContentImage-4Tiles-Carousel-Seniors-1x.jpg",  
-        videorul: "./vid2.mp4",
+        thumbanailUrl: "./vid2.mp4",
         caption: "HUAWEI8",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -89,8 +81,7 @@ m1app.service('productService', function() {
 		controls:"controls"
       },
 	  {
-		thumbanailUrl:"../Images/ContentImage-4Tiles-Carousel-Seniors-1x.jpg",
-        videorul: "./vid2.mp4",
+        thumbanailUrl: "./vid2.mp4",
          caption: "HUAWEI9",
 		description:"Mate 10 Pro",
 		price:"$398",
@@ -127,8 +118,24 @@ m1app.service('productService', function() {
 	updateplaybygrid:updateplaybygrid
  };
 });
-
-m1app.controller('carouselController', function($scope,$timeout,$window,$document,productService) {
+m1app.controller('numberCrontroller', function($scope,$timeout,$window) {
+			$scope.flagclass=false;
+			$scope.datepickerfocus=function(){
+				var value=angular.element('#request_name');
+				value.focus();
+				$scope.something();
+			};
+			$scope.something=function(){
+					//alert("click");
+					var value=angular.element('#request_name').val();
+					if(value){
+						$scope.flagclass=true;
+					}else{
+						$scope.flagclass=false;
+					}
+			};
+});
+m1app.controller('carouselController', function($scope,$rootScope,$timeout,$window,$document,productService) {
 
 	$scope.records = productService.getrecord();  	
 	var recordslength=$scope.records.length;
@@ -141,7 +148,8 @@ m1app.controller('carouselController', function($scope,$timeout,$window,$documen
 			//console.log(autoplay);
 			autoplaydom.autoplay =JSON.parse(autoplay);
 			autoplaydom.load();
-	  },500);	
+	  },500);			  	
+	  //vedio play btn  
 	
  });
   m1app.controller('headerController', function($scope,$timeout,$window) {
@@ -154,9 +162,19 @@ m1app.controller('carouselController', function($scope,$timeout,$window,$documen
     }
 	
 	 });
-/*		for(var i=0;i<scope.records;i++){
-		}	 	 
-*/
+	 
+	 
+
+
+/*	  
+	var current=document.getElementsByClassName("vedio");
+	for(var i=0;i<scope.records;i++){
+		current[i].onplay = function(event) {
+			 alert("click");
+		};	
+	}	 
+*/	 
+
  });
  m1app.controller('footerController', function($scope,$timeout,$window,productService) {
 	$scope.scrollToTop = function() {
@@ -168,6 +186,8 @@ m1app.controller('carouselController', function($scope,$timeout,$window,$documen
 };
 
  });
+
+
 m1app.service("colVal", function() {
     this.getValue = function(numberOfImages) {
         return parseInt(12/parseInt(numberOfImages));
@@ -186,23 +206,23 @@ m1app.directive("thumbnailComponent", function(colVal) {
             btnTxt: '@',
             btnBorderColor: '@'
         },
-         template: '<div class="thumbnail col-md-{{ctrl.maxColVal}} col-xs-12" ng-repeat="imageDetail in ctrl.records"> <img ng-src="{{imageDetail.videorul}}" alt="{{imageDetail.caption}}" style="width:100%"> <div class="caption"> <h4>{{imageDetail.caption}}</h4> </div> <div class="description"> <p>Get more done on your Device wherever you are.</p> <button type="button" class="btn btn-default">View Plans</button></div></div>',
+         template: '<div class="thumbnail col-md-{{ctrl.maxColVal}} col-xs-12" ng-repeat="imageDetail in ctrl.records"> <img ng-src="{{imageDetail.thumbanailUrl}}" alt="{{imageDetail.caption}}" style="width:100%"> <div class="caption"> <h4>{{imageDetail.caption}}</h4> </div> <div class="description"> <p>Get more done on your Device wherever you are.</p> <button type="button" class="btn btn-default">View Plans</button></div></div>',
          controller: function($attrs) {
             this.minColVal = colVal.getValue($attrs.minImages);
             this.maxColVal = colVal.getValue($attrs.maxImages);
 			
 			this.records = [{
-          videorul: "../Images/nature.jpg",
+          thumbanailUrl: "../Images/nature.jpg",
           caption: "MOBILE",
       }, {
-        videorul: "../Images/nature2.jpg",
+        thumbanailUrl: "../Images/nature2.jpg",
         caption: "BROADBAND",
       }, {
-       videorul: "../Images/nature3.jpg",
+       thumbanailUrl: "../Images/nature3.jpg",
         caption: "TRAVEL",
       },
 	  {
-       videorul: "../Images/nature4.jpg",
+       thumbanailUrl: "../Images/nature4.jpg",
         caption: "TRAVEL",
       }];
       },
@@ -224,13 +244,13 @@ template: "<div class='col-md-12 col-sm-12 col-xs-12 page-banner thumbnail paddi
             this.maxColVal = colVal.getValue($attrs.maxImages);
 			
 			this.records = [{
-          videorul: "../Images/lights.jpg",
+          thumbanailUrl: "../Images/lights.jpg",
           caption: "Plans with Devices",
       }, {
-        videorul: "../Images/fjords.jpg",
+        thumbanailUrl: "../Images/fjords.jpg",
         caption: "SIM Only",
       }, {
-       videorul: "../Images/nature.jpg",
+       thumbanailUrl: "../Images/nature.jpg",
         caption: "Prepaid",
       },];
       },
@@ -273,13 +293,13 @@ m1app.directive("pageBanner2", function(colVal) {
             this.maxColVal = colVal.getValue($attrs.maxImages);
 			
 			this.records = [{
-          videorul: "../Images/lights.jpg",
+          thumbanailUrl: "../Images/lights.jpg",
           caption: "MOBILE",
       }, {
-        videorul: "../Images/fjords.jpg",
+        thumbanailUrl: "../Images/fjords.jpg",
         caption: "BROADBAND",
       }, {
-       videorul: "../Images/nature.jpg",
+       thumbanailUrl: "../Images/nature.jpg",
         caption: "TRAVEL",
       },];
       },
@@ -293,20 +313,26 @@ m1app.directive("carouselComponents",function($timeout,productService){
         }, 
 		controller: function($element,$scope){	
 				var videotag=$element.find(".video");
-
+				console.log(videotag);	
 		},
 		link: function (scope, element, attrs) {
+
+			element.bind("click",function(event){
+				alert("slick");
+				//a=false;
+				//element.slick.refresh()
+				element.slick('slickSetOption', 'autoplay', false, false);	
+			});	
 			element=element;
 			var minItem=parseInt(attrs.minitem);
 			var maxItem=parseInt(attrs.maxitem);
 			var speed= parseInt(attrs.speed);
-		    autoplay= JSON.parse(attrs.autoplay);
+		    var autoplay= JSON.parse(attrs.autoplay);
 			var infinite=JSON.parse(attrs.infinite);
 			var autoplaySpeed= parseInt(attrs.autoplayspeed);
 			queryResult = element[0].querySelector('.slider');
             var wrappedQueryResult = angular.element(queryResult);
-			//carosule element update
-			productService.updateplaybygrid(element);
+			
 			//vedio tag click	
 			//slick function		
 			scope.slickintialization=function(){
@@ -349,102 +375,185 @@ m1app.directive("carouselComponents",function($timeout,productService){
 					 });
 				}, 1);
 			};
-			element.bind("click",function(event){	
-				element.slick('slickSetOption', 'autoplay', false, false);
-			});				
 			scope.slickintialization();	
-			//plug intialization			
+			//plug intialization
+
+			
+					
         },
 		 controllerAs: 'ctrl'
 	}
 	
 });
 
-m1app.directive("videoTag",function($timeout,productService){
-	return{
-        restrict: "A",
-        scope: {
-				data: "="
-        },
-		controller: function($element,$scope){	
-		},
-		link: function (scope, element, attrs) {
-			//varible declaration
-			scope.records = productService.getrecord();
-		    scope.autoplay=productService.autoplay();			
-			//play check
-			flagbygrid=true;
-			//play call two times
-			playpausestop=true;
-			//auto play hide
-			//carosule element update			
-			element.bind("play",function(event){
-					var currentvideo=event.target.id;
-				    //hide playbtn
-					element.siblings('.circleplay').hide();	
-					element.siblings('.circlepause').hide();			
-					//dom element
-					if(flagbygrid){
-						//playicon show hide							
-							playpausestop=false;
-							scope.playPauseCarouselVideo(event,true);
-						}else {
-							flagbygrid=true;
-						}
-					playpausestop=true;
-			});
-			//this is pause function 
-			element.bind("pause",function(event){
-					element.siblings('.circlepause').show();
-			});
-			//video click
-			element.bind("click",function(event){
-					flagbygrid=false
-					//carosuleelement store
-					//carosuleelement=scope.autoplay[0].playbygridvalue;
-					//carosuleelement.slick('slickSetOption', 'autoplay', false, false);
-				    //hide playbtn
-					element.siblings('.circleplay').hide();
-					//play pause inner Carousel Video
-					if(event.target.className!="outer-carousel"){
-						scope.playPauseCarouselVideo(event,true);
-					}else{
-						scope.playPauseCarouselVideo(event,false);
-					}					
-			});	
-			//play pause Carousel vedio
-			scope.playPauseCarouselVideo=function(event,flagcarosule){			
-				//current video
-				var currentvideo=event.target.id;
-				//dom element
-				var currentvideodom=document.getElementById(currentvideo);
-				//previous video
-				var previeousvideo=scope.autoplay[0].previousvideo;
-				if(currentvideo != previeousvideo){
-					//previous video should stop			
-					//dom element
-					var previeousvideodom=document.getElementById(previeousvideo);
-					previeousvideodom.pause();
-					productService.updateautoplay(currentvideo);
-				}
-				if(currentvideodom.paused){
-					if(playpausestop){	
-						currentvideodom.play();
-					}
-					if(flagcarosule){
-						//carosuleelement.slick('slickSetOption', 'autoplay', false, false);
-					}
-				}else{
-					if(playpausestop){	
-						currentvideodom.pause();
-					}
-					if(flagcarosule){
-						//carosuleelement.slick('slickSetOption', 'autoplay', autoplay, true);
-					}
-				}									
-			};
 
-			
+m1app.directive("videoTag",function($timeout,productService){
+
+	return{
+
+        restrict: "A",
+
+        scope: {
+
+				data: "="
+
+        },
+
+		controller: function($element,$scope){	
+
+		},
+
+		link: function (scope, element, attrs) {
+
+			//varible declaration
+
+			scope.records = productService.getrecord();
+
+		    scope.autoplay=productService.autoplay();			
+
+			//play check
+
+			flagbygrid=true;
+
+			//play call two times
+
+			playpausestop=true;
+
+			//auto play hide
+
+			//carosule element update			
+
+			element.bind("play",function(event){
+
+					var currentvideo=event.target.id;
+
+				    //hide playbtn
+
+					element.siblings('.circleplay').hide();	
+
+					element.siblings('.circlepause').hide();			
+
+					//dom element
+
+					if(flagbygrid){
+
+						//playicon show hide							
+
+							playpausestop=false;
+
+							scope.playPauseCarouselVideo(event,true);
+
+						}else {
+
+							flagbygrid=true;
+
+						}
+
+					playpausestop=true;
+
+			});
+
+			//this is pause function 
+
+			element.bind("pause",function(event){
+
+					element.siblings('.circlepause').show();
+
+			});
+
+			//video click
+
+			element.bind("click",function(event){
+
+					flagbygrid=false
+
+					//carosuleelement store
+
+					//carosuleelement=scope.autoplay[0].playbygridvalue;
+
+					//carosuleelement.slick('slickSetOption', 'autoplay', false, false);
+
+				    //hide playbtn
+
+					element.siblings('.circleplay').hide();
+
+					//play pause inner Carousel Video
+
+					if(event.target.className!="outer-carousel"){
+
+						scope.playPauseCarouselVideo(event,true);
+
+					}else{
+
+						scope.playPauseCarouselVideo(event,false);
+
+					}					
+
+			});	
+
+			//play pause Carousel vedio
+
+			scope.playPauseCarouselVideo=function(event,flagcarosule){			
+
+				//current video
+
+				var currentvideo=event.target.id;
+
+				//dom element
+
+				var currentvideodom=document.getElementById(currentvideo);
+
+				//previous video
+
+				var previeousvideo=scope.autoplay[0].previousvideo;
+
+				if(currentvideo != previeousvideo){
+
+					//previous video should stop			
+
+					//dom element
+
+					var previeousvideodom=document.getElementById(previeousvideo);
+
+					previeousvideodom.pause();
+
+					productService.updateautoplay(currentvideo);
+
+				}
+
+				if(currentvideodom.paused){
+
+					if(playpausestop){	
+
+						currentvideodom.play();
+
+					}
+
+					if(flagcarosule){
+
+						//carosuleelement.slick('slickSetOption', 'autoplay', false, false);
+
+					}
+
+				}else{
+
+					if(playpausestop){	
+
+						currentvideodom.pause();
+
+					}
+
+					if(flagcarosule){
+
+						//carosuleelement.slick('slickSetOption', 'autoplay', autoplay, true);
+
+					}
+
+				}									
+
+			};	
         }
+
 	}
+
 });
