@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="m1app">
+<head>
+    <title>M1-Mobile</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="../../scripts/slick-1.8.0/slick/slick.css">
+    <link rel="stylesheet" href="../../scripts/slick-1.8.0/slick/slick-theme.css">
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/tab.css">
+    <style>
+</style>
+</head>
+<body>
+           <!--
+    <div class="container-fluid">
+ checkbox button start here 
+    
+        <div class="horizontal-form">  
+                    <div class="form-group">
+                        <label class="colorcheckbox" for="One">One
+                            <input type="checkbox" checked="checked" id="One">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="simplecheckbox" for="two">Two
+                            <input type="checkbox" checked="checked" id="two">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="simplecheckbox" for="three">Three
+                            <input type="checkbox" checked="checked" id="three">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>   
+                    <div class="form-group">
+                        <label class="simplecheckbox" for="four">Four
+                            <input type="checkbox" checked="checked" id="four">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>                                        
+        </div>
+        <div class="horizontal-form">  
+                    <div class="form-group">
+                            <label class="radiocolor radiodefault">Four
+                            <input type="radio" name="radio">
+                            <span class="checkmark"></span>
+                            </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="radiocolor radiodefault">Three
+                        <input type="radio" name="radio">
+                        <span class="checkmark"></span>
+                        </label>
+                    </div>                                                           
+        </div>
+        <div class="vertical-form">  
+                    <div class="form-group">
+                            <label class="radiocolor" for="five">Five
+                            <input type="radio" name="radio" id="five">
+                            <span class="checkmark"></span>
+                            </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="radiocolor " for="Six">Six
+                        <input type="radio" name="radio" id="Six">
+                        <span class="checkmark"></span>
+                        </label>
+                    </div>                                                           
+        </div>       
+    </div>
+    -->
+
+    <div ng-controller="commonController" name="myForm">
+
+        <form novalidate class="simple-form" name="formvalidation">
+            <label>Name: <input type="text" ng-model="user.name" class="form-control" /></label><br />
+
+            <label>E-mail: <input type="email" ng-model="user.email" /></label><br />
+            <span ng-show="myForm.user.email.$touched && myForm.user.email.$invalid">The name is required.</span>
+            Best Editor: <label><input type="radio" ng-model="user.preference" value="vi" />vi</label>
+            <label><input type="radio" ng-model="user.preference" value="emacs" />emacs</label><br />
+            <div class="vertical-form">  
+                        <div class="form-group">
+                                <label class="radiocolor" for="Male">Male
+                                <input type="radio" name="radio" id="Male" ng-model="user.gender" value="Male" class="form-control">
+                                <span class="checkmark"></span>
+                                </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="radiocolor " for="female">Female
+                            <input type="radio" name="radio" id="female" ng-model="user.gender" value="Female" class="form-control">
+                            <span class="checkmark"></span>
+                            </label>
+                        </div>                                                           
+            </div> 
+            <div class="horizontal-form">  
+                    <div class="form-group">
+                        <label class="colorcheckbox" for="One">One
+                            <input type="checkbox" name="categories[0]"  id="One"  value="oneseries" ng-model="user.categories[0]" class="form-control">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="simplecheckbox" for="two">Two
+                            <input type="checkbox" name="categories[1]" id="two"  value="twoseries" ng-model="user.categories[1]" class="form-control">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="simplecheckbox" for="three">Three
+                            <input type="checkbox" name="categories[2]"  id="three"  value="threeseries" ng-model="user.categories[2]" class="form-control">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>   
+                    <div class="form-group">
+                        <label class="simplecheckbox" for="four">Four
+                            <input type="checkbox" name="categories[3]" id="four"  value="fourseries" ng-model="user.categories[3]" class="form-control">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>                                        
+            </div>       	
+            <input type="button" ng-click="reset()" value="Reset" />
+            <input type="submit" ng-click="update(user)" value="Save" />
+        </form>
+        <pre>user = {{user | json}}</pre>
+        <pre>master = {{master | json}}</pre>
+      
+<!--        
+        <form ng-app="myApp" name="myForm" ng-submit="submitMyForm()" novalidate>
+
+            <p>Username:<br>
+            <input type="text" name="user" ng-model="user" required>
+            <span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+            <span ng-show="myForm.user.$error.required">Username is required.</span>
+            </span>
+            </p>
+
+            <p>Email:<br>
+            <input type="email" name="email" ng-model="email" required>
+            <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+            <span ng-show="myForm.email.$error.required">Email is required.</span>
+            <span ng-show="myForm.email.$error.email">Invalid email address.</span>
+            </span>
+            </p>
+
+            <p>
+            <input type="submit"
+            ng-disabled="myForm.user.$dirty && myForm.user.$invalid ||  
+            myForm.email.$dirty && myForm.email.$invalid">
+            </p>
+
+        </form>
+        -->
+
+    </div>
+
+
+
+    <script src="https://cdn.rawgit.com/scottjehl/picturefill/3.0.2/dist/picturefill.js"></script>
+    <script src="../../scripts/jquery-3.3.1.min.js"></script>
+    <script src="../../scripts/slick-1.8.0/slick/slick.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-sanitize.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
+    <script src="../../scripts/app_v0.js"></script>
+
+</body>
+</html>
