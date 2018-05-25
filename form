@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="m1app">
+<head>
+    <title>M1-Mobile</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../scripts/slick-1.8.0/slick/slick.css">
+		<link rel="stylesheet" href="../../scripts/slick-1.8.0/slick/slick-theme.css">
+		<link rel="stylesheet" href="../../css/common.css">
+		<link rel="stylesheet" href="../../css/tab.css">
+		<link rel="stylesheet" href="../../css/checkbox.css">
+</head>
+<body>
+
+
+    <div ng-controller="formController" name="myForm" class="col-md-6 col-md-offset-3 container">
+
+		<form novalidate class="simple-form" name="formvalidation" required>
+				<div class="form-text">
+				<div class="down-spacig">
+					<label>Name: <input type="text" ng-model="user.name" class="form-control" name="name" required ng-model-options="{ updateOn: 'blur', allowInvalid: '$inherit' }"/></label><br />
+						<span class="chechbox-alert" ng-show="formvalidation.name.$dirty && formvalidation.name.$invalid">
+							<span ng-show="formvalidation.name.$error.required">Username is required.</span>
+						</span>
+				</div>
+				<div class="down-spacig">
+					<label>E-mail: <input type="email" name="email" ng-model="user.email"  class="form-control" required ng-model-options="{ updateOn: 'blur', allowInvalid: '$inherit' }" /></label><br />
+						<span  class="chechbox-alert" ng-show="formvalidation.email.$dirty && formvalidation.email.$error.required">Email is required.</span>
+
+						<span class="chechbox-alert" ng-show="formvalidation.email.$dirty && formvalidation.email.$invalid && !formvalidation.email.$error.required">Email is invalid.</span>
+				</div>
+				</div>
+				<div class="check-box ">
+							<div class="vertical-form down-spacig">  
+										<div class="form-group">
+												<label class="radiocolor" for="five" >Five
+												<input type="radio" name="gender" id="five"   required>
+												<span class="checkmark"></span>
+												</label>
+										</div>
+										<div class="form-group">
+											<label class="radiocolor " for="Six">Six
+											<input type="radio" name="gender" id="Six"  required>
+											<span class="checkmark"></span>
+											</label>
+										</div> 
+										<span  class="chechbox-alert" ng-show="formvalidation.gender.$error.required">gender is required</span>                                                          
+							</div>
+							<!--
+							<div class="horizontal-form down-spacig" checkbox-validate>  
+									<div class="form-group">
+										<label class="colorcheckbox" for="One">One
+											<input type="checkbox" name="categories[0]"  id="One" class="checkbox"  value="oneseries" ng-model="user.categories[0]" class="form-control">
+											<span class="checkmark"></span>
+										</label>
+									</div>
+									<div class="form-group">
+										<label class="simplecheckbox" for="two">Two
+											<input type="checkbox" name="categories[1]" id="two" class="checkbox" value="twoseries" ng-model="user.categories[1]" class="form-control">
+											<span class="checkmark"></span>
+										</label>
+									</div>
+									<div class="form-group">
+										<label class="simplecheckbox" for="three">Three
+											<input type="checkbox" name="categories[2]"  id="three" class="checkbox" value="threeseries" ng-model="user.categories[2]" class="form-control">
+											<span class="checkmark"></span>
+										</label>
+									</div>   
+									<div class="form-group">
+										<label class="simplecheckbox" for="four">Four
+											<input type="checkbox" name="categories[3]" id="four" class="checkbox"  value="fourseries" ng-model="user.categories[3]" class="form-control">
+											<span class="checkmark"></span>
+										</label>
+									</div>
+									<div class="errorfield chechbox-alert hide-checkbox">categories is required.</div>                                        
+							</div> 
+							-->
+							<div class="horizontal-form down-spacig" >  
+									<div class="form-group">
+										<label class="colorcheckbox" for="Ones">One
+											<input type="checkbox" name="categorie[0]"  id="Ones" class="checkbox"  value="oneseries" 
+											ng-model="user.categorie[0]" ng-click="change($event);" class="form-control">
+											<span class="checkmark"></span>
+										</label>
+									</div>
+									<div class="form-group">
+										<label class="simplecheckbox" for="twos">Two
+											<input type="checkbox" name="categorie[1]" id="twos" class="checkbox" value="twoseries" 
+											ng-model="user.categorie[1]" ng-click="change($event);" class="form-control">
+											<span class="checkmark"></span>
+										</label>
+									</div>
+									<div class="form-group">
+										<label class="simplecheckbox" for="threes">Three 
+											<input type="checkbox" name="categorie[2]"  id="threes" class="checkbox" value="threeseries" 
+											ng-model="user.categorie[2]" ng-click="change($event);" class="form-control">
+											<span class="checkmark"></span>
+										</label>
+									</div>   
+									<div class="form-group">
+										<label class="simplecheckbox" for="fours">Four
+											<input type="checkbox" name="categorie[3]" id="fours" class="checkbox"  value="fourseries" 
+											ng-model="user.categorie[3]" ng-click="change($event);" class="form-control">
+											<span class="checkmark"></span>
+										</label>
+									</div>
+									 <div ng-if="flagCheck">please select atleast one checkbox. </div>                                         	
+							</div>
+							<div class="horizontal-form down-spacig" >  
+									<div class="form-group">
+										<label class="colorcheckbox" for="Ones">One
+											<input type="checkbox" name="categories[0]"  id="Ones" class="checkbox"  value="oneseries" 
+											ng-model="user.categories[0]" ng-click="change($event);" class="form-control">
+											<span class="checkmark"></span>
+										</label>
+									</div>
+									<div class="form-group">
+										<label class="simplecheckbox" for="twos">Two
+											<input type="checkbox" name="categories[1]" id="twos" class="checkbox" value="twoseries" 
+											ng-model="user.categories[1]" ng-click="change($event,);" class="form-control">
+											<span class="checkmark"></span>
+										</label>
+									</div>
+									<div class="form-group">
+										<label class="simplecheckbox" for="threes">Three 
+											<input type="checkbox" name="categories[2]"  id="threes" class="checkbox" value="threeseries" 
+											ng-model="user.categories[2]" ng-click="change($event);" class="form-control">
+											<span class="checkmark"></span>
+										</label>
+									</div>   
+									<div class="form-group">
+										<label class="simplecheckbox" for="fours">Four
+											<input type="checkbox" name="categories[3]" id="fours" class="checkbox"  value="fourseries" 
+											ng-model="user.categories[3]" ng-click="change($event);" class="form-control">
+											<span class="checkmark"></span>
+										</label>
+									</div>
+									 <div ng-if="flagCheck">please select atleast one checkbox. </div>                                         	
+							</div>							
+
+
+				</div>
+				<div class="down-spacig">
+					<input type="submit" ng-click="update(user)" value="Save"/>
+				</div>
+		 </form>
+        <pre>user = {{user | json}}</pre>
+        <pre>master = {{master | json}}</pre>
+	
+    </div>
+
+
+
+    <script src="https://cdn.rawgit.com/scottjehl/picturefill/3.0.2/dist/picturefill.js"></script>
+    <script src="../../scripts/jquery-3.3.1.min.js"></script>
+    <script src="../../scripts/slick-1.8.0/slick/slick.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-sanitize.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
+    <script src="../../scripts/app_v0.js"></script>
+	<script src="../../scripts/portal/forms/app.portal.forms.controller.js"></script>
+</body>
+</html>
