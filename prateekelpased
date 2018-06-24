@@ -1,0 +1,44 @@
+<div currentdate="6/6/2018 1:00:00 PM" dealstartdate="6/16/2018 7:00:00 PM" class="hide-content" countdown-counter></div> 
+m1app.directive("countdownCounter", function ($interval,$timeout,$window) {
+	return {
+		restrict: 'EA',
+		controller: function($scope){
+			$scope.days;
+			$scope.hours;
+			$scope.minutes;
+			$scope.secs;
+			$scope.count_down =function (start) {
+				$window.start = parseFloat(start);
+				var end = 0 // change this to stop the counter at a higher value
+				var refresh = 1000; // Refresh rate in milli seconds
+				if( $window.start >= end ) {
+					$scope.mytime = $interval($scope.calculated_time, refresh);
+				}else{
+					$timeout.cancel($scope.mytime);					
+				}
+			}
+			$scope.calculated_time= function () {
+				// Calculate the number of days left
+				$scope.days = Math.floor($window.start / 86400);
+				// After deducting the days calculate the number of hours left
+				$scope.hours = Math.floor(($window.start - ($scope.days * 86400 ))/3600)
+				// After days and hours , how many minutes are left
+				$scope.minutes = Math.floor(($window.start - ($scope.days * 86400 ) - ($scope.hours *3600 ))/60)
+				// Finally how many seconds left after removing days, hours and minutes.
+				$scope.secs = Math.floor(($window.start - ($scope.days * 86400 ) - ($scope.hours *3600 ) - ($scope.minutes*60)))
+				$scope.x = $window.start + "(" + $scope.days + " Days " + $scope.hours + " Hours " + $scope.minutes + " Minutes and " + $scope.secs + " Secondes " + ")";
+				console.log($scope.days +"   days   "+$scope.hours+"   hours    "+$scope.minutes+"   minutes "+$scope.secs+" secs ");
+				//document.getElementById('ct').innerHTML = x;
+				$window.start = $window.start - 1;
+				//tt = count_down($window.start);
+			}
+			
+		},
+		link: function(scope, element, attrs,window) {
+				var oldDate = new Date(attrs.currentdate);
+				var newDate = new Date(attrs.dealstartdate);
+				var difference  = (newDate - oldDate)/1000; 
+				scope.count_down(difference);		
+		}
+	}
+});
