@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="m1app">
+<head>
+    <title>M1-Mobile Video Component </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+	<link rel="stylesheet" href="../Js/slick-1.8.0/slick/slick.css">
+    <link rel="stylesheet" href="../Js/slick-1.8.0/slick/slick-theme.css">
+    <link rel="stylesheet" href="../Css/flowplayer.css">
+	<link rel="stylesheet" href="https://releases.flowplayer.org/7.2.7/skin/skin.css">
+    <link rel="stylesheet" href="../Css/flowplayerskin.css">
+	<link rel="stylesheet" href="../Css/commercial/skin.css">
+	<link rel="stylesheet" href="../Css/commercial/complete.css">
+	<link rel="stylesheet" href="../Css/Style.css">
+	<style>
+	body {
+		  font-family: "myriad pro", tahoma, verdana, arial, sans-serif;
+		  font-size: 14px;
+		  margin: 0;
+		  padding: 0;
+	   }
+	   #content {
+		  margin: 50px auto;
+		  max-width: 982px;
+	   }
+	</style>
+</head>
+<body class="">
+   <div class="container-fluid">
+		<div ng-controller="carouselController">
+					<div id="player" class="is-splash"></div>
+						<div class="row">
+							<div class="col-md-12 col-xs-12 component-heading theme-dark text-center" style="padding-bottom:30px;">
+							<h1 class="font-heading1">Video Component </h1>
+							<h3 class="font-heading3">JUST FOR YOU</h3>
+							</div>
+						</div> 
+						<div class="col-xs-6">
+								<div class="flowplayer is-closeable"
+									 data-key="$770688346451035"
+									 data-analytics="UA-27182341-1"
+									 data-logo="//flowplayer.com/media/img/mylogo.png"
+									 data-poster="https://flowplayer.com/media/img/mylogo.png"
+									 data-splash=true
+									 data-ratio="0.4167">
+
+								   <video video-tag>
+									  <source type="video/webm"
+											  src="https://edge.flowplayer.org/functional.webm">
+									  <source type="video/mp4"
+											  src="https://edge.flowplayer.org/functional.mp4">
+									  <source type="video/flash"
+											  src="mp4:functional"></video>
+
+								</div>							
+						</div>
+						<div class="col-xs-6">
+								<div class="flowplayer is-closeable"
+									 data-key="$770688346451035"
+									 data-analytics="UA-27182341-1"
+									 data-logo="//flowplayer.com/media/img/mylogo.png"
+									 data-poster="https://flowplayer.com/media/img/mylogo.png"
+									 data-splash=true
+									 is-touch=true
+									 data-ratio="0.4167">
+
+								   <video video-tag>
+									  <source type="video/webm"
+											  src="https://edge.flowplayer.org/functional.webm">
+									  <source type="video/mp4"
+											  src="https://edge.flowplayer.org/functional.mp4">
+									  <source type="video/flash"
+											  src="mp4:functional"></video>
+
+								</div>								
+						</div>						
+						
+						<div class="row">
+						 <div class="col-md-10 col-md-offset-1 col-xs-12">
+							<div class="slider image-crausel-type-1" carousel-components ng-cloak maxItem="2" minItem="1" speed="900" autoplay="false" infinite="true" autoplaySpeed="600" id="imageCrasole">
+									<div class="thumbnail speacial-carausel myVideo"  ng-repeat="x in records track by $index">
+												<div class="flowplayer"
+													 data-key="$770688346451035",
+													 data-analytics="UA-27182341-1",
+													 data-logo="//flowplayer.com/media/img/mylogo.png",
+													 data-poster="https://flowplayer.com/media/img/mylogo.png",
+													 data-ratio="0.4167">
+
+												   <video video-tag>
+													  <source type="video/webm"
+															  src="https://edge.flowplayer.org/functional.webm">
+													  <source type="video/mp4"
+															  src="https://edge.flowplayer.org/functional.mp4">
+													  <source type="video/flash"
+															  src="mp4:functional"></video>
+
+												 </div>												
+									</div>
+								</div>
+							</div>
+						</div>	
+	
+		</div>
+
+	</div>
+
+    <script src="../Js/jquery-3.3.1.min.js"></script>
+	<script src="../Js/slick-1.8.0/slick/slick.min.js"></script>
+	<script src="../Js/angular-1.6.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-sanitize.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
+	<script src="../Js/commercial/hls.light.min.js"></script>
+	<script src="../Js/commercial/flowplayer.min.js"></script>
+	<script src="../Js/commercial/flowplayer.vod-quality-selector.min.js"></script>	
+	<script src="../Js/appcommercial.js"></script>
+</body>
+</html>
