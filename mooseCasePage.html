@@ -1,0 +1,709 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="m1cp">
+    <head>
+        <title>
+            M1-Mobile
+        </title>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../../scripts/slick-1.8.0/slick/slick.css" rel="stylesheet"/>
+        <link href="../../scripts/slick-1.8.0/slick/slick-theme.css" rel="stylesheet"/>
+        <link href="../../css/common.css" rel="stylesheet"/>
+        <link href="../../css/tab.css" rel="stylesheet"/>
+        <link href="../../css/carousel.css" rel="stylesheet"/>
+        <link href="../../css/animations.css" rel="stylesheet"/>
+        <link href="../../css/accordion.css" rel="stylesheet"/>
+        <link href="../../css/deviceListing.css" rel="stylesheet"/>
+        <link href="../../css/eshop_device_details.css" rel="stylesheet"/>
+        <link href="../../css/m1modalOverlay.css" rel="stylesheet"/>
+        <link href="../../css/formstyle.css" rel="stylesheet"/>
+        <link href="../../css/nextback.css" rel="stylesheet"/>
+        <link href="../../css/mosscommon.css" rel="stylesheet"/>
+        <link href="../../css/verify_details.css" rel="stylesheet"/>
+        <link href="../../css/moosesidebar.css" rel="stylesheet"/>
+        <link href="../../css/mooseCommon.css" rel="stylesheet"/>
+        <link href="../../css/mosssteps.css" rel="stylesheet"/>
+        <link href="../../css/mooseCasePage.css" rel="stylesheet"/>
+        <link href="../../css/number_selection.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="../../css/mooseHeader.css">
+        <link rel="stylesheet" href="../../css/planlist.css"/>
+        <link rel="stylesheet" href="../../css/checkbox.css">
+        <link rel="stylesheet" href="../../css/eshop_deliverydetails.css">
+        <link rel="stylesheet" href="../../css/mooseCommon.css">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row moose-lineItems m1cp" ng-controller="mooseCasePageController as mcp">
+                <tooltipSelection test-data="dasdasdasdasd asd as das d asd as"></tooltipSelection>
+                <div class="col-xs-12 well">
+                    <div class="lineItem-heading col-xs-12">
+                        <p class="heading-text">
+                            {{mooseCasedata.heading}}
+                        </p>
+                    </div>
+                    <!-- CASE SECTION START -->
+                    <div class="col-xs-12 dashed-border">
+                        <form class="feedback" name="customerIDform" ng-submit="submitcustomerIDForm()">
+                            <div class="col-xs-12 col-sm-5 moose-radioItem-container">
+                                <p class="radioItem-heading">
+                                    {{mooseCasedata.customer.IDtype.label}}
+                                </p>
+                                <span class="radio-btn" ng-repeat="radioItem in mooseCasedata.customer.IDtype.values">
+                                    <input ng-disabled="mooseCustomerdata" id="customerId-{{$index}}" name="customerId" ng-change="resetcustomerIDNumber()" ng-model="mcp.selectedcustomerId" required="" type="radio" value="{{radioItem.name}}"/>
+                                    <label ng-disabled="mooseCustomerdata" for="customerId-{{$index}}">
+                                        <i class="glyphicon glyphicon-ok-sign">
+                                        </i>
+                                        {{radioItem.value}}
+                                    </label>
+                                </span>
+                            </div>
+                            <div class="col-xs-10 col-sm-6 moose-customer-input">
+                                <div class="fieldWrapper clear col-xs-6" ng-if="mcp.selectedcustomerId == 'Others'">
+                                    <div class="field required">
+                                        <input ng-disabled="mooseCustomerdata" id="others" name="others" ng-model="mcp.customerIDNumber" placeholder="{{mooseCasedata.customer.IDnumber.placeholder}}" required="" type="text"/>
+                                        <label ng-disabled="mooseCustomerdata" for="others">
+                                            {{mooseCasedata.customer.IDnumber.label}}
+                                        </label>
+                                    </div>
+                                    <div class="nricError font-bodybb2 red" ng-if="customerIDform.others.$error.required && customerIDform.others.$dirty">
+                                        <span>
+                                            {{mooseCasedata.customer.IDnumber.errorMessage}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="fieldWrapper clear col-xs-6" ng-if="mcp.selectedcustomerId != 'Others'">
+                                    <div class="field required">
+                                        <input ng-disabled="mooseCustomerdata" form-module-directive="" id="nricNo" name="theNric" ng-model="mcp.customerIDNumber" nricnumber="true" placeholder="{{mooseCasedata.customer.IDnumber.placeholder}}" required="" type="text"/>
+                                        <label ng-disabled="mooseCustomerdata" for="nricNo">
+                                            {{mooseCasedata.customer.IDnumber.label}}
+                                        </label>
+                                    </div>
+                                    <div class="ng-messages nricError font-bodybb2 red" ng-messages="customerIDform.theNric.$error">
+                                        <span ng-message="invalidempty">
+                                            {{mooseCasedata.customer.IDnumber.nricErrorMessage}}
+                                        </span>
+                                        <!-- NRIC/FIN number is required -->
+                                        <span ng-message="nriclong">
+                                            {{mooseCasedata.customer.IDnumber.nricErrorMessage}}
+                                        </span>
+                                        <!-- NRIC/FIN number should have 9 digits -->
+                                        <span ng-message="nricinvalid">
+                                            {{mooseCasedata.customer.IDnumber.nricErrorMessage}}
+                                        </span>
+                                        <!-- Invalid NRIC/FIN number -->
+                                    </div>
+                                </div>
+                                <div class="fieldWrapper required col-xs-6 dropdown-with-text">
+                                    <div class="form-group">
+                                        <label class="control-label font-body8 retainform-select-label" for="caseType">
+                                            {{mooseCasedata.customer.caseType.label}}
+                                        </label>
+                                        <div class="m1eshop-select_box" ng-class="{'disabled': mooseCustomerdata}">
+                                            <select ng-disabled="mooseCustomerdata" autocomplete="off" class="" id="caseType" name="caseType" ng-model="mcp.caseType" ng-options="option.value for option in mooseCasedata.customer.caseType.values track by option.name" required="">
+                                                <option class="select-option" value="">
+                                                    Select Case Type
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="font-bodybb2 red" ng-show="customerIDform.$error">
+                                        <span ng-if="customerIDform.caseType.$invalid && customerIDform.caseType.$dirty && customerIDform.caseType.$error.required">
+                                            Case Type Is Required
+                                        </span>
+                                        <span ng-if="!customerIDform.caseType.$error.required && customerIDform.caseType.$error.setServerError">
+                                            Error Message
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- <div class="fieldWrapper selectdiv col-xs-6">                  
+                                <div class="field required">
+                                    <select class="m1cp select-input drop-down font-body2 units" autocomplete="off" ng-model="mcp.caseType" name="caseType" id="caseType" required ng-options="option.name for option in mooseCasedata.customer.caseType.values">
+                                        <option class="select-option" value="">Select Case Type</option>
+                                    </select>
+                                    <label for="Delivery_Date" class="control-label retainform-select-label">{{mooseCasedata.customer.caseType.label}}</label>
+                                </div>
+                                <div ng-if="customerIDform.Delivery_Date.$error.required && customerIDform.Delivery_Date.$dirty" class="nricError font-bodybb2 red">
+                                    <span>Case Type Is Required</span>
+                                </div> 
+                            </div> -->
+                            </div>
+                            <div class="col-xs-2 col-sm-1 moose-customer-input">
+                                <button ng-disabled="mooseCustomerdata" class="btn btn-primary moose-next-btn" type="submit">
+                                    <i class="glyphicon glyphicon-arrow-right">
+                                    </i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- CASE SECTION END -->
+                    <!-- CATEGORY SECTION START -->
+                    <div class="display-inline-block dashed-border"ng-if="mooseCustomerdata && mcp.caseType.name == 'RRP'">
+                        <div class="moose-radioItem-container padding-lr-15 text-center">
+                            <p class="radioItem-heading">
+                                    {{mooseCustomerdata.category.label}}
+                                </p>
+                            <span class="radio-btn" ng-repeat="radioItem in mooseCustomerdata.category.values">
+                                <input id="category-{{$index}}" name="category" ng-click="devicePlanselection()" ng-disabled="mcp.selectedCategory" ng-model="mcp.selectedCategory" type="radio" value="{{radioItem.name}}"/>
+                                <label for="category-{{$index}}" ng-disabled="mcp.selectedCategory">
+                                    <i class="glyphicon glyphicon-ok-sign">
+                                    </i>
+                                    {{radioItem.value}}
+                                </label>
+                            </span>
+                        </div>
+                        <div class="reset-link">
+                            <i ng-click="resetLink()">
+                                {{mooseCustomerdata.category.resetLabel}}
+                            </i>
+                        </div>
+                    </div>
+                    <!-- CATEGORY SECTION END -->
+                    <!-- CONNECTION TYPE AND CORI SECTION START -->
+                    <div class="col-xs-12 dashed-border" ng-if="mooseCustomerdata &&  (mcp.caseType.name == 'GSM/MBB' || mcp.caseType.name == 'FBB' || mcp.caseType.name == 'Supp')">
+                        <form class="feedback" name="caseForm">
+                            <div class="col-xs-12 moose-radioItem-container">
+                                <p class="radioItem-heading">
+                                    {{mooseCustomerdata.connectionType.label}}
+                                </p>
+                                <span class="radio-btn" ng-repeat="radioItem in mooseCustomerdata.connectionType.values">
+                                    <input id="connectionType-{{$index}}" name="connectionType" ng-disabled="mcp.selectedconnectionType" ng-model="mcp.selectedconnectionType" type="radio" value="{{radioItem.name}}" required="" />
+                                    <label for="connectionType-{{$index}}" ng-disabled="mcp.selectedconnectionType">
+                                        <i class="glyphicon glyphicon-ok-sign">
+                                        </i>
+                                        {{radioItem.value}}
+                                    </label>
+                                </span>
+                            </div>
+                            <div class="col-xs-12 moose-customer-input margin-top-pixel-20" ng-if="mcp.selectedconnectionType == 'Re-Contract'">
+                                <div class="fieldWrapper required col-xs-5 padding-false dropdown-with-text">
+                                    <div class="form-group">
+                                        <label class="control-label font-body8 retainform-select-label" for="collectShop">
+                                            Select Plan ID for Re-contract
+                                        </label>
+                                        <div class="m1eshop-select_box">
+                                        <select autocomplete="off" class="" id="recontract" name="recontract" ng-model="mcp.recontract" ng-options="option.value for option in  mooseCustomerdata.ReContract.values track by option.value" required="">
+                                            <option class="select-option" value="recontract">
+                                                Re-contract
+                                            </option>
+                                        </select>
+                                        </div>
+                                    </div>
+                                    <div class="font-bodybb2 red" ng-if="caseForm.recontract.$error.required && caseForm.recontract.$dirty">
+                                            <span>
+                                                {{mooseCustomerdata.ReContract.errorMessage}}
+                                            </span>
+                                    </div>
+                                </div>
+                                <!-- <div class="fieldWrapper selectdiv col-xs-5 padding-false">
+                                    <div class="field required">
+                                        <div class="nricError font-bodybb2 red" ng-if="caseForm.recontract.$error.required && caseForm.recontract.$dirty">
+                                            <span>
+                                                {{mooseCustomerdata.ReContract.errorMessage}}
+                                            </span>
+                                        </div>
+                                        <select autocomplete="off" class="m1cp select-input drop-down font-body2 units" id="caseType" name="recontract" ng-model="mcp.recontract" ng-options="option.name for option in  mooseCustomerdata.ReContract.values" required="">
+                                            <option class="select-option" value="">
+                                                Re-contract
+                                            </option>
+                                        </select>
+                                        <label class="control-label retainform-select-label" for="Delivery_Date">
+                                            {{mooseCustomerdata.ReContract.label}}
+                                        </label>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="col-xs-12 moose-radioItem-container margin-top-pixel-15" ng-if="(mcp.selectedconnectionType == 'New Line' || mcp.recontract) && (mcp.caseType.name == 'GSM/MBB' || mcp.caseType.name == 'Supp')">
+                                <p class="radioItem-heading">
+                                    {{mooseCustomerdata.CORIscheme.label}}
+                                </p>
+                                <span class="radio-btn" ng-repeat="radioItem in mooseCustomerdata.CORIscheme.values">
+                                    <input id="CORIscheme-{{$index}}" name="CORIscheme" ng-model="mcp.selectedCORIscheme" type="radio" value="{{radioItem.name}}" required="" />
+                                    <label for="CORIscheme-{{$index}}">
+                                        <i class="glyphicon glyphicon-ok-sign">
+                                        </i>
+                                        {{radioItem.value}}
+                                    </label>
+                                </span>
+                            </div>
+                            <div class="col-xs-12 moose-customer-input margin-top-pixel-20" ng-if="mcp.selectedCORIscheme == 'Yes'">
+                                <div class="cori-search">
+                                    <div class="fieldWrapper clear">
+                                        <div class="field">
+                                            <input id="companyName" name="companyName" ng-model="mcp.companyName" placeholder="{{mooseCustomerdata.CORIscheme.companyName.placeholder}}" type="text"/>
+                                            <label for="companyName">
+                                                {{mooseCustomerdata.CORIscheme.companyName.label}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p>
+                                            or
+                                        </p>
+                                    </div>
+                                    <div class="fieldWrapper clear">
+                                        <div class="field">
+                                            <input id="companyEmail" name="companyEmail" ng-model="mcp.companyEmail" placeholder="{{mooseCustomerdata.CORIscheme.companyEmail.placeholder}}" type="text"/>
+                                            <label for="companyEmail">
+                                                {{mooseCustomerdata.CORIscheme.companyEmail.label}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p>
+                                            or
+                                        </p>
+                                    </div>
+                                    <div class="fieldWrapper clear">
+                                        <div class="field">
+                                            <input id="companyBRN" name="companyBRN" ng-model="mcp.companyBRN" placeholder="{{mooseCustomerdata.CORIscheme.companyBRN.placeholder}}" type="text"/>
+                                            <label for="companyBRN">
+                                                {{mooseCustomerdata.CORIscheme.companyBRN.label}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="font-bodybb2 red" ng-if="mcp.coriError">
+                                        Please enter value in only one of the 3 fields
+                                    </p>
+                                    <p class="font-bodybb2 red" ng-if="mcp.coriErrorMessage">
+                                        {{mcp.coriErrorMessage}}
+                                    </p>
+                                    <a class="btn btn-primary moose-round-btn" href="javascript:void(0)" ng-class="{'active':mcp.companyBRN || mcp.companyEmail || mcp.companyName ,'success':mcp.showMessage}" ng-click="coriSearch()">
+                                        <i class="glyphicon glyphicon-ok-sign">
+                                        </i>
+                                        {{mooseCustomerdata.CORIscheme.btnLabel}}
+                                    </a>
+                                    <p ng-if="mcp.showMessage">
+                                        Your Selected Company is
+                                        <b>
+                                            {{mcp.showMessage.companyName}}
+                                        </b>
+                                        with BRN
+                                        <b>
+                                            {{mcp.showMessage.brnNumber}}
+                                        </b>
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- CONNECTION TYPE AND CORI SECTION END -->
+                    <!-- SELECT MAIN LINE SECTION Start -->
+                    <div class="display-inline-block dashed-border" ng-if="mooseCustomerdata &&  mcp.caseType.name == 'Supp'">
+						<div class="col-xs-12 mailLineForm">
+							<form class="feedback" name="mainLineForm" ng-submit="submitMainLineForm()" novalidate>
+									<div class="fieldWrapper required col-xs-3 dropdown-with-text">
+										<div class="form-group">
+											<label class="control-label font-body8 retainform-select-label" for="mainLine">
+											   Main Line
+											</label>
+											<div class="m1eshop-select_box">
+												<select autocomplete="off" ng-disabled="validateSuccess" class="" id="mainLine"  name="mainLine" ng-model="mainLineSelection" ng-options="item.servicelinenumber for item in mainLineData.MainLine"  ng-change="changeOption()" required>
+													<option class="select-option" value="">
+														Select Main Line
+													</option>
+													
+												</select>
+											</div>
+										</div>
+										<div ng-show="submitted == true && mainLineForm.mainLine.$error.required || mainLineServerError" class="error"> {{ErrorMsg}} </div>
+									</div>
+		  
+								<div class="col-xs-2 col-sm-1 moose-customer-input">
+									<button class="btn btn-primary moose-next-btn" type="submit" ng-click="submitted=true">
+										<i ng-class="{'glyphicon glyphicon-arrow-right': !validateSuccess, 'glyphicon glyphicon-pencil': validateSuccess}">
+										</i>
+									</button>
+								</div>
+							</form>
+						</div>
+                    </div>
+                    <!-- SELECT MAIN LINE SECTION END -->
+                    <!-- CHECK COVERAGE SECTION Start -->
+                    <!-- check coverage start -->
+                    <div class="col-xs-12 dashed-border" ng-if="(mcp.selectedconnectionType == 'New Line' || mcp.recontract) && mcp.caseType.name == 'FBB'">
+                        <!--Coverage modal-->
+                        <div class="clearfix case-check-coverage">
+                            <!-- check coverage validation  -->
+                            <div class="col-xs-12 col-sm-12">
+                                <form class="m1eShop-retain-form" name="m1eshopEditAddressFormModal" id="m1eshopEditAddressFormModal">
+                                    <div class="col-xs-3 padding-false">
+                                        <div class="fieldWrapper theme-light">
+                                            <p class="font-body7 check-coverage">Check Coverage</p>
+                                            <div class="field">
+                                                <input type="text" numbers-only id="editZipcopde" class="check-coverage-postalcode" maxlength="6" minlength="6" ng-model="mcp.EditAddressZipcopde" placeholder="" name="EditAddressZipcopde" ng-disabled="postalCodedisable" ng-keydown="postalfieldchanges()" required>
+                                                <label for="EditAddressZipcopde" class="check-coverage">Postal Code</label>
+                                                <button class="btn btn-primary moose-next-btn" type="submit" autocomplete="off" ng-click="retriveAddressfmZipCode(m1eshopEditAddressFormModal,event)">
+                                                    <i class="glyphicon glyphicon-arrow-right" ng-show="!postalCodedisable">
+                                                    </i>
+                                                    <span class="glyphicon glyphicon-pencil" ng-show="postalCodedisable"></span>
+                                                </button>
+                                            </div>
+                                            <div class="font-bodybb2 red">
+                                                <span ng-if="(m1eshopEditAddressFormModal.EditAddressZipcopde.$error.required || m1eshopEditAddressFormModal.EditAddressZipcopde.$error.parse) && m1eshopEditAddressFormModal.EditAddressZipcopde.$dirty && !chechCoverageValidate">Postal code is requiured</span>
+                                                <span ng-if="m1eshopEditAddressFormModal.EditAddressZipcopde.$error.minlength && m1eshopEditAddressFormModal.EditAddressZipcopde.$dirty && !chechCoverageValidate">Please enter valid postal code</span>
+                                                <span ng-if="m1eshopEditAddressFormModal.EditAddressZipcopde.serverError && !chechCoverageValidate">
+                                                    Please enter different  postal code and try again
+                                                </span>
+                                                <span ng-if="chechCoverageValidate">Please click on ‘Retrieve Address’ before clicking on ‘Check Coverage</span>
+                                                                                      
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4" ng-if="mcp.retrivedAddress.Data"> <!--ng-if="mcp.retrivedAddress.Data"-->
+                                        <div class="col-xs-12 padding-false">
+                                            <p class="font-body7 check-coverage">Address</p>
+                                            <div class="m1eshop-non-editable-block" ng-show="!mcp.retrivedAddress.Data.IsBlocked">
+                                              
+                                                <p class="font-bodybb2 block-number">Block/House Number and street Name</p>
+                                                <div class="m1eshop-non-editable-container theme-light" ng-if="mcp.retrivedAddress.Data.AddressLine1">
+                                                            {{mcp.retrivedAddress.Data.AddressLine1}}
+                                                            {{mcp.retrivedAddress.Data.AddressLine2}}
+                                                            {{mcp.retrivedAddress.Data.AddressLine3}}                                                
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div ng-show="!mcp.retrivedAddress.Data.IsBlocked">
+                                                <div class="m1eshop_sameaddress_checkbox col-sm-12 padding-false" ng-show="!mcp.retrivedAddress.Data.ShowMandatoryUnitNumber">
+                                                    <label class="font-bodybb18 gray"><input type="checkbox" ng-model="disableUnitNumber">I do not have a unit number</label>
+
+                                                </div>
+                                                <!-- <p class="font-bodybb2">Unit Number</p> -->
+                                                <div class="col-xs-9 padding-false">
+                                                    <div class="row">
+                                                        <div class="col-sm-6 col-xs-6 padding-false">
+                                                            <div class="fieldWrapper col-sm-12 col-xs-10 col-md-12">
+                                                                <div class="field">
+                                                                    <input type="text" numbers-only id="editaddressUnitNumberFlr" ng-model="mcp.editaddressUnitNumberFlr" placeholder=" " name="editaddressUnitNumberFlr" ng-required="disableUnitNumber ? false :  mcp.retrivedAddress.Data.ShowMandatoryUnitNumber ? true : mcp.retrivedAddress.Data.ShowOptionalUnitNumber ? true: false" ng-disabled="disableUnitNumber">
+
+                                                                    <label for="editaddressUnitNumberFlr">Floor Level</label>
+                                                                </div>
+                                                                <div class="font-bodybb2 red">
+                                                                    <span ng-if="m1eshopEditAddressFormModal.editaddressUnitNumberFlr.$error.required && m1eshopEditAddressFormModal.editaddressUnitNumberFlr.$dirty">Floor Level is Required</span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-sm-6 col-xs-6">
+                                                            <div class="fieldWrapper col-sm-12 col-xs-10 col-md-12">
+                                                                <div class="field">
+                                                                    <input type="text" numbers-only id="editaddressUnitNumberflat" maxlength="" minlength="" ng-model="mcp.UnitNumberflat" placeholder=" " name="editaddressUnitNumberflat" ng-required="disableUnitNumber ? false :  mcp.retrivedAddress.Data.ShowMandatoryUnitNumber ? true : mcp.retrivedAddress.Data.ShowOptionalUnitNumber ? true: false" ng-disabled="disableUnitNumber">
+                                                                    <label for="editaddressUnitNumberflat">Unit Number</label>
+                                                                </div>
+                                                                <div class="font-bodybb2 red">
+                                                                    <span ng-if="m1eshopEditAddressFormModal.editaddressUnitNumberflat.$error.required && m1eshopEditAddressFormModal.editaddressUnitNumberflat.$dirty">Unit Number is Required</span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <button ng-click="checkCoverage()" class="btn btn-primary moose-next-btn check-coverage" type="submit" autocomplete="off">
+                                                            {{checkCoveragetext}}
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="font-bodybb2 red" ng-if="mcp.retrivedAddress.Data.IsBlocked">
+                                                <span>We do not accept PO Box Address</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- End check coverage validation  -->                       
+                             <!-- NEXT and BACK BUTTON COMPONENT STARTS-->
+                            <!--<div class="col-md-10 col-md-offset-1 col-xs-12">
+                                <div class="eshop-nav-container col-xs-12" ng-cloak ng-controller="navigationController as navctrl" ng-class="navctrl.alignbutton == 'center' ? 'col-md-4 col-md-offset-4' : 'col-md-12'">
+                                    <span role="button" navigation-style buttontype="{{navctrl.buttontype}}" alignbutton="{{navctrl.alignbutton}}" class="pull-left left btn btn-default animated-button button-animated" ng-if="navctrl.previousshow" ng-class="navctrl.previousactive ? 'eshop-nav-active' : 'eshop-nav-inactive'" ng-click="navctrl.previousactive && navctrl.gotopreviousSteps();"><span class="eshop-left-arrow"></span><span>{{navctrl.previouslabel}}</span></span>
+                                    <span role="button" navigation-style buttontype="{{navctrl.buttontype}}" alignbutton="{{navctrl.alignbutton}}" class="pull-right  right btn btn-default animated-button button-animated" ng-if="navctrl.nextshow" ng-class="navctrl.nextactive ? 'eshop-nav-active' : 'eshop-nav-inactive'" ng-click="navctrl.nextactive && navctrl.gotonextSteps();"><span>{{navctrl.nextlabel}}</span><span class="eshop-right-arrow"></span></span>
+                                </div>
+                            </div>-->
+                            <!-- NEXT and BACK BUTTON COMPONENT END-->
+                        </div>
+                        <!--End Coverage modal-->
+                    </div>
+                    <!-- check coverage end -->
+                    <!-- CHECK COVERAGE SECTION END -->
+
+                    <!-- RESULT TYPE SECTION START -->
+                    <div class="display-inline-block dashed-border" ng-if="(mcp.selectedCORIscheme == 'No' || mcp.showMessage) && mcp.caseType.name == 'GSM/MBB'">
+                        <!-- ng-if="mcp.selectedCORIscheme == 'No' || mcp.selectedCORIscheme == 'Yes' " -->
+                        <div class="moose-radioItem-container padding-lr-15 text-center">
+                            <span class="radio-btn" ng-repeat="radioItem in mooseCustomerdata.CasePrefrence.values">
+                                <input id="CasePrefrence-{{$index}}" name="CasePrefrence" ng-click="devicePlanselection()" ng-disabled="mcp.selectedCasePrefrence" ng-model="mcp.selectedCasePrefrence" type="radio" value="{{radioItem.name}}"/>
+                                <label for="CasePrefrence-{{$index}}" ng-disabled="mcp.selectedCasePrefrence">
+                                    <i class="glyphicon glyphicon-ok-sign">
+                                    </i>
+                                    {{radioItem.value}}
+                                </label>
+                            </span>
+                        </div>
+                        <div class="reset-link">
+                            <i ng-click="resetLink()">
+                                {{mooseCustomerdata.CasePrefrence.resetLabel}}
+                            </i>
+                        </div>
+                    </div>
+                    <!-- RESULT TYPE SECTION END -->
+                </div>
+                <div class="moosecase-sidebar">
+                    <dialogcori-panel cori-details="coridetails" show-message="mcp.showMessage">
+                    </dialogcori-panel>
+                    <!-- comp-name="mcp.companyName" bnr-no="mcp.companyBRN" comp-email="mcp.companyEmail" -->
+                </div>
+                <!-- DEVICE AND PLAN SECTION START -->
+                <!-- -->
+                <div ng-if="(mcp.caseType.name == 'GSM/MBB' || mcp.caseType.name == 'RRP') && (mcp.selectedCasePrefrence == 'Device First' || mcp.selectedCategory)" ng-include="" class="col-xs-12" src="'mooseDeviceFirstPage.html'">
+                </div>
+                <div ng-if="(mcp.caseType.name == 'GSM/MBB' || mcp.caseType.name == 'FBB' || mcp.caseType.name == 'Supp') && (mcp.selectedCasePrefrence == 'Plan First' || mcp.caseType.name == 'FBB')" ng-include="" class="col-xs-12" src="'moosePlanFirstPage.html'">
+                </div>
+                <button ></button>
+                <!-- phoneAccessories filter modal start here -->
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#phoneAccessories">phoneAccessories</button>
+                <div class="moose-header-panel">
+                    <div class="m1eshop-modal modal fade phone-accessories" id="phoneAccessories" tabindex="-1" role="dialog" aria-labelledby="editContactDetails" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <div class="component-heading theme-dark1">
+                                        <p class="font-heading1">Apple iPad 10.5''</p>
+                                    </div>
+                                </div>
+                                <div class="modal-body clearfix">
+                                    <div class="modal-body-conatiner col-xs-12">
+                                          <div class="col-xs-3">
+                                              <div class="filter-section">
+                                                  <div class="heading text-center">
+                                                      <p>Filter</p>
+                                                  </div>
+                                                  <div class="phone-accessories-filter-section">
+                                                      <div>
+                                                          <div class="filter-sections">
+                                                              <!-- wating fro drop down from mahesh patil -->
+                                                              <div class="m1eshop-select_box">
+                                                                  <select class="">
+                                                                      <option value="" class="select-option">Shop</option>
+                                                                      <option value="" class="select-option"></option>
+                                                                      <option value="" class="select-option"></option>
+                                                                      <option value="" class="select-option"></option>
+
+                                                                  </select>
+                                                              </div>
+                                                              <!-- wating fro drop down from mahesh patil -->
+                                                          </div>
+                                                          <div class="filter-sections">
+                                                              <label class="font-text">Color</label>
+                                                              <div class="filter-section-grid field">
+                                                           
+                                                                  <label class="colorcheckbox font-light font-text" for="{{color.id}}" ng-repeat="color in phoneaccessories.filtersections.colors">
+                                                                      <span>{{color.name}}</span>
+                                                                      {{color.modalfilter}}
+                                                                      <input class="checkbox form-control" id="{{color.id}}" ng-model="status" name="" type="checkbox" style="" ng-change="filterSection(color,status)">
+                                                                      <span class="checkmark">
+                                                                      </span>
+                                                                  </label>
+                                                                  <!--<label class="colorcheckbox font-light font-text" for="colorsection2">
+                    <span>Gold</span>
+                    <input class="checkbox form-control ng-pristine ng-valid ng-empty ng-touched" id="colorsection2" name=""  ng-model="mdp.onlyPlanReq" type="checkbox" style="">
+                    <span class="checkmark">
+                    </span>
+                </label>-->
+                                                              </div>
+                                                          </div>
+                                                          <div class="filter-sections">
+                                                              <label class="font-text">Variant</label>
+                                                              <div class="filter-section-grid field">           
+                                                                  <label class="colorcheckbox font-light font-text" for="{{variant.id}}" ng-repeat="variant in phoneaccessories.filtersections.variant">
+                                                                      <span>{{variant.name}}</span>
+                                                                      {{variant.modalfilter}}
+                                                                      <input class="checkbox form-control" id="{{variant.id}}"  ng-model="status" name="" type="checkbox" ng-change="filterSection(variant,status)">
+                                                                      <span class="checkmark">
+                                                                      </span>
+                                                                  </label>
+                                                              </div>
+                                                          </div>
+                                                          {{phoneaccessories.filtersections.InStock}}
+                                                          <div class="filter-sections">
+                                                              <div class="filter-section-grid field">
+                                                                  <label class="colorcheckbox font-light font-text" for="stock" ng-show="phoneaccessories.filtersections.InStock">
+                                                                      <span>In Stock</span>
+                                                                      <input class="checkbox form-control" id="stock" name="" ng-model="stock" type="checkbox" ng-change="filterSection(stock,'In Stock')">
+                                                                      <span class="checkmark">
+                                                                      </span>
+                                                                  </label>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                      <div class="clear-filter text-center" ng-click="clearFilter()">
+                                                          <p>Clear Filter</p>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-xs-9">
+                                              <div class="table-responsive  margin-top15 transaction-history-data" id="style-1" ng-class="{'margin-bottom-minus36': serviceLineItem.length==0}" style="max-height:380px;">
+
+                                                  <table class="table">
+                                                      <thead>
+                                                          <tr>
+
+                                                              <th ng-click="orderByField='store'; reverseSort = !reverseSort" class="Rectangle-39" style="text-align:center !important;">
+                                                                        Shop
+                                                                        <span style="float:right;" class="Rectangle-44"></span>
+                                                                        <img src="../../images/tablefilter.png" class="filter-img" alt="flter-image">
+                                                              </th>
+                                                              <th ng-click="orderByField='Color'; reverseSort = !reverseSort" class="Rectangle-39" style="text-align:center !important;">
+                                                                        Color
+                                                                        <span style="float:right;" class="Rectangle-44"></span>
+                                                                          <img src="../../images/tablefilter.png" class="filter-img" alt="flter-image">
+                                                              </th>
+                                                              <th ng-click="orderByField='Name'; reverseSort = !reverseSort" class="Rectangle-39" style="text-align:center !important;">
+                                                                        Variant
+                                                                        <span style="float:right;" class="Rectangle-44"></span>
+                                                                        <img src="../../images/tablefilter.png" class="filter-img" alt="flter-image">
+                                                              </th>
+                                                              <th ng-click="orderByField='StockCount'; reverseSort = !reverseSort" class="Rectangle-39" style="text-align:center !important;">
+                                                                        Quantity
+                                                                        <span style="float:right;" class="Rectangle-44"></span>
+                                                                       <img src="../../images/tablefilter.png" class="filter-img" alt="Smiley face">
+                                                              </th>
+                                                          </tr>
+                                                      </thead>
+                                                      <tbody class="text-center">
+                                                          <tr ng-repeat="phoneaccessorie in variantsection.Variants | orderBy:orderByField:reverseSort " ng-click="selectedRow(phoneaccessorie)" ng-class="{'active-tab' : phoneaccessorie.active}">
+                                                              <td>{{phoneaccessorie.store}}</td>
+                                                              <td>{{phoneaccessorie.Color}}</td>
+                                                              <td>{{phoneaccessorie.Name}}</td>
+                                                              <td>{{phoneaccessorie.StockCount}}</td>
+                                                          </tr>
+                                                      </tbody>
+                                                      <tbody ng-if="serviceLineItem.length==0">
+                                                          <tr>
+                                                              <td colspan="5" class="text-center-custom paddingleft30imp">@Model.NoRecordsFound.</td>
+                                                          </tr>
+                                                      </tbody>
+                                                  </table>
+                                              </div>
+
+
+                                          </div>
+                                          <div class="modal-btn-container">
+                                                <div class="tab theme-light text-theme-black">
+                                                    <a href="javascript:void(0)" ng-click="recieveOrderMode.saveEditedContactDetails()" type="submit" class="btn btn-primary col-xs-12">Submit</a>
+                                                </div>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- phoneAccessories filter modal end  here -->
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+        <script src="../../scripts/slick-1.8.0/slick/slick.min.js"></script>
+        <script src="../../scripts/jquery.lazy-master/jquery.lazy.min.js"></script>
+        <script src="../../scripts/jquery.lazy-master/jquery.lazy.plugins.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-sanitize.min.js"></script>
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+        <script src="../../scripts/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
+        <script src="https://cdn.rawgit.com/scottjehl/picturefill/3.0.2/dist/picturefill.js"></script>
+        <script src="https://code.angularjs.org/1.6.10/angular-messages.min.js"></script>
+        <script src="https://code.angularjs.org/1.7.2/angular-route.min.js"></script>
+        <script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
+        <script src="../../scripts/app.js"></script>
+        <script src="../../scripts/app.common.js"></script>
+        <script src="../../scripts/app.config.js"></script>
+        <script src="../../scripts/core/app.core.js"></script>
+        <script src="../../scripts/core/app.core.directive.js"></script>
+        <script src="../../scripts/core/app.core.filter.js"></script>
+        <script src="../../scripts/core/app.core.service.js"></script>
+        <script src="../../scripts/core/app.core.controller.js"></script>
+        <script src="../../scripts/portal/app.portal.js"></script>
+        <script src="../../scripts/portal/forms/app.portal.forms.js"></script>
+        <script src="../../scripts/portal/forms/app.portal.forms.controller.js"></script>
+        <script src="../../scripts/portal/forms/app.portal.forms.directive.js"></script>
+        <script src="../../scripts/portal/forms/app.portal.forms.service.js"></script>
+        <script src="../../scripts/portal/forms/app.portal.forms.filter.js"></script>
+        <script src="../../scripts/portal/microsites/app.portal.microsites.js"></script>
+        <script src="../../scripts/portal/microsites/app.portal.microsites.controller.js"></script>
+        <script src="../../scripts/portal/microsites/app.portal.microsites.directive.js"></script>
+        <script src="../../scripts/portal/microsites/app.portal.microsites.service.js"></script>
+        <script src="../../scripts/portal/microsites/app.portal.microsites.filter.js"></script>
+        <script src="../../scripts/portal/microsites/app.portal.microsites.goingoverseas.js"></script>
+        <script src="../../scripts/portal/microsites/app.portal.microsites.iddrates.js"></script>
+        <script src="../../scripts/portal/microsites/app.portal.microsites.smartroamrate.js"></script>
+        <script src="../../scripts/portal/microsites/app.portal.microsites.newsevent.js"></script>
+        <script src="../../scripts/portal/microsites/app.portal.microsites.annualreport.js"></script>
+        <script src="../../scripts/portal/microsites/app.portal.microsites.newsreleases.js"></script>
+        <script src="../../scripts/portal/microsites/app.portal.microsites.contactus.js"></script>
+        <script src="../../scripts/portal/microsites/app.portal.microsites.datapassport.js"></script>
+        <script src="../../scripts/portal/microsites/app.portal.microsites.financialresult.js"></script>
+        <script src="../../scripts/portal/microsites/app.portal.microsites.askmindy.js"></script>
+        <script src="../../scripts/eshop/app.eshop.js"></script>
+        <script src="../../scripts/eshop/app.eshop.core.js"></script>
+        <script src="../../scripts/eshop/app.eshop.cart.js"></script>
+        <script src="../../scripts/eshop/app.eshop.moose.js"></script>
+        <script src="../../scripts/eshop/moose/app.eshop.moose.controller.js"></script>
+        <script src="../../scripts/eshop/app.eshop.cori.js"></script>
+        <script src="../../scripts/eshop/app.eshop.datastorage.js"></script>
+        <script src="../../scripts/eshop/app.eshop.errorhandler.js"></script>
+        <script src="../../scripts/eshop/app.eshop.navigation.js"></script>
+        <script src="../../scripts/eshop/app.eshop.notification.js"></script>
+        <script src="../../scripts/eshop/app.eshop.notifyme.js"></script>
+        <script src="../../scripts/eshop/app.eshop.orderhistory.js"></script>
+        <script src="../../scripts/eshop/app.eshop.payment.js"></script>
+        <script src="../../scripts/eshop/app.eshop.recieveaddress.js"></script>
+        <script src="../../scripts/eshop/app.eshop.stickybar.js"></script>
+        <script src="../../scripts/eshop/app.eshop.supplementary.js"></script>
+        <script src="../../scripts/eshop/app.eshop.termscondition.js"></script>
+        <script src="../../scripts/eshop/app.eshop.userdetails.js"></script>
+        <script src="../../scripts/eshop/app.eshop.trade_in.js"></script>
+        <script src="../../scripts/eshop/device/app.eshop.devicelist.js"></script>
+        <script src="../../scripts/eshop/device/app.eshop.devicedetails.js"></script>
+        <script src="../../scripts/eshop/device/app.eshop.devicelist.controller.js"></script>
+        <script src="../../scripts/eshop/device/app.eshop.devicelist.directive.js"></script>
+        <script src="../../scripts/eshop/device/app.eshop.devicelist.filter.js"></script>
+        <script src="../../scripts/eshop/device/app.eshop.devicelist.service.js"></script>
+        <script src="../../scripts/eshop/device/app.eshop.comparedevice.js"></script>
+        <script src="../../scripts/eshop/number/app.eshop.number.js"></script>
+        <script src="../../scripts/eshop/plan/app.eshop.plan.js"></script>
+        <script src="../../scripts/eshop/addon/app.eshop.addon.js"></script>
+        <script src="../../scripts/eshop/gsm/app.eshop.gsm.js"></script>
+        <script src="../../scripts/eshop/mbb/app.eshop.mbb.js"></script>
+        <script src="../../scripts/eshop/fbb/app.eshop.fbb.js"></script>
+        <script src="../../scripts/eshop/fbb/app.eshop.fbb.bundle.js"></script>
+        <script src="../../scripts/eshop/fbb/app.eshop.fbb.coverage.js"></script>
+        <script src="../../scripts/eshop/fbb/app.eshop.fbb.installation.js"></script>
+        <script src="../../scripts/eshop/fbb/app.eshop.fbb.router.js"></script>
+        <script src="../../scripts/eshop/accessories/app.eshop.accessories.js"></script>
+        <script src="../../scripts/eshop/wearables/app.eshop.wearables.js"></script>
+            <!--***** addOns*****-->
+        <script src="../../scripts/eshop/addon/app.eshop.addon.js"></script>
+        <script src="../../scripts/eshop/addon/app.eshop.addon.controller.js"></script>
+        <script src="../../scripts/eshop/addon/app.eshop.addon.directive.js"></script>
+        <script src="../../scripts/eshop/addon/app.eshop.addon.service.js"></script>
+        <script src="../../scripts/eshop/addon/app.eshop.addon.filter.js"></script>
+            <!-- start cart -->
+        <script src="../../scripts/eshop/cart/app.eshop.cart.controller.js"></script>
+        <script src="../../scripts/eshop/cart/app.eshop.cart.directive.js"></script>
+        <script src="../../scripts/eshop/cart/app.eshop.cart.filter.js"></script>
+        <script src="../../scripts/eshop/cart/app.eshop.cart.service.js"></script>
+            <!-- end cart -->
+            <!--moose Case start here-->
+        <script src="../../scripts/eshop/app.eshop.moose.js"></script>
+        <script src="../../scripts/eshop/moose/app.eshop.moose.controller.js"></script>
+        <script src="../../scripts/eshop/moose/app.eshop.moose.directive.js"></script>
+        <script src="../../scripts/eshop/moose/app.eshop.moose.filter.js"></script>
+            <!--moose Case end here-->
+        <script src="../../scripts/eshop/roi/app.eshop.roi.js"></script>
+    </body>
+</html>
