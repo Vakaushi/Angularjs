@@ -400,7 +400,7 @@
         };
         //cori details start
         $scope.coridetails = {
-            "coriErrorMessage": "", //The company name entered doesn’t have a CORI scheme.",
+            "coriErrorMessage": "", //The company name entered doesn?t have a CORI scheme.",
             "Heading": "Select CORI Company Deatils",
             "recordheading": [{
                 "coriheadingfirst": "Company Name",
@@ -1460,42 +1460,54 @@
         /* filter section end here */
             $scope.clearFilter = function () {
                 alert("clear filter ");
-                //for (var i = 0; i <= $scope.phoneaccessories.filtersections.colors.length; i++) {
-                //    $scope.phoneaccessories.filtersections.colors.selected = false;
-                //}
-                //for (var i = 0; i <= $scope.phoneaccessories.filtersections.variant.length; i++) {
-                //    $scope.phoneaccessories.filtersections.variant.selected = false;
-                //}
             }
         /*Variant selection end  here */
         /*filter section start here */
+            // var filterArray = [
+				  // { "Color": ['Silver'] }
+            // ];
+            /**/
             var filterArray = [
+                          { "Size": ['64GB'] }
             ];
             /**/
-            //var filterArray = [
-            //              { "Color": ['Silver'] },
-            //              { "Size": ['64GB'] }
-            //];
-            /**/
             $scope.filterSection = function (selectionobject, status) {
-                if (status) {
-                    if (!filterArray.hasOwnProperty(selectionobject.selectedBy)) {
-                        console.log("not present");
-                        var array = [];
-                        array.push(selectionobject.name);
-                        filterArray[selectionobject.selectedBy].push(array);
-                       // filterArray.value = selectionobject.name;
-                        filterArrayOnLoop(filterArray, data);
-                    }
-                } else {
-                    console.log(status);
-                    filterArray.key = selectionobject.selectedBy;
-                    filterArray.value = selectionobject.name;
-                    filterArrayOnLoop(filterArray, data);
-                }
-            };
+                if (status && filterArray.length!=0) {
+					var keypresent=false;
+					for(var i=0;i<filterArray.length;i++){
+						if(filterArray[i].hasOwnProperty(selectionobject.selectedBy)){
+							//insert array value existing available array
+							//sample start here
+							
+								filterArray[i].Color.push('Red')
+							//sample end here
+							//have to ask parteek
+							//filterArray[i][selectionobject.selectedBy].push(selectionobject.name)
+							//console.log(filterArray);
+							filterArrayOnLoop(filterArray,$scope.variantsection.Variants)
+							keypresent=true;
+						}
+					}
+					if(!keypresent){
+						//ask to prateek
+						filterArray.selectionobject.selectedBy=[selectionobject.name];						
+						filterArrayOnLoop(filterArray,$scope.variantsection.Variants)						
+					}
+				}
+				else{
+					for(var i=0;i<filterArray.length;i++){
+							//sample start here
+							filterArray[i].Color.pop('Red');
+							//sample end here
+							//have to ask parteek
+							filterArray[i].selectionobject.selectedBy.pop(selectionobject.name);						
+							filterArrayOnLoop(filterArray,$scope.variantsection.Variants)							
+					}
+				}
+				// else if(filterArray.length==0 || ){
+				// }            
+			};
         //filterarrayonloop();		   		
-            var data = $scope.variantsection.Variants;
             var resultArray = [];
             function filterArrayOnLoop(filterArray, data) {
                 data.forEach(function (record) {
@@ -4131,10 +4143,3 @@
 	}]);
 
 })();
-
-///
-// m1cp.moose - main module
-// m1cp.moose.sidebar - child module
-// moose.header - child module
-// moose.case - child module
-// moose.device - child module
