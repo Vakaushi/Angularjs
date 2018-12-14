@@ -1,7 +1,7 @@
-(function() {
+(function () {
     'use strict';
     //moose case controller start here 
-    angular.module("m1cp.eshop.moose").controller("mooseCaseController", ["$scope", "$window", "errorHandler", "httpHandler", "$modal", function($scope, $window, errorHandler, httpHandler, $modal) {
+    angular.module("m1cp.eshop.moose").controller("mooseCaseController", ["$scope", "$window", "errorHandler", "httpHandler", "$modal", function ($scope, $window, errorHandler, httpHandler, $modal) {
         //accesories start here
         //moss cart section start here
 
@@ -59,7 +59,7 @@
         /*not usable code*/
     }]);
     //moose case controller end  here 
-    angular.module("m1cp.eshop.moose").controller("mooseheaderController", ["$scope", "$window", "errorHandler", "httpHandler", function($scope, $window, errorHandler) {
+    angular.module("m1cp.eshop.moose").controller("mooseheaderController", ["$scope", "$window", "errorHandler", "httpHandler", function ($scope, $window, errorHandler) {
         //json start here
         var newOrder = {
             "Status": "AdditionalInfo",
@@ -95,11 +95,11 @@
         };
         //end json start here
         //confirmation json start
-        $scope.newOrder = function() {
+        $scope.newOrder = function () {
             errorHandler.seterrorJSON(newOrder);
             errorHandler.notifyErrorService();
         }
-        $scope.restartOrder = function() {
+        $scope.restartOrder = function () {
             errorHandler.seterrorJSON(restartOrder);
             errorHandler.notifyErrorService();
         }
@@ -121,12 +121,12 @@
                     form.EditAddressZipcopde.serverError = true;
                     //form.$valid = false;
                 }
-            }, function error(response) {})
+            }, function error(response) { })
         };
         //end cart reqest updatation
     }]);
-    angular.module("m1cp.eshop.moose").controller("moosecoriController", ["$scope", "$window", "errorHandler", "httpHandler", function($scope, $window, errorHandler, httpHandler) {
-        $scope.open = function() {
+    angular.module("m1cp.eshop.moose").controller("moosecoriController", ["$scope", "$window", "errorHandler", "httpHandler", function ($scope, $window, errorHandler, httpHandler) {
+        $scope.open = function () {
             alert("click");
         };
         //cori details start
@@ -157,7 +157,7 @@
     }]);
     //end mooseheader controller start here
     //moose case page controller start  here 
-    angular.module("m1cp.eshop.moose").controller("mooseCasePageController", ["$scope", "$window", "httpHandler", "mooseDeviceService", "moosePlanService", "mooseMainLineService", "navigationHandler", "eshopSelection", function($scope, $window, httpHandler, mooseDeviceService, moosePlanService, mooseMainLineService, navigationHandler, eshopSelection) {
+    angular.module("m1cp.eshop.moose").controller("mooseCasePageController", ["$scope", "$window", "httpHandler", "mooseDeviceService", "moosePlanService", "mooseMainLineService", "navigationHandler", "eshopSelection", function ($scope, $window, httpHandler, mooseDeviceService, moosePlanService, mooseMainLineService, navigationHandler, eshopSelection) {
         var mcp = this;
         $scope.mooseCasedata = {
             "heading": "CASE",
@@ -273,10 +273,10 @@
                 "resetLabel": "Reset"
             },
         }
-        $scope.resetcustomerIDNumber = function() {
+        $scope.resetcustomerIDNumber = function () {
             delete mcp.customerIDNumber;
         }
-        $scope.submitcustomerIDForm = function() {
+        $scope.submitcustomerIDForm = function () {
             if (mcp.customerIDNumber == true) {
                 mcp.customerIDNumber = $('#nricNo').val();
             }
@@ -302,45 +302,45 @@
                 console.log("Invalid Customer ID Number");
             }
         }
-        $scope.resetLink = function() {
+        $scope.resetLink = function () {
             delete mcp.selectedCasePrefrence;
             delete mcp.selectedCategory;
         }
-		//MAIN LINE START
-		$scope.changeOption = function() {
-			$scope.submitted = false;
-		};  
-		$scope.getMainLineForm = function () {
-			mooseMainLineService.getMainLineList().then(function(response){
-				$scope.mainLineData = response;
-			});
+        //MAIN LINE START
+        $scope.changeOption = function () {
+            $scope.submitted = false;
+        };
+        $scope.getMainLineForm = function () {
+            mooseMainLineService.getMainLineList().then(function (response) {
+                $scope.mainLineData = response;
+            });
         }
-		$scope.getMainLineForm();
-			$scope.submitMainLineForm = function () {
-				$scope.ErrorMsg = $scope.mainLineData.ErrorMsg;
-				$scope.success = $scope.mainLineData.success;
-				console.log($scope.submitted);
-				if (angular.element(".mailLineForm button i").hasClass('glyphicon glyphicon-arrow-right') && $scope.mainLineSelection != undefined) {
-					var URL = "mooseMainLine.json";
-					var promise = httpHandler.fetchdata("GET", URL, $scope.mainLineSelection, "json");
-					promise.then(
-						function success(response) {
-							$scope.validateSuccess = response.success;
-							if ($scope.validateSuccess == true) {
-								
-							}
-							else {
-								$scope.mainLineServerError = true;
-							}
-						},function error(response) {
-						}
-					);
-				}
-				else {
-					$scope.validateSuccess = false;
-				}
-			}
-		//MAIN LINE END
+        $scope.getMainLineForm();
+        $scope.submitMainLineForm = function () {
+            $scope.ErrorMsg = $scope.mainLineData.ErrorMsg;
+            $scope.success = $scope.mainLineData.success;
+            console.log($scope.submitted);
+            if (angular.element(".mailLineForm button i").hasClass('glyphicon glyphicon-arrow-right') && $scope.mainLineSelection != undefined) {
+                var URL = "mooseMainLine.json";
+                var promise = httpHandler.fetchdata("GET", URL, $scope.mainLineSelection, "json");
+                promise.then(
+                    function success(response) {
+                        $scope.validateSuccess = response.success;
+                        if ($scope.validateSuccess == true) {
+
+                        }
+                        else {
+                            $scope.mainLineServerError = true;
+                        }
+                    }, function error(response) {
+                    }
+                );
+            }
+            else {
+                $scope.validateSuccess = false;
+            }
+        }
+        //MAIN LINE END
         // $scope.coriSearch = function(){
         //     if(mcp.companyName && !mcp.companyEmail && !mcp.companyBRN || !mcp.companyName && mcp.companyEmail && !mcp.companyBRN || !mcp.companyName && !mcp.companyEmail && mcp.companyBRN){
         //         mcp.coriError = false;
@@ -351,7 +351,7 @@
         //         //console.log(mcp.showMessage)
         //     }
         // }
-        $scope.coriSearch = function() {
+        $scope.coriSearch = function () {
             if (mcp.companyName && !mcp.companyEmail && !mcp.companyBRN || !mcp.companyName && mcp.companyEmail && !mcp.companyBRN || !mcp.companyName && !mcp.companyEmail && mcp.companyBRN) {
                 mcp.coriError = false;
                 $scope.requestObject = {
@@ -424,7 +424,7 @@
             }]
         };
         //cori details end
-        $scope.devicePlanselection = function() {
+        $scope.devicePlanselection = function () {
             //$scope.showDeviceList = 
             console.log(mooseDeviceService.getDeviceList());
         }
@@ -1117,7 +1117,7 @@
         $scope.postalCodedisable = false;
         $scope.chechCoverageValidate = false;
         $scope.checkCoveragetext = "CHECK COVERAGE";
-        $scope.disableEdit = function() {
+        $scope.disableEdit = function () {
             //  alert("click");
         };
         //btn check coverage btn api start here 
@@ -1142,7 +1142,7 @@
         //send check coverage end here
         $scope.checkCoverage = function () {
             /*validate btn error msg start here*/
-            
+
             if (!mcp.EditAddressZipcopde) {
                 $scope.chechCoverageValidate = true;
             }
@@ -1166,14 +1166,14 @@
                 $scope.checkCoveragetext = "CHECK COVERAGE";
             }
         };
-            //btn check coverage  key up btn api start  here 
-            $scope.postalfieldchanges = function () {
-                if (mcp.EditAddressZipcopde) {
-                    $scope.chechCoverageValidate = false;
-                }
-            };
-            //btn check coverage key up btn api end  here 
-            $scope.retriveAddressfmZipCode = function (form, event) {
+        //btn check coverage  key up btn api start  here 
+        $scope.postalfieldchanges = function () {
+            if (mcp.EditAddressZipcopde) {
+                $scope.chechCoverageValidate = false;
+            }
+        };
+        //btn check coverage key up btn api end  here 
+        $scope.retriveAddressfmZipCode = function (form, event) {
             console.log(form.EditAddressZipcopde.serverError);
             if (mcp.EditAddressZipcopde) {
                 if ($scope.postalCodedisable) {
@@ -1284,17 +1284,34 @@
         /*phone accessories filter start here*/
         $scope.phoneaccessories = {
             "filtersections": {
+                "shops": [
+                         { id: 1, name: "Bugis Koisk", selectedBy: "store"  },
+                         { id: 2, name: "M1 eshope", selectedBy: "store"  },
+                         { id: 3, name: "IMM Koisk", selectedBy: "store" },
+                         { id: 4, name: "T3 Koisk", selectedBy: "store"},
+                         { id: 5, name: "Suntec Koisk", selectedBy: "store"},
+                         { id: 6, name: "Westmall Koisk", selectedBy: "store"},
+                         { id: 7, name: "Tampines Koisk", selectedBy: "store" },
+                         { id: 8, name: "Parkway Koisk", selectedBy: "store" },
+                         { id: 9, name: "IIM Koisk", selectedBy: "store" },
+                         { id: 10, name: "M1 eshope Virtual ", selectedBy: "store" },
+                         { id: 11, name: "Compasspoint Koisk", selectedBy: "store" },
+                         { id: 12, name: "Paragon Koisk", selectedBy: "store" },
+                         { id: 13, name: "Wetest", selectedBy: "store" },
+                         { id: 14, name: "Setest", selectedBy: "store"},
+
+                ],
                 "colors": [
-                     { id: 1, name: "Space Gre", selectedBy: "Color",modalfilter:true},
-                     { id: 2, name: "Silver", selectedBy: "Color", modalfilter: true },
-                     { id: 3, name: "Gold", selectedBy: "Color", modalfilter: true }
+                     { id: 1, name: "Space Gre", selectedBy: "Color" },
+                     { id: 2, name: "Silver", selectedBy: "Color"  },
+                     { id: 3, name: "Gold", selectedBy: "Color"  }
                 ],
                 "variant": [
-                     { id: 1, name: "64GB", selectedBy: "Size", modalfilter: true },
-                     { id: 1, name: "256GB", selectedBy: "Size", modalfilter: true },
-                     { id: 1, name: "256GB", selectedBy: "Size", modalfilter: true },
+                     { id: 1, name: "64GB", selectedBy: "Size" },
+                     { id: 1, name: "256GB", selectedBy: "Size"  },
+                     { id: 1, name: "512GB", selectedBy: "Size"  },
                 ],
-                "InStock": "false"
+                "InStock": [{ id: 1, name: "InStock", selectedBy: "InStock" }]
             },
             "Productdata": [
                {
@@ -1306,7 +1323,7 @@
                           "VarinatId": "2-13-1836812",
                           "Color": "Space Grey",
                           "Size": "64GB",
-                          "InStock": false,
+                          "InStock": "InStock",
                           "StockCount": 10
                       },
                       {
@@ -1314,7 +1331,7 @@
                           "VarinatId": "2-13-1836923",
                           "Color": "Silver",
                           "Size": "64GB",
-                          "InStock": false,
+                          "InStock": "InStock",
                           "StockCount": 20
                       },
                       {
@@ -1322,7 +1339,7 @@
                           "VarinatId": "2-13-1837045",
                           "Color": "Gold",
                           "Size": "64GB",
-                          "InStock": false,
+                          "InStock": "InStock",
                           "StockCount": 10
                       },
                       {
@@ -1330,7 +1347,7 @@
                           "VarinatId": "2-13-1837167",
                           "Color": "Space Grey",
                           "Size": "256GB",
-                          "InStock": false,
+                          "InStock": "InStock",
                           "StockCount": 30
                       },
                       {
@@ -1338,7 +1355,7 @@
                           "VarinatId": "2-13-1837289",
                           "Color": "Silver",
                           "Size": "256GB",
-                          "InStock": false,
+                          "InStock": "InStock",
                           "StockCount": 40
                       },
                       {
@@ -1346,7 +1363,7 @@
                           "VarinatId": "2-13-183731011",
                           "Color": "Gold",
                           "Size": "256GB",
-                          "InStock": false,
+                          "InStock": "InStock",
                           "StockCount": 70
                       }
                    ]
@@ -1360,7 +1377,7 @@
                           "VarinatId": "2-13-183681112",
                           "Color": "Space Grey",
                           "Size": "64GB",
-                          "InStock": false,
+                          "InStock": "InStock",
                           "StockCount": 90
                       },
                       {
@@ -1368,7 +1385,7 @@
                           "VarinatId": "2-13-183691415",
                           "Color": "Silver",
                           "Size": "64GB",
-                          "InStock": false,
+                          "InStock": "InStock",
                           "StockCount": 70
                       },
                       {
@@ -1376,7 +1393,7 @@
                           "VarinatId": "2-13-183701617",
                           "Color": "Gold",
                           "Size": "64GB",
-                          "InStock": false,
+                          "InStock": "InStock",
                           "StockCount": 10
                       },
                       {
@@ -1384,7 +1401,7 @@
                           "VarinatId": "2-13-183711819",
                           "Color": "Space Grey",
                           "Size": "256GB",
-                          "InStock": false,
+                          "InStock": "InStock",
                           "StockCount": 10
                       },
                       {
@@ -1392,7 +1409,7 @@
                           "VarinatId": "2-13-183722021",
                           "Color": "Silver",
                           "Size": "256GB",
-                          "InStock": false,
+                          "InStock": "InStock",
                           "StockCount": 1
                       },
                       {
@@ -1400,141 +1417,137 @@
                           "VarinatId": "2-13-183732223",
                           "Color": "Gold",
                           "Size": "256GB",
-                          "InStock": true,
+                          "InStock": "InStock",
                           "StockCount": 2
                       }
                    ]
                }
             ]
         };
-            /*Variant selection start here */
-                        variantSelection();
-                        function variantSelection() {
-                                var variantdata = [];
-                                $scope.variantsection = {
-                                    "Variants": [
-                                    ]
-                                };
-                                for (var i = 0; i < $scope.phoneaccessories.Productdata.length; i++) {
-                                    variantdata = $scope.phoneaccessories.Productdata[i].Variants;
-                                    for (var j = 0; j < variantdata.length; j++) {
-                                        variantdata[j].store = $scope.phoneaccessories.Productdata[i].ShopName;
-                                        variantdata[j].ShopId = $scope.phoneaccessories.Productdata[i].ShopId;
-                                        $scope.variantsection.Variants.push(variantdata[j]);
-                                    }
-                                }
-                                console.log($scope.variantsection.Variants);
+        /*Variant selection start here */
+        variantSelection();
+        function variantSelection() {
+            var variantdata = [];
+            $scope.variantsection = {
+                "Variants": [
+                ]
+            };
+            for (var i = 0; i < $scope.phoneaccessories.Productdata.length; i++) {
+                variantdata = $scope.phoneaccessories.Productdata[i].Variants;
+                for (var j = 0; j < variantdata.length; j++) {
+                    variantdata[j].store = $scope.phoneaccessories.Productdata[i].ShopName;
+                    variantdata[j].ShopId = $scope.phoneaccessories.Productdata[i].ShopId;
+                    $scope.variantsection.Variants.push(variantdata[j]);
+                }
+            }
+            console.log($scope.variantsection.Variants);
+        }
+        /*add active flag start here*/
+            for (var i = 0; i < $scope.variantsection.Variants.length; i++) {
+                $scope.variantsection.Variants[i].active = false;
+            }
+        /*add active flag end  here*/
+        /*plan selection flag start here*/
+            $scope.selectedPlan;
+            $scope.index;
+            $scope.selectedRow = function (phoneaccessorie) {
+                for (var i = 0; i < $scope.variantsection.Variants.length; i++) {
+                    console.log($scope.variantsection.Variants[i].VarinatId == phoneaccessorie.VarinatId);
+                    $scope.variantsection.Variants[i].active = false;
+                    if ($scope.variantsection.Variants[i].VarinatId == phoneaccessorie.VarinatId) {
+                        $scope.variantsection.Variants[i].active = true;
+                        if ($scope.index) {
+                            $scope.variantsection.Variants[$scope.index].active = false;
                         }
-                        /*add active flag start here*/
-                            console.log($scope.variantsection.Variants.length);
-                            for (var i = 0; i < $scope.variantsection.Variants.length; i++) {
-                                $scope.variantsection.Variants[i].active = false;
-                            }
-                        /*add active flag end  here*/
-                        /*plan selection flag start here*/  
-                            $scope.selectedPlan;
-                            $scope.index;
-                            $scope.selectedRow = function (phoneaccessorie) {
-                                for (var i = 0; i < $scope.variantsection.Variants.length;i++){
-                                    console.log($scope.variantsection.Variants[i].VarinatId == phoneaccessorie.VarinatId);
-                                    $scope.variantsection.Variants[i].active = false;
-                                    if ($scope.variantsection.Variants[i].VarinatId == phoneaccessorie.VarinatId) {
-                                        $scope.variantsection.Variants[i].active = true;
-                                        if ($scope.index) {
-                                            $scope.variantsection.Variants[$scope.index].active = false;
-                                        }
-                                        $scope.selectedPlan = phoneaccessorie;
+                        $scope.selectedPlan = phoneaccessorie;
 
-                                    }
-                                }
-                                console.log(phoneaccessorie);
-                                //$scope.selectedPlan = phoneaccessorie;
-                            };
-                        /*plan selection flag end here*/
-                    /* filter section start here */
-                                //$scope.filterSection = function (name,status) {
-                                //    console.log(name);
-                                //    console.log(status);
+                    }
+                }
+                console.log(phoneaccessorie);
+                //$scope.selectedPlan = phoneaccessorie;
+            };
+        /*plan selection flag end here*/
+        /* filter section start here */
+        //$scope.filterSection = function (name,status) {
+        //    console.log(name);
+        //    console.log(status);
         //};
 
         /* filter section end here */
-            $scope.clearFilter = function () {
-                alert("clear filter ");
-            }
         /*Variant selection end  here */
         /*filter section start here */
-            // var filterArray = [
-				  // { "Color": ['Silver'] }
-            // ];
-            /**/
-            var filterArray = [
-                          { "Size": ['64GB'] }
-            ];
-            /**/
-            $scope.filterSection = function (selectionobject, status) {
-                if (status && filterArray.length!=0) {
-					var keypresent=false;
-					for(var i=0;i<filterArray.length;i++){
-						if(filterArray[i].hasOwnProperty(selectionobject.selectedBy)){
-							//insert array value existing available array
-							//sample start here
-							
-								filterArray[i].Color.push('Red')
-							//sample end here
-							//have to ask parteek
-							//filterArray[i][selectionobject.selectedBy].push(selectionobject.name)
-							//console.log(filterArray);
-							filterArrayOnLoop(filterArray,$scope.variantsection.Variants)
-							keypresent=true;
-						}
-					}
-					if(!keypresent){
-						//ask to prateek
-						filterArray.selectionobject.selectedBy=[selectionobject.name];						
-						filterArrayOnLoop(filterArray,$scope.variantsection.Variants)						
-					}
-				}
-				else{
-					for(var i=0;i<filterArray.length;i++){
-							//sample start here
-							filterArray[i].Color.pop('Red');
-							//sample end here
-							//have to ask parteek
-							filterArray[i].selectionobject.selectedBy.pop(selectionobject.name);						
-							filterArrayOnLoop(filterArray,$scope.variantsection.Variants)							
-					}
-				}
-				// else if(filterArray.length==0 || ){
-				// }            
-			};
-        //filterarrayonloop();		   		
-            var resultArray = [];
-            function filterArrayOnLoop(filterArray, data) {
-                data.forEach(function (record) {
-                    let isEligible = true;
-                    filterArray.forEach(
-                    (filter) => {
-                        var selectedkey = Object.keys(filter)[0];
-                        let isMatched = false;
-                        if (filter[selectedkey] != null && filter[selectedkey].length > 0) {
-                            //to check the recored present i parent object start here
-                            isMatched = filter[selectedkey].some((value) => {
-                                return value === record[selectedkey];
-                            });
-                            //to check the recored present i parent object end here
-                        } else {
-                            isMatched = true;
+                var filterArray = {};
+                /*check box filter section start here*/
+                $scope.filterSection = function (selectionobject, status) {
+                        $scope.checkall = undefined;
+                        $scope.shopcheck = undefined;
+                        if (status) {
+                            var keypresent = false;
+                            if (filterArray.hasOwnProperty(selectionobject.selectedBy)) {
+                                filterArray[selectionobject.selectedBy].push(selectionobject.name);
+                                keypresent = true;
+                            }
+                            if (!keypresent) {
+                                filterArray[selectionobject.selectedBy] = [];
+                                filterArray[selectionobject.selectedBy].push(selectionobject.name);
+                            }
+                            //filterArrayOnLoop(filterArray, $scope.variantsection.Variants);
                         }
-                        if (!isMatched)
-                            isEligible = false;
+                        else {
+                            var index = filterArray[selectionobject.selectedBy].indexOf(selectionobject.name);
+                            filterArray[selectionobject.selectedBy].splice(index, 1);
+                            //filterArrayOnLoop(filterArray, $scope.variantsection.Variants);
+                        }
+                        console.log(filterArray);
+                };
+                /*check box filter section end here*/
+                        var resultArray = [];
+                    /*filter function start here*/
+                        var data=$scope.variantsection.Variants
+                        function filterArrayOnLoop(filterArray, data) {
+                            data.forEach(function (record) {
+                                let isEligible = true;
+                                filterArray.forEach(
+                                (filter) => {
+                                    var selectedkey = Object.keys(filter)[0];
+                                    let isMatched = false;
+                                    if (filter[selectedkey] != null && filter[selectedkey].length > 0) {
+                                        //to check the recored present i parent object start here
+                                        isMatched = filter[selectedkey].some((value) => {
+                                            return value === record[selectedkey];
+                                        });
+                                        //to check the recored present i parent object end here
+                                    } else {
+                                        isMatched = true;
+                                    }
+                                    if (!isMatched)
+                                        isEligible = false;
+                                });
+                                if (isEligible) {
+                                    resultArray.push(record);
+                                }
                     });
-                    if (isEligible) {
-                        resultArray.push(record);
-                    }
-                });
-                console.log(resultArray);
-            }
+                    console.log(resultArray);
+                }
+                /*filter function end here*/
         /*filter section end  here */
+        /* shop drop down start here*/
+            $scope.shopSelection = function () {
+                mcp.activeShop = !mcp.activeShop;
+            };
+            $scope.clearShop = function () {
+                filterArray = {};
+                console.log(filterArray);
+                $scope.shopcheck = false;
+            };
+            $scope.clearFilter = function () {
+                filterArray = {};
+                console.log(filterArray);
+                $scope.checkall = false;
+                $scope.shopcheck = false;
+            }
+        /* shop drop down end here*/
+
         /*phone accessories end here*/
     }]);
     //moose case page controller end  here 
@@ -1543,7 +1556,7 @@
         mdp.deviceDetails;
         mdp.planDetails;
         mdp.selectedPlan = "";
-        $scope.getDeviceData = function(selectedPlan, caseType, resultType) {
+        $scope.getDeviceData = function (selectedPlan, caseType, resultType) {
             //mdp.deviceDetails = reqObj;
             console.log(selectedPlan);
             console.log(caseType.name);
@@ -1553,32 +1566,32 @@
                 $scope.mooseDevicedata = mooseDeviceService.getDeviceList();
             }
             if (caseType.name == "FBB") {
-            $scope.mooseBundledata = {"a":"b"};
+                $scope.mooseBundledata = { "a": "b" };
             }
             // if(mdp.selectedPlan){
             // $scope.mooseDevicedata = mooseDeviceService.getDeviceList();
             // }
         }
-        $scope.getRouterData = function() {
-            $scope.mooseRouterdata = {"a":"b"};
+        $scope.getRouterData = function () {
+            $scope.mooseRouterdata = { "a": "b" };
         }
-        $scope.getPlanData = function(reqObj) {
+        $scope.getPlanData = function (reqObj) {
             console.log(reqObj)
             //mdp.planDetails = reqObj;
             $scope.moosePlandata = moosePlanService.getPlanList();
         }
-        $scope.showPlanDetails = function(item) {
+        $scope.showPlanDetails = function (item) {
         }
-        $scope.EditPlanData = function(item) {
+        $scope.EditPlanData = function (item) {
             delete $scope.mooseDevicedata;
         }
-        $scope.onlyPlanReq = function() {
+        $scope.onlyPlanReq = function () {
             if (mdp.onlyPlanReq) {
                 delete $scope.mooseDevicedata;
             }
         }
     }]);
-    angular.module("m1cp.eshop.moose").service("mooseDeviceService", ["$rootScope", "httpHandler", function($rootScope, httpHandler) {
+    angular.module("m1cp.eshop.moose").service("mooseDeviceService", ["$rootScope", "httpHandler", function ($rootScope, httpHandler) {
         var data = {
             "heading": "DEVICE AND PLAN",
             "devices": {
@@ -1706,23 +1719,23 @@
             }
         }
         var data_2 = {
-              "Id": "P201-231231-231",
-              "Title": "Apple iPhoneX.", 
-              "Description": "Key USP.",
-              "FreeGift": "FreeGift Section",
-              "Specification": {
+            "Id": "P201-231231-231",
+            "Title": "Apple iPhoneX.",
+            "Description": "Key USP.",
+            "FreeGift": "FreeGift Section",
+            "Specification": {
                 "Values": {
-                  "Camera": "Front:5MP, Rear:12MP",
-                  "Image": "{77565679-3B2D-4611-8E86-ECC2F8388F67}",
-                  "Memory": "",
-                  "Network": "LTE",
-                  "Operating System": "{EBC7BB0C-8A39-47EA-895B-149B385218C2}",
-                  "Processor": "MSM8953/2.0GHz",
-                  "Screen Size": "5.2\""
+                    "Camera": "Front:5MP, Rear:12MP",
+                    "Image": "{77565679-3B2D-4611-8E86-ECC2F8388F67}",
+                    "Memory": "",
+                    "Network": "LTE",
+                    "Operating System": "{EBC7BB0C-8A39-47EA-895B-149B385218C2}",
+                    "Processor": "MSM8953/2.0GHz",
+                    "Screen Size": "5.2\""
                 }
-              },
-              "Variants": [
-                {
+            },
+            "Variants": [
+              {
                   "VariantId": "2-3012-123012",
                   "Color": "Silver",
                   "Size": "64GB",
@@ -1732,11 +1745,11 @@
                     "../../images/Phone6-2x-desktop.png"
                   ],
                   "Price": {
-                    "ListPrice": "$1212",
-                    "Price": "$122"
+                      "ListPrice": "$1212",
+                      "Price": "$122"
                   },
-                  outOfStock:false
-                },  {
+                  outOfStock: false
+              }, {
                   "VariantId": "2-3012-123012",
                   "Color": "Silver",
                   "Size": "246 GB",
@@ -1746,12 +1759,12 @@
                     "../../images/Phone6-2x-desktop.png"
                   ],
                   "Price": {
-                    "ListPrice": "$1212",
-                    "Price": "$122"
+                      "ListPrice": "$1212",
+                      "Price": "$122"
                   },
-                  outOfStock:true
-                },
-                {
+                  outOfStock: true
+              },
+              {
                   "VariantId": "2-3012-123012",
                   "Color": "Red",
                   "Size": "252GB",
@@ -1761,27 +1774,27 @@
                     "../../images/Phone6-2x-desktop.png"
                   ],
                   "Price": {
-                    "ListPrice": "$1212",
-                    "Price": "$122"
+                      "ListPrice": "$1212",
+                      "Price": "$122"
                   },
-                  outOfStock:true
-                },
-                  {
-                  "VariantId": "2-3012-123012",
-                  "Color": "Silver",
-                  "Size": "640 GB",
-                  "Images": [
-                    "../../images/Phone6-2x-desktop.png",
-                   "../../images/Phone4-2x-desktop.png",
-                    "../../images/Phone6-2x-desktop.png"
-                  ],
-                  "Price": {
-                    "ListPrice": "$1212",
-                    "Price": "$122"
-                  },
-                  outOfStock:false
-                },
+                  outOfStock: true
+              },
                 {
+                    "VariantId": "2-3012-123012",
+                    "Color": "Silver",
+                    "Size": "640 GB",
+                    "Images": [
+                      "../../images/Phone6-2x-desktop.png",
+                     "../../images/Phone4-2x-desktop.png",
+                      "../../images/Phone6-2x-desktop.png"
+                    ],
+                    "Price": {
+                        "ListPrice": "$1212",
+                        "Price": "$122"
+                    },
+                    outOfStock: false
+                },
+              {
                   "VariantId": "2-3012-123012",
                   "Color": "Red",
                   "Size": "640GB",
@@ -1791,12 +1804,12 @@
                     "../../images/Phone6-2x-desktop.png"
                   ],
                   "Price": {
-                    "ListPrice": "$1212",
-                    "Price": "$122"
+                      "ListPrice": "$1212",
+                      "Price": "$122"
                   },
-                  outOfStock:false
-                },
-                {
+                  outOfStock: false
+              },
+              {
                   "VariantId": "2-3012-123013",
                   "Color": "Black",
                   "Size": "64GB",
@@ -1805,56 +1818,56 @@
                    "../../images/Phone6-2x-desktop.png",
                   ],
                   "Price": {
-                    "ListPrice": "$1212",
-                    "Price": "$122"
+                      "ListPrice": "$1212",
+                      "Price": "$122"
                   },
-                  outOfStock:false
-                },
-                {
+                  outOfStock: false
+              },
+              {
                   "VariantId": "2-3012-123014",
                   "Color": "Black",
                   "Size": "128GB",
-                   "Images": [
-                    "../../images/Phone6-2x-desktop.png",
-                   "../../images/Phone4-2x-desktop.png"
+                  "Images": [
+                   "../../images/Phone6-2x-desktop.png",
+                  "../../images/Phone4-2x-desktop.png"
                   ],
                   "Price": {
-                    "ListPrice": "$1212",
-                    "Price": "$122"
+                      "ListPrice": "$1212",
+                      "Price": "$122"
                   },
-                  outOfStock:true
-                },
-                 {
-                  "VariantId": "2-3012-123015",
-                  "Color": "Blue",
-                  "Size": "128GB",
+                  outOfStock: true
+              },
+               {
+                   "VariantId": "2-3012-123015",
+                   "Color": "Blue",
+                   "Size": "128GB",
                    "Images": [
                     "../../images/Phone6-2x-desktop.png",
                     "../../images/Phone6-2x-desktop.png",
                    "../../images/Phone4-2x-desktop.png",
                     "../../images/Phone6-2x-desktop.png"
-                  ],
-                  "Price": {
-                    "ListPrice": "$1212",
-                    "Price": "$122"
-                  },
-                  outOfStock:false
-                },
-                {
+                   ],
+                   "Price": {
+                       "ListPrice": "$1212",
+                       "Price": "$122"
+                   },
+                   outOfStock: false
+               },
+              {
                   "VariantId": "2-3012-123016",
                   "Color": "Gold",
                   "Size": "128GB",
-                   "Images": [
-                    "../../images/Phone6-2x-desktop.png",
-                    "../../images/Phone6-2x-desktop.png"
+                  "Images": [
+                   "../../images/Phone6-2x-desktop.png",
+                   "../../images/Phone6-2x-desktop.png"
                   ],
                   "Price": {
-                    "ListPrice": "$1212",
-                    "Price": "$122"
+                      "ListPrice": "$1212",
+                      "Price": "$122"
                   },
-                  outOfStock:true
-                },
-                {
+                  outOfStock: true
+              },
+              {
                   "VariantId": "2-3012-123017",
                   "Color": "Gold",
                   "Size": "108GB",
@@ -1863,28 +1876,28 @@
                     "../../images/Phone6-2x-desktop.png"
                   ],
                   "Price": {
-                    "ListPrice": "$1212",
-                    "Price": "$122"
+                      "ListPrice": "$1212",
+                      "Price": "$122"
                   },
-                  outOfStock:false
-                }
-              ],
-              "BrochureDownloadLink": "/-/media/documents/m1cp/product/applex.pdf",
-              "PromotionBanners": [
-                {
+                  outOfStock: false
+              }
+            ],
+            "BrochureDownloadLink": "/-/media/documents/m1cp/product/applex.pdf",
+            "PromotionBanners": [
+              {
                   "Title": "",
                   "Image": "",
                   "Description": "",
                   "Cta": ""
-                },
-                {
+              },
+              {
                   "Title": "",
                   "Image": "",
                   "Description": "",
                   "Cta": ""
-                }
-              ]
-            }
+              }
+            ]
+        }
         this.value = "";
         // this.getDeviceList= function(){
         //   var requestmethod = 'POST';
@@ -1901,11 +1914,11 @@
         //     }
         //   )
         // };
-        this.getDeviceList = function() {
+        this.getDeviceList = function () {
             return data;
         }
     }]);
-    angular.module("m1cp.eshop.moose").service("moosePlanService", ["$rootScope", function($rootScope) {
+    angular.module("m1cp.eshop.moose").service("moosePlanService", ["$rootScope", function ($rootScope) {
         var data = {
             "categoryProductData": [{
                 "__interceptors": [{}],
@@ -4002,66 +4015,66 @@
                 }
             }
         };
-        this.getPlanList = function() {
+        this.getPlanList = function () {
             return data;
         }
     }]);
     //start here moose waiver Controller
-	angular.module("m1cp.eshop.moose").service("mooseMainLineService", ["$rootScope", "httpHandler", function ($rootScope, httpHandler) {
-		this.getMainLineList = function () {
+    angular.module("m1cp.eshop.moose").service("mooseMainLineService", ["$rootScope", "httpHandler", function ($rootScope, httpHandler) {
+        this.getMainLineList = function () {
             var URL = "serviceLines.json";
             return httpHandler.fetchdata('GET', URL, "", "json");
         }
     }]);
 
-    angular.module("m1cp.eshop.moose").controller("moosewaiverController", ["$scope", "$window", "errorHandler", "httpHandler", function($scope, $window, errorHandler, httpHandler) {
+    angular.module("m1cp.eshop.moose").controller("moosewaiverController", ["$scope", "$window", "errorHandler", "httpHandler", function ($scope, $window, errorHandler, httpHandler) {
         /*moose waiver start here*/
         $scope.waivers = {
-                "charges": [
-                    {
-                "offlinecharges": "Delivery Charge -Reservation",
-                "price": "$20.00",
-                "url": "https://www.google.com/"
-                    },
-                    {
-                "offlinecharges": "Cam Removal Warranty (Hard Bundle Promo)",
-                "price": "$20.00",
-                "url": "https://www.google.com/"
-                    },
-                    {
-                "offlinecharges": "Cam Removal Warranty (Genral)",
-                "price": "$20.00",
-                "url": "https://www.google.com/"
-                    },
-                    {
-                "offlinecharges": "Cam Removal Warranty $100 (Genral)",
-                "price": "$20.00",
-                "url": "https://www.google.com/"
-                    },
-                    {
-                "offlinecharges": "Cam Removal Service",
-                "price": "$20.00",
-                "url": "https://www.google.com/"
-                    },
-                    {
-                "offlinecharges": "Cam Removal Service and Warranty",
-                "price": "$20.00",
-                "url": "https://www.google.com/"
-                    },
-                    {
-                "offlinecharges": "Cam Removal Warranty (Hard Bundle Promo)",
-                "price": "$20.00",
-                "url": "https://www.google.com/"
-                    },
-                    {
-                "offlinecharges": "Cam Removal Warranty (Hard Bundle)",
-                "price": "$70.00",
-                "url": "https://www.google.com/"
-                    }
-                ]
+            "charges": [
+                {
+                    "offlinecharges": "Delivery Charge -Reservation",
+                    "price": "$20.00",
+                    "url": "https://www.google.com/"
+                },
+                {
+                    "offlinecharges": "Cam Removal Warranty (Hard Bundle Promo)",
+                    "price": "$20.00",
+                    "url": "https://www.google.com/"
+                },
+                {
+                    "offlinecharges": "Cam Removal Warranty (Genral)",
+                    "price": "$20.00",
+                    "url": "https://www.google.com/"
+                },
+                {
+                    "offlinecharges": "Cam Removal Warranty $100 (Genral)",
+                    "price": "$20.00",
+                    "url": "https://www.google.com/"
+                },
+                {
+                    "offlinecharges": "Cam Removal Service",
+                    "price": "$20.00",
+                    "url": "https://www.google.com/"
+                },
+                {
+                    "offlinecharges": "Cam Removal Service and Warranty",
+                    "price": "$20.00",
+                    "url": "https://www.google.com/"
+                },
+                {
+                    "offlinecharges": "Cam Removal Warranty (Hard Bundle Promo)",
+                    "price": "$20.00",
+                    "url": "https://www.google.com/"
+                },
+                {
+                    "offlinecharges": "Cam Removal Warranty (Hard Bundle)",
+                    "price": "$70.00",
+                    "url": "https://www.google.com/"
+                }
+            ]
         };
         $scope.flag = false;
-        $scope.redirection = function(check, url) {
+        $scope.redirection = function (check, url) {
             $scope.disableFlag = check;
             if (check) {
                 $window.open(url, '_blank');
@@ -4071,75 +4084,75 @@
             "addionalchargesCount": 0,
             "additionalheading": "ADDITIONAL CHARGES",
             "addionaladdchargediscountbtn": "Add Charges",
-                "addionalchargesgrid": [
-                    {
-                "additionalcharegeslabel": "Additional Charges Description 1",
-                "pricelabel": "price",
-                "chargesDescription": "Pre payment",
-                "price": "30",
-                "buttonapply": "Apply",
-                "buttonadd": "Add Charges",
-                "voucherApplyFilter": false
-                    }
-                ]
+            "addionalchargesgrid": [
+                {
+                    "additionalcharegeslabel": "Additional Charges Description 1",
+                    "pricelabel": "price",
+                    "chargesDescription": "Pre payment",
+                    "price": "30",
+                    "buttonapply": "Apply",
+                    "buttonadd": "Add Charges",
+                    "voucherApplyFilter": false
+                }
+            ]
         };
         $scope.addionalDiscount = {
             "addionalchargesCount": 0,
             "additionalheading": "ADDITIONAL DISCOUNT",
             "addionaladdchargediscountbtn": "Add Discount",
-                "addionalchargesgrid": [
-                    {
-                "additionalcharegeslabel": "Additional Charges Description 1",
-                "pricelabel": "price",
-                "chargesDescription": "Pre payment",
-                "price": "30",
-                "buttonapply": "Apply",
-                "buttonadd": "Add Charges",
-                "voucherApplyFilter": false
-                    }
-                ]
+            "addionalchargesgrid": [
+                {
+                    "additionalcharegeslabel": "Additional Charges Description 1",
+                    "pricelabel": "price",
+                    "chargesDescription": "Pre payment",
+                    "price": "30",
+                    "buttonapply": "Apply",
+                    "buttonadd": "Add Charges",
+                    "voucherApplyFilter": false
+                }
+            ]
         };
         /*moose waiver end here*/
     }]);
-	
-	angular.module("m1cp.eshop.moose").controller("mooseFlowController", ["$scope", "httpHandler", "$window", function ($scope, httpHandler, $window) {
-		
-		$scope.checkViolations = function() {
-		var URL = "mooseManager.json";
-		if ($scope.isSkip == true) {
-			 $scope.selection = "skip";
-		}
-		else {
-			$scope.selection = "approve";
-		}
-		$scope.approvalObj = {
-			username : $scope.approval.manager_username,
-			password: $scope.approval.manager_password,
-			selection: $scope.selection
-		}
+
+    angular.module("m1cp.eshop.moose").controller("mooseFlowController", ["$scope", "httpHandler", "$window", function ($scope, httpHandler, $window) {
+
+        $scope.checkViolations = function () {
+            var URL = "mooseManager.json";
+            if ($scope.isSkip == true) {
+                $scope.selection = "skip";
+            }
+            else {
+                $scope.selection = "approve";
+            }
+            $scope.approvalObj = {
+                username: $scope.approval.manager_username,
+                password: $scope.approval.manager_password,
+                selection: $scope.selection
+            }
             var promise = httpHandler.fetchdata("GET", URL, $scope.approvalObj, "json");
             promise.then(
                 function success(response) {
-					$scope.ErrorMsg = response.ErrorMessage;
-					$scope.postUrl = response.postUrl;
-					if (response.success == true) {
-						$window.location.href = $scope.postUrl;
-					}
-					else {
-						$scope.errorMsg = true;
-					}
-				}
+                    $scope.ErrorMsg = response.ErrorMessage;
+                    $scope.postUrl = response.postUrl;
+                    if (response.success == true) {
+                        $window.location.href = $scope.postUrl;
+                    }
+                    else {
+                        $scope.errorMsg = true;
+                    }
+                }
 			);
-		}
-		$scope.skipViolations = function () {
-			$scope.isSkip = true;
-			$scope.checkViolations();
-		}
-		$scope.approveViolations = function () {
-			$scope.isSkip = false;
-			$scope.checkViolations();
-		}
-		
-	}]);
+        }
+        $scope.skipViolations = function () {
+            $scope.isSkip = true;
+            $scope.checkViolations();
+        }
+        $scope.approveViolations = function () {
+            $scope.isSkip = false;
+            $scope.checkViolations();
+        }
+
+    }]);
 
 })();
