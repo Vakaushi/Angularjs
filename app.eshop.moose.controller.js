@@ -1476,35 +1476,47 @@
         /* filter section end here */
         /*Variant selection end  here */
         /*filter section start here */
-                var filterArray = {};
+                var filterArray = [];
+                // var filterArray = [
+                //     {'Color':['Silver','Space Grey']},
+                //     {'Size':['64GB','256GB']}
+                // ];
                 /*check box filter section start here*/
                 $scope.filterSection = function (selectionobject, status) {
-                        $scope.checkall = undefined;
-                        $scope.shopcheck = undefined;
-                        if (status) {
-                            var keypresent = false;
-                            if (filterArray.hasOwnProperty(selectionobject.selectedBy)) {
-                                filterArray[selectionobject.selectedBy].push(selectionobject.name);
-                                keypresent = true;
-                            }
-                            if (!keypresent) {
-                                filterArray[selectionobject.selectedBy] = [];
-                                filterArray[selectionobject.selectedBy].push(selectionobject.name);
-                            }
-                            //filterArrayOnLoop(filterArray, $scope.variantsection.Variants);
-                        }
-                        else {
-                            var index = filterArray[selectionobject.selectedBy].indexOf(selectionobject.name);
-                            filterArray[selectionobject.selectedBy].splice(index, 1);
-                            //filterArrayOnLoop(filterArray, $scope.variantsection.Variants);
-                        }
+                         $scope.checkall = undefined;
+                         $scope.shopcheck = undefined;
+                         if (status) {
+                             var keypresent = false;
+                             if (filterArray.hasOwnProperty(selectionobject.selectedBy)) {
+                                 filterArray[selectionobject.selectedBy].push(selectionobject.name);
+                                 keypresent = true;
+                             }
+                             if (!keypresent) {
+                                 filterArray[selectionobject.selectedBy] = [];
+                                 filterArray[selectionobject.selectedBy].push(selectionobject.name);
+                             }
+                             //filterArrayOnLoop(filterArray, $scope.variantsection.Variants);
+                         }
+                         else {
+                             var index = filterArray[selectionobject.selectedBy].indexOf(selectionobject.name);
+                             filterArray[selectionobject.selectedBy].splice(index, 1);
+                             //filterArrayOnLoop(filterArray, $scope.variantsection.Variants);
+                         }
                         console.log(filterArray);
+                        filterArrayOnLoop(filterArray, $scope.variantsection.Variants);                        
                 };
                 /*check box filter section end here*/
                         var resultArray = [];
                     /*filter function start here*/
                         var data=$scope.variantsection.Variants
                         function filterArrayOnLoop(filterArray, data) {
+                            for(var i=0;i<filterArray.length;i++){
+                                var key=Object.keys(filterArray)[i];
+                                var value=filterArray[key]
+                                var selectedcvalue=[{key,value}];
+                                filterreactify.push(selectedcvalue);                            
+                            }
+                            resultArray=[];
                             data.forEach(function (record) {
                                 let isEligible = true;
                                 filterArray.forEach(
@@ -1524,6 +1536,7 @@
                                         isEligible = false;
                                 });
                                 if (isEligible) {
+                                    //resultArray=[];
                                     resultArray.push(record);
                                 }
                     });
