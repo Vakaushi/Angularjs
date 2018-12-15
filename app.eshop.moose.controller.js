@@ -1424,6 +1424,7 @@
                }
             ]
         };
+
         /*Variant selection start here */
         variantSelection();
         function variantSelection() {
@@ -1442,6 +1443,8 @@
             }
             console.log($scope.variantsection.Variants);
         }
+		$scope.resultArray=$scope.variantsection.Variants;		
+		
         /*add active flag start here*/
             for (var i = 0; i < $scope.variantsection.Variants.length; i++) {
                 $scope.variantsection.Variants[i].active = false;
@@ -1466,6 +1469,7 @@
                 console.log(phoneaccessorie);
                 //$scope.selectedPlan = phoneaccessorie;
             };
+			console.log($scope.variantsection.Variants);
         /*plan selection flag end here*/
         /* filter section start here */
         //$scope.filterSection = function (name,status) {
@@ -1490,33 +1494,35 @@
                              if (filterArray.hasOwnProperty(selectionobject.selectedBy)) {
                                  filterArray[selectionobject.selectedBy].push(selectionobject.name);
                                  keypresent = true;
+								 filterArrayOnLoop(filterArray, $scope.variantsection.Variants);								 
                              }
                              if (!keypresent) {
                                  filterArray[selectionobject.selectedBy] = [];
                                  filterArray[selectionobject.selectedBy].push(selectionobject.name);
                              }
-                             //filterArrayOnLoop(filterArray, $scope.variantsection.Variants);
+                             filterArrayOnLoop(filterArray, $scope.variantsection.Variants);
                          }
                          else {
                              var index = filterArray[selectionobject.selectedBy].indexOf(selectionobject.name);
                              filterArray[selectionobject.selectedBy].splice(index, 1);
-                             //filterArrayOnLoop(filterArray, $scope.variantsection.Variants);
+                             filterArrayOnLoop(filterArray, $scope.variantsection.Variants);
                          }
-                        console.log(filterArray);
-                        filterArrayOnLoop(filterArray, $scope.variantsection.Variants);                        
                 };
                 /*check box filter section end here*/
-                        var resultArray = [];
                     /*filter function start here*/
-                        var data=$scope.variantsection.Variants
+					var resultArray;													
+                        var data=$scope.variantsection.Variants;
                         function filterArrayOnLoop(filterArray, data) {
-                            for(var i=0;i<filterArray.length;i++){
-                                var key=Object.keys(filterArray)[i];
-                                var value=filterArray[key]
-                                var selectedcvalue=[{key,value}];
-                                filterreactify.push(selectedcvalue);                            
+							var arr = [];
+     						$scope.resultArray=[];
+							for (var k in filterArray) {
+                              if (filterArray.hasOwnProperty(k)) {
+                              var obj = {};
+							  obj[k] = filterArray[k];
+							  arr.push(obj);
+                              }
                             }
-                            resultArray=[];
+							filterArray = arr;
                             data.forEach(function (record) {
                                 let isEligible = true;
                                 filterArray.forEach(
@@ -1537,10 +1543,10 @@
                                 });
                                 if (isEligible) {
                                     //resultArray=[];
-                                    resultArray.push(record);
+                                    $scope.resultArray.push(record);
                                 }
                     });
-                    console.log(resultArray);
+                    console.log($scope.resultArray);
                 }
                 /*filter function end here*/
         /*filter section end  here */

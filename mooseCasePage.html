@@ -482,31 +482,17 @@
                                                   <div class="phone-accessories-filter-section">
                                                       <div>
                                                           <div class="filter-sections">
+                                                              <!-- wating fro drop down from mahesh patil -->
                                                               <div class="m1eshop-select_box">
-                                                                  <select class="" ng-click="shopSelection()">
+                                                                  <select class="">
                                                                       <option value="" class="select-option">Shop</option>
+                                                                      <option value="" class="select-option"></option>
+                                                                      <option value="" class="select-option"></option>
+                                                                      <option value="" class="select-option"></option>
+
                                                                   </select>
                                                               </div>
-                                                              <div class="row hide-shop" ng-class="{'active-shop' : mcp.activeShop}">
-                                                                  <div>
-                                                                      <label class="colorcheckbox font-light font-text col-xs-6" for="{{shops.id}}" ng-repeat="shops in phoneaccessories.filtersections.shops">
-                                                                          <span>{{shops.name}}</span>
-                                                                        
-                                                                          <input class="checkbox form-control" id="{{shops.id}}" ng-checked="shopcheck" ng-model="status" name="" type="checkbox" ng-click="filterSection(shops,status)">
-                                                                          <span class="checkmark">
-                                                                          </span>
-                                                                      </label>
-                                                                  </div>
-                                                                  <div class="text-center btn-aligmnent">
-                                                                      <hr />
-                                                                      <div class="tab theme-light text-theme-black">
-                                                                          <a href="javascript:void(0)" type="submit" class="btn btn-primary col-xs-12 clear-btn" ng-click="clearShop()">Clear</a>
-                                                                      </div>
-                                                                      <div class="tab theme-light text-theme-black">
-                                                                          <a href="javascript:void(0)" type="submit" class="btn btn-primary col-xs-12 apply-btn" ng-click="shopApply()">Apply</a>
-                                                                      </div>
-                                                                  </div>
-                                                              </div>
+                                                              <!-- wating fro drop down from mahesh patil -->
                                                           </div>
                                                           <div class="filter-sections">
                                                               <label class="font-text">Color</label>
@@ -514,8 +500,8 @@
                                                            
                                                                   <label class="colorcheckbox font-light font-text" for="{{color.id}}" ng-repeat="color in phoneaccessories.filtersections.colors">
                                                                       <span>{{color.name}}</span>
-                                                              
-                                                                      <input class="checkbox form-control" id="{{color.id}}" ng-checked="checkall" ng-model="status" name="" type="checkbox" style="" ng-change="filterSection(color,status)">
+                                                                      {{color.modalfilter}}
+                                                                      <input class="checkbox form-control" id="{{color.id}}" ng-model="status" name="" type="checkbox" style="" ng-change="filterSection(color,status)">
                                                                       <span class="checkmark">
                                                                       </span>
                                                                   </label>
@@ -532,18 +518,19 @@
                                                               <div class="filter-section-grid field">           
                                                                   <label class="colorcheckbox font-light font-text" for="{{variant.id}}" ng-repeat="variant in phoneaccessories.filtersections.variant">
                                                                       <span>{{variant.name}}</span>
-                                                       
-                                                                      <input class="checkbox form-control" id="{{variant.id}}" ng-checked="checkall"  ng-model="status" name="" type="checkbox" ng-change="filterSection(variant,status)">
+                                                                      {{variant.modalfilter}}
+                                                                      <input class="checkbox form-control" id="{{variant.id}}"  ng-model="status" name="" type="checkbox" ng-change="filterSection(variant,status)">
                                                                       <span class="checkmark">
                                                                       </span>
                                                                   </label>
                                                               </div>
                                                           </div>
+                                                          {{phoneaccessories.filtersections.InStock}}
                                                           <div class="filter-sections">
                                                               <div class="filter-section-grid field">
-                                                                  <label class="colorcheckbox font-light font-text" for="{{InStock.id}}" ng-repeat="InStock in phoneaccessories.filtersections.InStock">
-                                                                      <span>{{InStock.name}}</span>
-                                                                      <input class="checkbox form-control" id="{{InStock.id}}" ng-checked="checkall" name="" ng-model="status" type="checkbox" ng-change="filterSection(InStock,status)">
+                                                                  <label class="colorcheckbox font-light font-text" for="stock" ng-show="phoneaccessories.filtersections.InStock">
+                                                                      <span>In Stock</span>
+                                                                      <input class="checkbox form-control" id="stock" name="" ng-model="stock" type="checkbox" ng-change="filterSection(stock,'In Stock')">
                                                                       <span class="checkmark">
                                                                       </span>
                                                                   </label>
@@ -557,7 +544,7 @@
                                               </div>
                                           </div>
                                           <div class="col-xs-9">
-                                              <div class="table-responsive  margin-top15 transaction-history-data" id="style-1" ng-class="{'margin-bottom-minus36': serviceLineItem.length==0}">
+                                              <div class="table-responsive  margin-top15 transaction-history-data" id="style-1" ng-class="{'margin-bottom-minus36': serviceLineItem.length==0}" style="max-height:380px;">
 
                                                   <table class="table">
                                                       <thead>
@@ -586,7 +573,7 @@
                                                           </tr>
                                                       </thead>
                                                       <tbody class="text-center">
-                                                          <tr ng-repeat="phoneaccessorie in variantsection.Variants | orderBy:orderByField:reverseSort " ng-click="selectedRow(phoneaccessorie)" ng-class="{'active-tab' : phoneaccessorie.active}">
+                                                          <tr ng-repeat="phoneaccessorie in resultArray | orderBy:orderByField:reverseSort " ng-click="selectedRow(phoneaccessorie)" ng-class="{'active-tab' : phoneaccessorie.active}">
                                                               <td>{{phoneaccessorie.store}}</td>
                                                               <td>{{phoneaccessorie.Color}}</td>
                                                               <td>{{phoneaccessorie.Name}}</td>
