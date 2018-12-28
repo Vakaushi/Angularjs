@@ -28,8 +28,8 @@
         <link href="../../css/number_selection.css" rel="stylesheet"/>
         <link rel="stylesheet" href="../../css/mooseHeader.css">
         <link rel="stylesheet" href="../../css/planlist.css"/>
-        <link rel="stylesheet" href="../../css/checkbox.css">
-        <link rel="stylesheet" href="../../css/eshop_deliverydetails.css">
+        <link rel="stylesheet" href="../../css/checkbox.css"/>
+        <link rel="stylesheet" href="../../css/eshop_deliverydetails.css"/>
         <link rel="stylesheet" href="../../css/mooseCommon.css">
     </head>
     <body>
@@ -44,7 +44,7 @@
                     </div>
                     <!-- CASE SECTION START -->
                     <div class="col-xs-12 dashed-border">
-                        <form class="feedback" name="customerIDform" ng-submit="submitcustomerIDForm()">
+                        <form class="feedback" name="customerIDform" ng-submit="submitcustomerIDForm()" novalidate>
                             <div class="col-xs-12 col-sm-5 moose-radioItem-container">
                                 <p class="radioItem-heading">
                                     {{mooseCasedata.customer.IDtype.label}}
@@ -58,7 +58,7 @@
                                     </label>
                                 </span>
                             </div>
-                            <div class="col-xs-10 col-sm-6 moose-customer-input">
+                            <div class="col-xs-10 col-sm-6 moose-customer-input" ng-if="mcp.selectedcustomerId">
                                 <div class="fieldWrapper clear col-xs-6" ng-if="mcp.selectedcustomerId == 'Others'">
                                     <div class="field required">
                                         <input ng-disabled="mooseCustomerdata" id="others" name="others" ng-model="mcp.customerIDNumber" placeholder="{{mooseCasedata.customer.IDnumber.placeholder}}" required="" type="text"/>
@@ -128,7 +128,7 @@
                                 </div> 
                             </div> -->
                             </div>
-                            <div class="col-xs-2 col-sm-1 moose-customer-input">
+                            <div class="col-xs-2 col-sm-1 moose-customer-input" ng-if="mcp.selectedcustomerId">
                                 <button ng-disabled="mooseCustomerdata" class="btn btn-primary moose-next-btn" type="submit">
                                     <i class="glyphicon glyphicon-arrow-right">
                                     </i>
@@ -275,7 +275,7 @@
                                         </i>
                                         {{mooseCustomerdata.CORIscheme.btnLabel}}
                                     </a>
-                                    <p ng-if="mcp.showMessage">
+                                    <p ng-if="mcp.showMessage" class="margin-top-pixel-15">
                                         Your Selected Company is
                                         <b>
                                             {{mcp.showMessage.companyName}}
@@ -291,8 +291,8 @@
                     </div>
                     <!-- CONNECTION TYPE AND CORI SECTION END -->
                     <!-- SELECT MAIN LINE SECTION Start -->
-                    <div class="display-inline-block dashed-border" ng-if="mooseCustomerdata &&  mcp.caseType.name == 'Supp'">
-						<div class="col-xs-12 mailLineForm">
+                    <div class="col-xs-12 dashed-border" ng-if="(mcp.selectedCORIscheme == 'No' || mcp.showMessage) && mcp.caseType.name == 'Supp'">
+						<div class="mailLineForm">
 							<form class="feedback" name="mainLineForm" ng-submit="submitMainLineForm()" novalidate>
 									<div class="fieldWrapper required col-xs-3 dropdown-with-text">
 										<div class="form-group">
@@ -300,7 +300,7 @@
 											   Main Line
 											</label>
 											<div class="m1eshop-select_box">
-												<select autocomplete="off" ng-disabled="validateSuccess" class="" id="mainLine"  name="mainLine" ng-model="mainLineSelection" ng-options="item.servicelinenumber for item in mainLineData.MainLine"  ng-change="changeOption()" required>
+												<select autocomplete="off" ng-disabled="validateSuccess" class="" id="mainLine"  name="mainLine" ng-model="mainLineSelection" ng-options="option.servicelinenumber for option in customerData.MainLine.values"  ng-change="changeOption()" required>
 													<option class="select-option" value="">
 														Select Main Line
 													</option>
@@ -482,17 +482,31 @@
                                                   <div class="phone-accessories-filter-section">
                                                       <div>
                                                           <div class="filter-sections">
-                                                              <!-- wating fro drop down from mahesh patil -->
                                                               <div class="m1eshop-select_box">
-                                                                  <select class="">
+                                                                  <select class="" ng-click="shopSelection()">
                                                                       <option value="" class="select-option">Shop</option>
-                                                                      <option value="" class="select-option"></option>
-                                                                      <option value="" class="select-option"></option>
-                                                                      <option value="" class="select-option"></option>
-
                                                                   </select>
                                                               </div>
-                                                              <!-- wating fro drop down from mahesh patil -->
+                                                              <div class="row hide-shop" ng-class="{'active-shop' : mcp.activeShop}">
+                                                                  <div>
+                                                                      <label class="colorcheckbox font-light font-text col-xs-6" for="{{shops.id}}" ng-repeat="shops in phoneaccessories.filtersections.shops">
+                                                                          <span>{{shops.name}}</span>
+                                                                      
+                                                                          <input class="checkbox form-control" id="{{shops.id}}" ng-checked="checkedflag" ng-model="shop" name="" type="checkbox" ng-click="filterSection(shops,shop,$event)">
+                                                                          <span class="checkmark">
+                                                                          </span>
+                                                                      </label>
+                                                                  </div>
+                                                                  <div class="text-center btn-aligmnent">
+                                                                      <hr />
+                                                                      <div class="tab theme-light text-theme-black">
+                                                                          <a href="javascript:void(0)" type="submit" class="btn btn-primary col-xs-12 clear-btn" ng-click="clearFilter()">Clear</a>
+                                                                      </div>
+                                                                      <div class="tab theme-light text-theme-black">
+                                                                          <a href="javascript:void(0)" type="submit" class="btn btn-primary col-xs-12 apply-btn" ng-click="shopSelection()">Apply</a>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
                                                           </div>
                                                           <div class="filter-sections">
                                                               <label class="font-text">Color</label>
@@ -500,8 +514,8 @@
                                                            
                                                                   <label class="colorcheckbox font-light font-text" for="{{color.id}}" ng-repeat="color in phoneaccessories.filtersections.colors">
                                                                       <span>{{color.name}}</span>
-                                                                      {{color.modalfilter}}
-                                                                      <input class="checkbox form-control" id="{{color.id}}" ng-model="status" name="" type="checkbox" style="" ng-change="filterSection(color,status)">
+                                                                        
+                                                                      <input class="checkbox form-control" id="{{color.id}}" ng-checked="checkedflag" ng-model="colors" name="" type="checkbox" style="" ng-change="filterSection(color,colors,$event)">
                                                                       <span class="checkmark">
                                                                       </span>
                                                                   </label>
@@ -518,19 +532,19 @@
                                                               <div class="filter-section-grid field">           
                                                                   <label class="colorcheckbox font-light font-text" for="{{variant.id}}" ng-repeat="variant in phoneaccessories.filtersections.variant">
                                                                       <span>{{variant.name}}</span>
-                                                                      {{variant.modalfilter}}
-                                                                      <input class="checkbox form-control" id="{{variant.id}}"  ng-model="status" name="" type="checkbox" ng-change="filterSection(variant,status)">
+                                                                      
+                                                                      <input class="checkbox form-control" id="{{variant.id}}" ng-checked="checkedflag"  ng-model="variants" name="" type="checkbox" ng-change="filterSection(variant,variants,$event)">
                                                                       <span class="checkmark">
                                                                       </span>
                                                                   </label>
                                                               </div>
                                                           </div>
-                                                          {{phoneaccessories.filtersections.InStock}}
                                                           <div class="filter-sections">
                                                               <div class="filter-section-grid field">
-                                                                  <label class="colorcheckbox font-light font-text" for="stock" ng-show="phoneaccessories.filtersections.InStock">
-                                                                      <span>In Stock</span>
-                                                                      <input class="checkbox form-control" id="stock" name="" ng-model="stock" type="checkbox" ng-change="filterSection(stock,'In Stock')">
+                                                                  <label class="colorcheckbox font-light font-text" for="{{InStock.id}}" ng-repeat="InStock in phoneaccessories.filtersections.InStock">
+                                                                      <span> InStock</span>
+                                                            
+                                                                      <input class="checkbox form-control" id="{{InStock.id}}" ng-checked="checkedflag" name="" ng-model="isstock" type="checkbox" ng-change="filterSection(InStock,isstock,$event)">
                                                                       <span class="checkmark">
                                                                       </span>
                                                                   </label>
@@ -544,7 +558,7 @@
                                               </div>
                                           </div>
                                           <div class="col-xs-9">
-                                              <div class="table-responsive  margin-top15 transaction-history-data" id="style-1" ng-class="{'margin-bottom-minus36': serviceLineItem.length==0}" style="max-height:380px;">
+                                              <div class="table-responsive  margin-top15 transaction-history-data" id="style-1" ng-class="{'margin-bottom-minus36': serviceLineItem.length==0}">
 
                                                   <table class="table">
                                                       <thead>
@@ -576,7 +590,7 @@
                                                           <tr ng-repeat="phoneaccessorie in resultArray | orderBy:orderByField:reverseSort " ng-click="selectedRow(phoneaccessorie)" ng-class="{'active-tab' : phoneaccessorie.active}">
                                                               <td>{{phoneaccessorie.store}}</td>
                                                               <td>{{phoneaccessorie.Color}}</td>
-                                                              <td>{{phoneaccessorie.Name}}</td>
+                                                              <td>{{phoneaccessorie.Size}}</td>
                                                               <td>{{phoneaccessorie.StockCount}}</td>
                                                           </tr>
                                                       </tbody>
@@ -586,6 +600,9 @@
                                                           </tr>
                                                       </tbody>
                                                   </table>
+                                                  <div class="item-notavalible text-center" ng-if="resultArray.length==0">
+                                                      This item is currently out of stock in this shop, please select another M1 Shop
+                                                  </div>
                                               </div>
 
 
@@ -627,6 +644,7 @@
         <script src="../../scripts/core/app.core.filter.js"></script>
         <script src="../../scripts/core/app.core.service.js"></script>
         <script src="../../scripts/core/app.core.controller.js"></script>
+        <script src="../../scripts/core/app.core.directive.js"></script>
         <script src="../../scripts/portal/app.portal.js"></script>
         <script src="../../scripts/portal/forms/app.portal.forms.js"></script>
         <script src="../../scripts/portal/forms/app.portal.forms.controller.js"></script>
@@ -652,8 +670,8 @@
         <script src="../../scripts/eshop/app.eshop.core.js"></script>
         <script src="../../scripts/eshop/app.eshop.cart.js"></script>
         <script src="../../scripts/eshop/app.eshop.moose.js"></script>
-        <script src="../../scripts/eshop/moose/app.eshop.moose.controller.js"></script>
         <script src="../../scripts/eshop/app.eshop.cori.js"></script>
+        <script src="../../scripts/eshop/roi/app.eshop.roi.js"></script>
         <script src="../../scripts/eshop/app.eshop.datastorage.js"></script>
         <script src="../../scripts/eshop/app.eshop.errorhandler.js"></script>
         <script src="../../scripts/eshop/app.eshop.navigation.js"></script>
@@ -686,24 +704,27 @@
         <script src="../../scripts/eshop/fbb/app.eshop.fbb.router.js"></script>
         <script src="../../scripts/eshop/accessories/app.eshop.accessories.js"></script>
         <script src="../../scripts/eshop/wearables/app.eshop.wearables.js"></script>
-            <!--***** addOns*****-->
-        <script src="../../scripts/eshop/addon/app.eshop.addon.js"></script>
-        <script src="../../scripts/eshop/addon/app.eshop.addon.controller.js"></script>
-        <script src="../../scripts/eshop/addon/app.eshop.addon.directive.js"></script>
-        <script src="../../scripts/eshop/addon/app.eshop.addon.service.js"></script>
-        <script src="../../scripts/eshop/addon/app.eshop.addon.filter.js"></script>
-            <!-- start cart -->
-        <script src="../../scripts/eshop/cart/app.eshop.cart.controller.js"></script>
-        <script src="../../scripts/eshop/cart/app.eshop.cart.directive.js"></script>
-        <script src="../../scripts/eshop/cart/app.eshop.cart.filter.js"></script>
-        <script src="../../scripts/eshop/cart/app.eshop.cart.service.js"></script>
-            <!-- end cart -->
-            <!--moose Case start here-->
-        <script src="../../scripts/eshop/app.eshop.moose.js"></script>
-        <script src="../../scripts/eshop/moose/app.eshop.moose.controller.js"></script>
-        <script src="../../scripts/eshop/moose/app.eshop.moose.directive.js"></script>
-        <script src="../../scripts/eshop/moose/app.eshop.moose.filter.js"></script>
-            <!--moose Case end here-->
-        <script src="../../scripts/eshop/roi/app.eshop.roi.js"></script>
+        <!--***** addOns*****-->
+            <script src="../../scripts/eshop/addon/app.eshop.addon.js"></script>
+            <script src="../../scripts/eshop/addon/app.eshop.addon.controller.js"></script>
+            <script src="../../scripts/eshop/addon/app.eshop.addon.directive.js"></script>
+            <script src="../../scripts/eshop/addon/app.eshop.addon.service.js"></script>
+            <script src="../../scripts/eshop/addon/app.eshop.addon.filter.js"></script>
+        <!-- start cart -->
+            <script src="../../scripts/eshop/cart/app.eshop.cart.controller.js"></script>
+            <script src="../../scripts/eshop/cart/app.eshop.cart.directive.js"></script>
+            <script src="../../scripts/eshop/cart/app.eshop.cart.filter.js"></script>
+            <script src="../../scripts/eshop/cart/app.eshop.cart.service.js"></script>
+        <!-- end cart -->
+        <!--moose Case start here-->
+            <script src="../../scripts/eshop/moose/app.eshop.moose.controller.js"></script>
+            <script src="../../scripts/eshop/moose/app.eshop.moose.directive.js"></script>
+        <!--moose Case end here-->
+        <!-- roi js file-->
+            <script src="../../scripts/eshop/roi/app.eshop.roi.js "></script>
+        <!-- roi js file end-->   
+        <!-- supplementary start here-->
+           <script src="../../scripts/eshop/supplementary/app.eshop.supplementary.controller.js"></script>
+        <!-- supplementary end here-->        
     </body>
 </html>

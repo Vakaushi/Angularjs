@@ -1,12 +1,9 @@
-(function () {
+(function() {
     'use strict';
     //moose case controller start here 
-    angular.module("m1cp.eshop.moose").controller("mooseCaseController", ["$scope", "$window", "errorHandler", "httpHandler", "$modal", function ($scope, $window, errorHandler, httpHandler, $modal) {
+    angular.module("m1cp.eshop.moose").controller("mooseCaseController", ["$scope", "$window", "errorHandler", "httpHandler", "$modal", function($scope, $window, errorHandler, httpHandler, $modal) {
         //accesories start here
         //moss cart section start here
-
-
-
         $scope.stepsJson = {
             "currentPossiton": 0,
             "steps": [{
@@ -59,7 +56,7 @@
         /*not usable code*/
     }]);
     //moose case controller end  here 
-    angular.module("m1cp.eshop.moose").controller("mooseheaderController", ["$scope", "$window", "errorHandler", "httpHandler", function ($scope, $window, errorHandler) {
+    angular.module("m1cp.eshop.moose").controller("mooseheaderController", ["$scope", "$window", "errorHandler", "httpHandler", function($scope, $window, errorHandler) {
         //json start here
         var newOrder = {
             "Status": "AdditionalInfo",
@@ -95,11 +92,11 @@
         };
         //end json start here
         //confirmation json start
-        $scope.newOrder = function () {
+        $scope.newOrder = function() {
             errorHandler.seterrorJSON(newOrder);
             errorHandler.notifyErrorService();
         }
-        $scope.restartOrder = function () {
+        $scope.restartOrder = function() {
             errorHandler.seterrorJSON(restartOrder);
             errorHandler.notifyErrorService();
         }
@@ -121,12 +118,12 @@
                     form.EditAddressZipcopde.serverError = true;
                     //form.$valid = false;
                 }
-            }, function error(response) { })
+            }, function error(response) {})
         };
         //end cart reqest updatation
     }]);
-    angular.module("m1cp.eshop.moose").controller("moosecoriController", ["$scope", "$window", "errorHandler", "httpHandler", function ($scope, $window, errorHandler, httpHandler) {
-        $scope.open = function () {
+    angular.module("m1cp.eshop.moose").controller("moosecoriController", ["$scope", "$window", "errorHandler", "httpHandler", function($scope, $window, errorHandler, httpHandler) {
+        $scope.open = function() {
             alert("click");
         };
         //cori details start
@@ -156,8 +153,7 @@
         //cori details end 
     }]);
     //end mooseheader controller start here
-    //moose case page controller start  here 
-    angular.module("m1cp.eshop.moose").controller("mooseCasePageController", ["$scope", "$window", "httpHandler", "mooseDeviceService", "moosePlanService", "mooseMainLineService", "navigationHandler", "eshopSelection", function ($scope, $window, httpHandler, mooseDeviceService, moosePlanService, mooseMainLineService, navigationHandler, eshopSelection) {
+    angular.module("m1cp.eshop.moose").controller("mooseCasePageController", ["$scope", "$window", "httpHandler", "mooseDeviceService", "moosePlanService", "mooseMainLineService", "navigationHandler", "eshopSelection", function($scope, $window, httpHandler, mooseDeviceService, moosePlanService, mooseMainLineService, navigationHandler, eshopSelection) {
         var mcp = this;
         $scope.mooseCasedata = {
             "heading": "CASE",
@@ -273,10 +269,10 @@
                 "resetLabel": "Reset"
             },
         }
-        $scope.resetcustomerIDNumber = function () {
+        $scope.resetcustomerIDNumber = function() {
             delete mcp.customerIDNumber;
         }
-        $scope.submitcustomerIDForm = function () {
+        $scope.submitcustomerIDForm = function() {
             if (mcp.customerIDNumber == true) {
                 mcp.customerIDNumber = $('#nricNo').val();
             }
@@ -302,45 +298,45 @@
                 console.log("Invalid Customer ID Number");
             }
         }
-        $scope.resetLink = function () {
+        $scope.resetLink = function() {
             delete mcp.selectedCasePrefrence;
             delete mcp.selectedCategory;
         }
-        //MAIN LINE START
-        $scope.changeOption = function () {
-            $scope.submitted = false;
-        };
-        $scope.getMainLineForm = function () {
-            mooseMainLineService.getMainLineList().then(function (response) {
-                $scope.mainLineData = response;
-            });
+		//MAIN LINE START
+		$scope.changeOption = function() {
+			$scope.submitted = false;
+		};  
+		$scope.getMainLineForm = function () {
+			mooseMainLineService.getMainLineList().then(function(response){
+				$scope.mainLineData = response;
+			});
         }
-        $scope.getMainLineForm();
-        $scope.submitMainLineForm = function () {
-            $scope.ErrorMsg = $scope.mainLineData.ErrorMsg;
-            $scope.success = $scope.mainLineData.success;
-            console.log($scope.submitted);
-            if (angular.element(".mailLineForm button i").hasClass('glyphicon glyphicon-arrow-right') && $scope.mainLineSelection != undefined) {
-                var URL = "mooseMainLine.json";
-                var promise = httpHandler.fetchdata("GET", URL, $scope.mainLineSelection, "json");
-                promise.then(
-                    function success(response) {
-                        $scope.validateSuccess = response.success;
-                        if ($scope.validateSuccess == true) {
-
-                        }
-                        else {
-                            $scope.mainLineServerError = true;
-                        }
-                    }, function error(response) {
-                    }
-                );
-            }
-            else {
-                $scope.validateSuccess = false;
-            }
-        }
-        //MAIN LINE END
+		$scope.getMainLineForm();
+			$scope.submitMainLineForm = function () {
+				$scope.ErrorMsg = $scope.mainLineData.ErrorMsg;
+				$scope.success = $scope.mainLineData.success;
+				console.log($scope.submitted);
+				if (angular.element(".mailLineForm button i").hasClass('glyphicon glyphicon-arrow-right') && $scope.mainLineSelection != undefined) {
+					var URL = "mooseMainLine.json";
+					var promise = httpHandler.fetchdata("GET", URL, $scope.mainLineSelection, "json");
+					promise.then(
+						function success(response) {
+							$scope.validateSuccess = response.success;
+							if ($scope.validateSuccess == true) {
+								
+							}
+							else {
+								$scope.mainLineServerError = true;
+							}
+						},function error(response) {
+						}
+					);
+				}
+				else {
+					$scope.validateSuccess = false;
+				}
+			}
+		//MAIN LINE END
         // $scope.coriSearch = function(){
         //     if(mcp.companyName && !mcp.companyEmail && !mcp.companyBRN || !mcp.companyName && mcp.companyEmail && !mcp.companyBRN || !mcp.companyName && !mcp.companyEmail && mcp.companyBRN){
         //         mcp.coriError = false;
@@ -351,7 +347,7 @@
         //         //console.log(mcp.showMessage)
         //     }
         // }
-        $scope.coriSearch = function () {
+        $scope.coriSearch = function() {
             if (mcp.companyName && !mcp.companyEmail && !mcp.companyBRN || !mcp.companyName && mcp.companyEmail && !mcp.companyBRN || !mcp.companyName && !mcp.companyEmail && mcp.companyBRN) {
                 mcp.coriError = false;
                 $scope.requestObject = {
@@ -400,7 +396,7 @@
         };
         //cori details start
         $scope.coridetails = {
-            "coriErrorMessage": "", //The company name entered doesn?t have a CORI scheme.",
+            "coriErrorMessage": "", //The company name entered doesn’t have a CORI scheme.",
             "Heading": "Select CORI Company Deatils",
             "recordheading": [{
                 "coriheadingfirst": "Company Name",
@@ -424,7 +420,7 @@
             }]
         };
         //cori details end
-        $scope.devicePlanselection = function () {
+        $scope.devicePlanselection = function() {
             //$scope.showDeviceList = 
             console.log(mooseDeviceService.getDeviceList());
         }
@@ -1117,7 +1113,7 @@
         $scope.postalCodedisable = false;
         $scope.chechCoverageValidate = false;
         $scope.checkCoveragetext = "CHECK COVERAGE";
-        $scope.disableEdit = function () {
+        $scope.disableEdit = function() {
             //  alert("click");
         };
         //btn check coverage btn api start here 
@@ -1142,7 +1138,7 @@
         //send check coverage end here
         $scope.checkCoverage = function () {
             /*validate btn error msg start here*/
-
+            
             if (!mcp.EditAddressZipcopde) {
                 $scope.chechCoverageValidate = true;
             }
@@ -1166,14 +1162,14 @@
                 $scope.checkCoveragetext = "CHECK COVERAGE";
             }
         };
-        //btn check coverage  key up btn api start  here 
-        $scope.postalfieldchanges = function () {
-            if (mcp.EditAddressZipcopde) {
-                $scope.chechCoverageValidate = false;
-            }
-        };
-        //btn check coverage key up btn api end  here 
-        $scope.retriveAddressfmZipCode = function (form, event) {
+            //btn check coverage  key up btn api start  here 
+            $scope.postalfieldchanges = function () {
+                if (mcp.EditAddressZipcopde) {
+                    $scope.chechCoverageValidate = false;
+                }
+            };
+            //btn check coverage key up btn api end  here 
+            $scope.retriveAddressfmZipCode = function (form, event) {
             console.log(form.EditAddressZipcopde.serverError);
             if (mcp.EditAddressZipcopde) {
                 if ($scope.postalCodedisable) {
@@ -1282,300 +1278,963 @@
             return formValid;
         };
         /*phone accessories filter start here*/
-        $scope.phoneaccessories = {
-            "filtersections": {
-                "shops": [
-                         { id: 1, name: "Bugis Koisk", selectedBy: "store"  },
-                         { id: 2, name: "M1 eshope", selectedBy: "store"  },
-                         { id: 3, name: "IMM Koisk", selectedBy: "store" },
-                         { id: 4, name: "T3 Koisk", selectedBy: "store"},
-                         { id: 5, name: "Suntec Koisk", selectedBy: "store"},
-                         { id: 6, name: "Westmall Koisk", selectedBy: "store"},
-                         { id: 7, name: "Tampines Koisk", selectedBy: "store" },
-                         { id: 8, name: "Parkway Koisk", selectedBy: "store" },
-                         { id: 9, name: "IIM Koisk", selectedBy: "store" },
-                         { id: 10, name: "M1 eshope Virtual ", selectedBy: "store" },
-                         { id: 11, name: "Compasspoint Koisk", selectedBy: "store" },
-                         { id: 12, name: "Paragon Koisk", selectedBy: "store" },
-                         { id: 13, name: "Wetest", selectedBy: "store" },
-                         { id: 14, name: "Setest", selectedBy: "store"},
+                $scope.phoneaccessories = {
+                    "filtersections": {
+                        "shops": [
+                            { id: 1, name: "Bugis", selectedBy: "store", check: false },
+                            { id: 2, name: "M1 eshope", selectedBy: "store", check: false },
+                            { id: 3, name: "IMM Koisk", selectedBy: "store", check: false },
+                            { id: 4, name: "T3 Koisk", selectedBy: "store", check: false },
+                            { id: 5, name: "Suntec Koisk", selectedBy: "store", check: false },
+                            { id: 6, name: "Westmall Koisk", selectedBy: "store", check: false },
+                            { id: 7, name: "Tampines Koisk", selectedBy: "store", check: false },
+                            { id: 8, name: "Parkway Koisk", selectedBy: "store", check: false },
+                            { id: 9, name: "IIM Koisk", selectedBy: "store", check: false },
+                            { id: 10, name: "M1 eshope Virtual ", selectedBy: "store", check: false },
+                            { id: 11, name: "Compasspoint Koisk", selectedBy: "store", check: false },
+                            { id: 12, name: "Paragon Koisk", selectedBy: "store", check: false },
+                            { id: 13, name: "Wetest", selectedBy: "store", check: false },
+                            { id: 14, name: "Setest", selectedBy: "store", check: false }
 
-                ],
-                "colors": [
-                     { id: 1, name: "Space Gre", selectedBy: "Color" },
-                     { id: 2, name: "Silver", selectedBy: "Color"  },
-                     { id: 3, name: "Gold", selectedBy: "Color"  }
-                ],
-                "variant": [
-                     { id: 1, name: "64GB", selectedBy: "Size" },
-                     { id: 1, name: "256GB", selectedBy: "Size"  },
-                     { id: 1, name: "512GB", selectedBy: "Size"  },
-                ],
-                "InStock": [{ id: 1, name: "InStock", selectedBy: "InStock" }]
-            },
-            "Productdata": [
-               {
-                   "ShopName": "Bugis",
-                   "ShopId": "{D5DC5070-C334-436F-B64E-6B2A08332DAB}",
-                   "Variants": [
-                      {
-                          "Name": "iPhone 8 64GB  Grey",
-                          "VarinatId": "2-13-1836812",
-                          "Color": "Space Grey",
-                          "Size": "64GB",
-                          "InStock": "InStock",
-                          "StockCount": 10
-                      },
-                      {
-                          "Name": "iPhone  64GB ",
-                          "VarinatId": "2-13-1836923",
-                          "Color": "Silver",
-                          "Size": "64GB",
-                          "InStock": "InStock",
-                          "StockCount": 20
-                      },
-                      {
-                          "Name": "iPhone  Gold",
-                          "VarinatId": "2-13-1837045",
-                          "Color": "Gold",
-                          "Size": "64GB",
-                          "InStock": "InStock",
-                          "StockCount": 10
-                      },
-                      {
-                          "Name": "iPhone 8  Grey",
-                          "VarinatId": "2-13-1837167",
-                          "Color": "Space Grey",
-                          "Size": "256GB",
-                          "InStock": "InStock",
-                          "StockCount": 30
-                      },
-                      {
-                          "Name": "iPhone Silver",
-                          "VarinatId": "2-13-1837289",
-                          "Color": "Silver",
-                          "Size": "256GB",
-                          "InStock": "InStock",
-                          "StockCount": 40
-                      },
-                      {
-                          "Name": "iPhone Gold",
-                          "VarinatId": "2-13-183731011",
-                          "Color": "Gold",
-                          "Size": "256GB",
-                          "InStock": "InStock",
-                          "StockCount": 70
-                      }
-                   ]
-               },
-               {
-                   "ShopName": "Accur",
-                   "ShopId": "{D5DC5070-C334-436F-B64E-6B2A08332DAB}s",
-                   "Variants": [
-                      {
-                          "Name": "Grey",
-                          "VarinatId": "2-13-183681112",
-                          "Color": "Space Grey",
-                          "Size": "64GB",
-                          "InStock": "InStock",
-                          "StockCount": 90
-                      },
-                      {
-                          "Name": "Silver",
-                          "VarinatId": "2-13-183691415",
-                          "Color": "Silver",
-                          "Size": "64GB",
-                          "InStock": "InStock",
-                          "StockCount": 70
-                      },
-                      {
-                          "Name": "i 8",
-                          "VarinatId": "2-13-183701617",
-                          "Color": "Gold",
-                          "Size": "64GB",
-                          "InStock": "InStock",
-                          "StockCount": 10
-                      },
-                      {
-                          "Name": " 8",
-                          "VarinatId": "2-13-183711819",
-                          "Color": "Space Grey",
-                          "Size": "256GB",
-                          "InStock": "InStock",
-                          "StockCount": 10
-                      },
-                      {
-                          "Name": "iPhone 9",
-                          "VarinatId": "2-13-183722021",
-                          "Color": "Silver",
-                          "Size": "256GB",
-                          "InStock": "InStock",
-                          "StockCount": 1
-                      },
-                      {
-                          "Name": "Gold 5",
-                          "VarinatId": "2-13-183732223",
-                          "Color": "Gold",
-                          "Size": "256GB",
-                          "InStock": "InStock",
-                          "StockCount": 2
-                      }
-                   ]
-               }
-            ]
-        };
-
-        /*Variant selection start here */
-        variantSelection();
-        function variantSelection() {
-            var variantdata = [];
-            $scope.variantsection = {
-                "Variants": [
-                ]
-            };
-            for (var i = 0; i < $scope.phoneaccessories.Productdata.length; i++) {
-                variantdata = $scope.phoneaccessories.Productdata[i].Variants;
-                for (var j = 0; j < variantdata.length; j++) {
-                    variantdata[j].store = $scope.phoneaccessories.Productdata[i].ShopName;
-                    variantdata[j].ShopId = $scope.phoneaccessories.Productdata[i].ShopId;
-                    $scope.variantsection.Variants.push(variantdata[j]);
-                }
-            }
-            console.log($scope.variantsection.Variants);
-        }
-		$scope.resultArray=$scope.variantsection.Variants;		
-		
-        /*add active flag start here*/
-            for (var i = 0; i < $scope.variantsection.Variants.length; i++) {
-                $scope.variantsection.Variants[i].active = false;
-            }
-        /*add active flag end  here*/
-        /*plan selection flag start here*/
-            $scope.selectedPlan;
-            $scope.index;
-            $scope.selectedRow = function (phoneaccessorie) {
-                for (var i = 0; i < $scope.variantsection.Variants.length; i++) {
-                    console.log($scope.variantsection.Variants[i].VarinatId == phoneaccessorie.VarinatId);
-                    $scope.variantsection.Variants[i].active = false;
-                    if ($scope.variantsection.Variants[i].VarinatId == phoneaccessorie.VarinatId) {
-                        $scope.variantsection.Variants[i].active = true;
-                        if ($scope.index) {
-                            $scope.variantsection.Variants[$scope.index].active = false;
+                        ],
+                        "colors": [
+                            { id: 15, name: "Space Grey", selectedBy: "Color", check: false },
+                            { id: 16, name: "Silver", selectedBy: "Color", check: false },
+                            { id: 17, name: "Gold", selectedBy: "Color", check: false }
+                        ],
+                        "variant": [
+                            { id: 18, name: "64GB", selectedBy: "Size", check: false },
+                            { id: 19, name: "256GB", selectedBy: "Size", check: false },
+                            { id: 20, name: "512GB", selectedBy: "Size", check: false }
+                        ],
+                        "InStock": [{ id: 21, name: true, selectedBy: "InStock", check: false }]
+                    },
+                    "Productdata": [
+                        {
+                            "ShopName": "Bugis",
+                            "ShopId": "{D5DC5070-C334-436F-B64E-6B2A08332DAB}",
+                            "Variants": [
+                                {
+                                    "Name": "iPhone 8 64GB  Grey",
+                                    "VarinatId": "2-13-1836812q",
+                                    "Color": "Space Grey",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": "iPhone  64GB ",
+                                    "VarinatId": "2-13-1836923w",
+                                    "Color": "Silver",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 20
+                                },
+                                {
+                                    "Name": "iPhone  Gold",
+                                    "VarinatId": "2-13-1837045e",
+                                    "Color": "Gold",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": "iPhone 8  Grey",
+                                    "VarinatId": "2-13-1837167r",
+                                    "Color": "Space Grey",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 30
+                                },
+                                {
+                                    "Name": "iPhone Silver",
+                                    "VarinatId": "2-13-1837289t",
+                                    "Color": "Silver",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 40
+                                },
+                                {
+                                    "Name": "iPhone Gold",
+                                    "VarinatId": "2-13-18373101y",
+                                    "Color": "Gold",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 70
+                                }
+                            ]
+                        },
+                        {
+                            "ShopName": "M1 eshope",
+                            "ShopId": "{D5DC5070-C334-436F-B64E-6B2A08332DAB}s",
+                            "Variants": [
+                                {
+                                    "Name": "Grey",
+                                    "VarinatId": "2-13-183681112u",
+                                    "Color": "Space Grey",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 90
+                                },
+                                {
+                                    "Name": "Silver",
+                                    "VarinatId": "2-13-183691415i",
+                                    "Color": "Silver",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 70
+                                },
+                                {
+                                    "Name": "i 8",
+                                    "VarinatId": "2-13-183701617o",
+                                    "Color": "Gold",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": " 8",
+                                    "VarinatId": "2-13-183711819p",
+                                    "Color": "Space Grey",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": "iPhone 9",
+                                    "VarinatId": "2-13-183722021a",
+                                    "Color": "Silver",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 1
+                                },
+                                {
+                                    "Name": "Gold 5",
+                                    "VarinatId": "2-13-183732223s",
+                                    "Color": "Gold",
+                                    "Size": "512GB",
+                                    "InStock": false,
+                                    "StockCount": 2
+                                }
+                            ]
+                        },
+                        {
+                            "ShopName": "IMM Koisk",
+                            "ShopId": "{D5DC5070-C334-436F-B64E-6B2A08332DAB}s",
+                            "Variants": [
+                                {
+                                    "Name": "Grey",
+                                    "VarinatId": "2-13-183681112d",
+                                    "Color": "Space Grey",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 90
+                                },
+                                {
+                                    "Name": "Silver",
+                                    "VarinatId": "2-13-183691415f",
+                                    "Color": "Silver",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 70
+                                },
+                                {
+                                    "Name": "i 8",
+                                    "VarinatId": "2-13-183701617g",
+                                    "Color": "Gold",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": " 8",
+                                    "VarinatId": "2-13-183711819h",
+                                    "Color": "Space Grey",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": "iPhone 9",
+                                    "VarinatId": "2-13-183722021j",
+                                    "Color": "Silver",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 1
+                                },
+                                {
+                                    "Name": "Gold 5",
+                                    "VarinatId": "2-13-183732223k",
+                                    "Color": "Gold",
+                                    "Size": "512GB",
+                                    "InStock": false,
+                                    "StockCount": 2
+                                }
+                            ]
+                        },
+                        {
+                            "ShopName": "T3 Koisk",
+                            "ShopId": "{D5DC5070-C334-436F-B64E-6B2A08332DAB}s",
+                            "Variants": [
+                                {
+                                    "Name": "Grey",
+                                    "VarinatId": "2-13-183681112l",
+                                    "Color": "Space Grey",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 90
+                                },
+                                {
+                                    "Name": "Silver",
+                                    "VarinatId": "2-13-183691415z",
+                                    "Color": "Silver",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 70
+                                },
+                                {
+                                    "Name": "i 8",
+                                    "VarinatId": "2-13-183701617x",
+                                    "Color": "Gold",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": " 8",
+                                    "VarinatId": "2-13-183711819c",
+                                    "Color": "Space Grey",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": "iPhone 9",
+                                    "VarinatId": "2-13-183722021v",
+                                    "Color": "Silver",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 1
+                                },
+                                {
+                                    "Name": "Gold 5",
+                                    "VarinatId": "2-13-183732223b",
+                                    "Color": "Gold",
+                                    "Size": "512GB",
+                                    "InStock": false,
+                                    "StockCount": 2
+                                }
+                            ]
+                        },
+                        {
+                            "ShopName": "Suntec Koisk",
+                            "ShopId": "{D5DC5070-C334-436F-B64E-6B2A08332DAB}s",
+                            "Variants": [
+                                {
+                                    "Name": "Grey",
+                                    "VarinatId": "2-13-183681112n",
+                                    "Color": "Space Grey",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 90
+                                },
+                                {
+                                    "Name": "Silver",
+                                    "VarinatId": "2-13-183691415m",
+                                    "Color": "Silver",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 70
+                                },
+                                {
+                                    "Name": "i 8",
+                                    "VarinatId": "2-13-183701617q",
+                                    "Color": "Gold",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": " 8",
+                                    "VarinatId": "2-13-183711819w",
+                                    "Color": "Space Grey",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": "iPhone 9",
+                                    "VarinatId": "2-13-183722021e",
+                                    "Color": "Silver",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 1
+                                },
+                                {
+                                    "Name": "Gold 5",
+                                    "VarinatId": "2-13-183732223r",
+                                    "Color": "Gold",
+                                    "Size": "512GB",
+                                    "InStock": false,
+                                    "StockCount": 2
+                                }
+                            ]
+                        },
+                        {
+                            "ShopName": "Westmall Koisk",
+                            "ShopId": "{D5DC5070-C334-436F-B64E-6B2A08332DAB}s",
+                            "Variants": [
+                                {
+                                    "Name": "Grey",
+                                    "VarinatId": "2-13-183681112t",
+                                    "Color": "Space Grey",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 90
+                                },
+                                {
+                                    "Name": "Silver",
+                                    "VarinatId": "2-13-183691415y",
+                                    "Color": "Silver",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 70
+                                },
+                                {
+                                    "Name": "i 8",
+                                    "VarinatId": "2-13-183701617u",
+                                    "Color": "Gold",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": " 8",
+                                    "VarinatId": "2-13-183711819i",
+                                    "Color": "Space Grey",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": "iPhone 9",
+                                    "VarinatId": "2-13-183722021o",
+                                    "Color": "Silver",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 1
+                                },
+                                {
+                                    "Name": "Gold 5",
+                                    "VarinatId": "2-13-183732223p",
+                                    "Color": "Gold",
+                                    "Size": "512GB",
+                                    "InStock": false,
+                                    "StockCount": 2
+                                }
+                            ]
+                        },
+                        {
+                            "ShopName": "Tampines Koisk",
+                            "ShopId": "{D5DC5070-C334-436F-B64E-6B2A08332DAB}s",
+                            "Variants": [
+                                {
+                                    "Name": "Grey",
+                                    "VarinatId": "2-13-183681112as",
+                                    "Color": "Space Grey",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 90
+                                },
+                                {
+                                    "Name": "Silver",
+                                    "VarinatId": "2-13-183691415sd",
+                                    "Color": "Silver",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 70
+                                },
+                                {
+                                    "Name": "i 8",
+                                    "VarinatId": "2-13-183701617fg",
+                                    "Color": "Gold",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": " 8",
+                                    "VarinatId": "2-13-183711819hj",
+                                    "Color": "Space Grey",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": "iPhone 9",
+                                    "VarinatId": "2-13-183722021kl",
+                                    "Color": "Silver",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 1
+                                },
+                                {
+                                    "Name": "Gold 5",
+                                    "VarinatId": "2-13-183732223zx",
+                                    "Color": "Gold",
+                                    "Size": "512GB",
+                                    "InStock": false,
+                                    "StockCount": 2
+                                }
+                            ]
+                        },
+                        {
+                            "ShopName": "Parkway Koisk",
+                            "ShopId": "{D5DC5070-C334-436F-B64E-6B2A08332DAB}s",
+                            "Variants": [
+                                {
+                                    "Name": "Grey",
+                                    "VarinatId": "2-13-183681112xc",
+                                    "Color": "Space Grey",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 90
+                                },
+                                {
+                                    "Name": "Silver",
+                                    "VarinatId": "2-13-183691415vb",
+                                    "Color": "Silver",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 70
+                                },
+                                {
+                                    "Name": "i 8",
+                                    "VarinatId": "2-13-183701617nm",
+                                    "Color": "Gold",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": " 8",
+                                    "VarinatId": "2-13-183711819qw",
+                                    "Color": "Space Grey",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": "iPhone 9",
+                                    "VarinatId": "2-13-183722021er",
+                                    "Color": "Silver",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 1
+                                },
+                                {
+                                    "Name": "Gold 5",
+                                    "VarinatId": "2-13-183732223ty",
+                                    "Color": "Gold",
+                                    "Size": "512GB",
+                                    "InStock": false,
+                                    "StockCount": 2
+                                }
+                            ]
+                        },
+                        {
+                            "ShopName": "IIM Koisk",
+                            "ShopId": "{D5DC5070-C334-436F-B64E-6B2A08332DAB}s",
+                            "Variants": [
+                                {
+                                    "Name": "Grey",
+                                    "VarinatId": "2-13-183681112yu",
+                                    "Color": "Space Grey",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 90
+                                },
+                                {
+                                    "Name": "Silver",
+                                    "VarinatId": "2-13-183691415op",
+                                    "Color": "Silver",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 70
+                                },
+                                {
+                                    "Name": "i 8",
+                                    "VarinatId": "2-13-183701617as",
+                                    "Color": "Gold",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": " 8",
+                                    "VarinatId": "2-13-183711819df",
+                                    "Color": "Space Grey",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": "iPhone 9",
+                                    "VarinatId": "2-13-183722021gh",
+                                    "Color": "Silver",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 1
+                                },
+                                {
+                                    "Name": "Gold 5",
+                                    "VarinatId": "2-13-183732223hj",
+                                    "Color": "Gold",
+                                    "Size": "512GB",
+                                    "InStock": false,
+                                    "StockCount": 2
+                                }
+                            ]
+                        },
+                        {
+                            "ShopName": "M1 eshope Virtual ",
+                            "ShopId": "{D5DC5070-C334-436F-B64E-6B2A08332DAB}s",
+                            "Variants": [
+                                {
+                                    "Name": "Grey",
+                                    "VarinatId": "2-13-183681112kl",
+                                    "Color": "Space Grey",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 90
+                                },
+                                {
+                                    "Name": "Silver",
+                                    "VarinatId": "2-13-183691415zx",
+                                    "Color": "Silver",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 70
+                                },
+                                {
+                                    "Name": "i 8",
+                                    "VarinatId": "2-13-183701617xcv",
+                                    "Color": "Gold",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": " 8",
+                                    "VarinatId": "2-13-183711819bnm",
+                                    "Color": "Space Grey",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": "iPhone 9",
+                                    "VarinatId": "2-13-183722021qwe",
+                                    "Color": "Silver",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 1
+                                },
+                                {
+                                    "Name": "Gold 5",
+                                    "VarinatId": "2-13-183732223rty",
+                                    "Color": "Gold",
+                                    "Size": "512GB",
+                                    "InStock": false,
+                                    "StockCount": 2
+                                }
+                            ]
+                        },
+                        {
+                            "ShopName": "Compasspoint Koisk",
+                            "ShopId": "{D5DC5070-C334-436F-B64E-6B2A08332DAB}s",
+                            "Variants": [
+                                {
+                                    "Name": "Grey",
+                                    "VarinatId": "2-13-183681112yui",
+                                    "Color": "Space Grey",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 90
+                                },
+                                {
+                                    "Name": "Silver",
+                                    "VarinatId": "2-13-183691415opa",
+                                    "Color": "Silver",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 70
+                                },
+                                {
+                                    "Name": "i 8",
+                                    "VarinatId": "2-13-183701617sdfg",
+                                    "Color": "Gold",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": " 8",
+                                    "VarinatId": "2-13-183711819ghj",
+                                    "Color": "Space Grey",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": "iPhone 9",
+                                    "VarinatId": "2-13-183722021klz",
+                                    "Color": "Silver",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 1
+                                },
+                                {
+                                    "Name": "Gold 5",
+                                    "VarinatId": "2-13-183732223xcv",
+                                    "Color": "Gold",
+                                    "Size": "512GB",
+                                    "InStock": false,
+                                    "StockCount": 2
+                                }
+                            ]
+                        },
+                        {
+                            "ShopName": "Paragon Koisk",
+                            "ShopId": "{D5DC5070-C334-436F-B64E-6B2A08332DAB}s",
+                            "Variants": [
+                                {
+                                    "Name": "Grey",
+                                    "VarinatId": "2-13-183681112nmjg",
+                                    "Color": "Space Grey",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 90
+                                },
+                                {
+                                    "Name": "Silver",
+                                    "VarinatId": "2-13-183691415mngf",
+                                    "Color": "Silver",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 70
+                                },
+                                {
+                                    "Name": "i 8",
+                                    "VarinatId": "2-13-183701617cvgf",
+                                    "Color": "Gold",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": " 8",
+                                    "VarinatId": "2-13-183711819cvdf",
+                                    "Color": "Space Grey",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": "iPhone 9",
+                                    "VarinatId": "2-13-183722021vcdf",
+                                    "Color": "Silver",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 1
+                                },
+                                {
+                                    "Name": "Gold 5",
+                                    "VarinatId": "2-13-183732223mnjk",
+                                    "Color": "Gold",
+                                    "Size": "512GB",
+                                    "InStock": false,
+                                    "StockCount": 2
+                                }
+                            ]
+                        },
+                        {
+                            "ShopName": "Wetest",
+                            "ShopId": "{D5DC5070-C334-436F-B64E-6B2A08332DAB}s",
+                            "Variants": [
+                                {
+                                    "Name": "Grey",
+                                    "VarinatId": "2-13-183681112mnbhj",
+                                    "Color": "Space Grey",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 90
+                                },
+                                {
+                                    "Name": "Silver",
+                                    "VarinatId": "2-13-183691415mnbhj",
+                                    "Color": "Silver",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 70
+                                },
+                                {
+                                    "Name": "i 8",
+                                    "VarinatId": "2-13-183701617mnbhj",
+                                    "Color": "Gold",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": " 8",
+                                    "VarinatId": "2-13-183711819mnbhjk",
+                                    "Color": "Space Grey",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": "iPhone 9",
+                                    "VarinatId": "2-13-183722021cvbnmlkj",
+                                    "Color": "Silver",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 1
+                                },
+                                {
+                                    "Name": "Gold 5",
+                                    "VarinatId": "2-13-183732223mnbvcfghy",
+                                    "Color": "Gold",
+                                    "Size": "512GB",
+                                    "InStock": false,
+                                    "StockCount": 2
+                                }
+                            ]
+                        },
+                        {
+                            "ShopName": "Wetest",
+                            "ShopId": "{D5DC5070-C334-436F-B64E-6B2A08332DAB}s",
+                            "Variants": [
+                                {
+                                    "Name": "Grey",
+                                    "VarinatId": "2-13-183681112xcvbnmkj",
+                                    "Color": "Space Grey",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 90
+                                },
+                                {
+                                    "Name": "Silver",
+                                    "VarinatId": "2-13-183691415xdsxcfvgb",
+                                    "Color": "Silver",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 70
+                                },
+                                {
+                                    "Name": "i 8",
+                                    "VarinatId": "2-13-183701617dcxcswert",
+                                    "Color": "Gold",
+                                    "Size": "64GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": " 8",
+                                    "VarinatId": "2-13-183711819ytredfghnb",
+                                    "Color": "Space Grey",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 10
+                                },
+                                {
+                                    "Name": "iPhone 9",
+                                    "VarinatId": "2-13-183722021poiukjmn",
+                                    "Color": "Silver",
+                                    "Size": "256GB",
+                                    "InStock": false,
+                                    "StockCount": 1
+                                },
+                                {
+                                    "Name": "Gold 5",
+                                    "VarinatId": "2-13-183732223uytghjmnb",
+                                    "Color": "Gold",
+                                    "Size": "512GB",
+                                    "InStock": false,
+                                    "StockCount": 2
+                                }
+                            ]
                         }
-                        $scope.selectedPlan = phoneaccessorie;
-
+                    ]
+                };
+                /*Variant selection start here */
+                variantSelection();
+                function variantSelection() {
+                    var variantdata = [];
+                    $scope.variantsection = {
+                        "Variants": [
+                        ]
+                    };
+                    for (var i = 0; i < $scope.phoneaccessories.Productdata.length; i++) {
+                        variantdata = $scope.phoneaccessories.Productdata[i].Variants;
+                        for (var j = 0; j < variantdata.length; j++) {
+                            variantdata[j].store = $scope.phoneaccessories.Productdata[i].ShopName;
+                            variantdata[j].ShopId = $scope.phoneaccessories.Productdata[i].ShopId;
+                            $scope.variantsection.Variants.push(variantdata[j]);
+                        }
                     }
+                    console.log($scope.variantsection.Variants);
                 }
-                console.log(phoneaccessorie);
-                //$scope.selectedPlan = phoneaccessorie;
-            };
-			console.log($scope.variantsection.Variants);
-        /*plan selection flag end here*/
-        /* filter section start here */
-        //$scope.filterSection = function (name,status) {
-        //    console.log(name);
-        //    console.log(status);
-        //};
+                $scope.resultArray = $scope.variantsection.Variants;
+                /*add active flag start here*/
+                for (var i = 0; i < $scope.variantsection.Variants.length; i++) {
+                    $scope.variantsection.Variants[i].active = false;
+                }
+                /*add active flag end  here*/
+                /*plan selection flag start here*/
+                $scope.selectedPlan;
+                $scope.index;
+                $scope.selectedRow = function (phoneaccessorie) {
+                    for (var i = 0; i < $scope.variantsection.Variants.length; i++) {
+                        console.log($scope.variantsection.Variants[i].VarinatId == phoneaccessorie.VarinatId);
+                        $scope.variantsection.Variants[i].active = false;
+                        if ($scope.variantsection.Variants[i].VarinatId == phoneaccessorie.VarinatId) {
+                            $scope.variantsection.Variants[i].active = true;
+                            if ($scope.index) {
+                                $scope.variantsection.Variants[$scope.index].active = false;
+                            }
+                            $scope.selectedPlan = phoneaccessorie;
 
-        /* filter section end here */
-        /*Variant selection end  here */
-        /*filter section start here */
+                        }
+                    }
+                    console.log(phoneaccessorie);
+                    //$scope.selectedPlan = phoneaccessorie;
+                };
+                console.log($scope.variantsection.Variants);
+                /*plan selection flag end here*/
+                /*Variant selection end  here */
+                /*filter section start here */
                 var filterArray = [];
+                $scope.disableflag = false;
                 // var filterArray = [
                 //     {'Color':['Silver','Space Grey']},
                 //     {'Size':['64GB','256GB']}
                 // ];
                 /*check box filter section start here*/
                 $scope.filterSection = function (selectionobject, status) {
-                         $scope.checkall = undefined;
-                         $scope.shopcheck = undefined;
-                         if (status) {
-                             var keypresent = false;
-                             if (filterArray.hasOwnProperty(selectionobject.selectedBy)) {
-                                 filterArray[selectionobject.selectedBy].push(selectionobject.name);
-                                 keypresent = true;
-								 filterArrayOnLoop(filterArray, $scope.variantsection.Variants);								 
-                             }
-                             if (!keypresent) {
-                                 filterArray[selectionobject.selectedBy] = [];
-                                 filterArray[selectionobject.selectedBy].push(selectionobject.name);
-                             }
-                             filterArrayOnLoop(filterArray, $scope.variantsection.Variants);
-                         }
-                         else {
-                             var index = filterArray[selectionobject.selectedBy].indexOf(selectionobject.name);
-                             filterArray[selectionobject.selectedBy].splice(index, 1);
-                             filterArrayOnLoop(filterArray, $scope.variantsection.Variants);
-                         }
+                    $scope.checkedflag = undefined;
+                    if (status) {
+                        // var keypresent = false;
+                        if (filterArray.hasOwnProperty(selectionobject.selectedBy)) {
+
+                            if (!$scope.disableflag) {
+                                $scope.disableflag = true;
+                                filterArray[selectionobject.selectedBy].push(selectionobject.name);
+                                $scope.disableflag = false;
+                            }
+                            // keypresent = true;
+                            // filterArrayOnLoop(filterArray, $scope.variantsection.Variants);
+                        } else {
+                            if (!$scope.disableflag) {
+                                $scope.disableflag = true;
+                                filterArray[selectionobject.selectedBy] = [];
+                                filterArray[selectionobject.selectedBy].push(selectionobject.name);
+                                $scope.disableflag = false;
+                            }
+                        }
+                        filterArrayOnLoop(filterArray, $scope.variantsection.Variants);
+                    }
+                    else {
+                        //if (filterArray !== undefined && filterArray.length != 0 && filterArray[selectionobject.selectedBy] !== undefined) {
+                        if (!$scope.disableflag) {
+                            $scope.disableflag = true;
+                            var index = filterArray[selectionobject.selectedBy].indexOf(selectionobject.name);
+                            if (index > -1) {
+                                filterArray[selectionobject.selectedBy].splice(index, 1);
+                            }
+                            $scope.disableflag = false;
+                        }
+                        //}
+                        filterArrayOnLoop(filterArray, $scope.variantsection.Variants);
+                    }
+                    return false;
                 };
                 /*check box filter section end here*/
-                    /*filter function start here*/
-					var resultArray;													
-                        var data=$scope.variantsection.Variants;
-                        function filterArrayOnLoop(filterArray, data) {
-							var arr = [];
-     						$scope.resultArray=[];
-							for (var k in filterArray) {
-                              if (filterArray.hasOwnProperty(k)) {
-                              var obj = {};
-							  obj[k] = filterArray[k];
-							  arr.push(obj);
-                              }
-                            }
-							filterArray = arr;
-                            data.forEach(function (record) {
-                                let isEligible = true;
-                                filterArray.forEach(
-                                (filter) => {
-                                    var selectedkey = Object.keys(filter)[0];
-                                    let isMatched = false;
-                                    if (filter[selectedkey] != null && filter[selectedkey].length > 0) {
-                                        //to check the recored present i parent object start here
-                                        isMatched = filter[selectedkey].some((value) => {
-                                            return value === record[selectedkey];
-                                        });
-                                        //to check the recored present i parent object end here
-                                    } else {
-                                        isMatched = true;
-                                    }
-                                    if (!isMatched)
-                                        isEligible = false;
-                                });
-                                if (isEligible) {
-                                    //resultArray=[];
-                                    $scope.resultArray.push(record);
+                /*filter function start here*/
+                var resultArray;
+                var data = $scope.variantsection.Variants;
+                function filterArrayOnLoop(filterArray, data) {
+
+                    var filteredarray = [];
+                    $scope.resultArray = [];
+                    for (var i in filterArray) {
+                        if (filterArray.hasOwnProperty(i)) {
+                            var obj = {};
+                            obj[i] = filterArray[i];
+                            filteredarray.push(obj);
+                        }
+                    }
+                    filterArray = filteredarray;
+                    data.forEach(function (record) {
+                        let isEligible = true;
+                        filterArray.forEach(
+                            (filter) => {
+                                var selectedkey = Object.keys(filter)[0];
+                                let isMatched = false;
+                                if (filter[selectedkey] != null && filter[selectedkey].length > 0) {
+                                    //to check the recored present i parent object start here
+                                    isMatched = filter[selectedkey].some((value) => {
+                                        return value === record[selectedkey];
+                                    });
+                                    //to check the recored present i parent object end here
+                                } else {
+                                    isMatched = true;
                                 }
+                                if (!isMatched)
+                                    isEligible = false;
+                            });
+                        if (isEligible) {
+                            //resultArray=[];
+                            $scope.resultArray.push(record);
+                        }
                     });
+                    $scope.disableflag = false;
+                    console.log(filterArray);
                     console.log($scope.resultArray);
                 }
                 /*filter function end here*/
-        /*filter section end  here */
-        /* shop drop down start here*/
-            $scope.shopSelection = function () {
-                mcp.activeShop = !mcp.activeShop;
-            };
-            $scope.clearShop = function () {
-                filterArray = {};
-                console.log(filterArray);
-                $scope.shopcheck = false;
-            };
-            $scope.clearFilter = function () {
-                filterArray = {};
-                console.log(filterArray);
-                $scope.checkall = false;
-                $scope.shopcheck = false;
-            }
-        /* shop drop down end here*/
+                /*filter section end  here */
+                /* shop drop down start here*/
+                $scope.shopSelection = function () {
+                    mcp.activeShop = !mcp.activeShop;
+                };
+                $scope.clearFilter = function () {
+                    var filterArray = [{ 'Color': [] }];
+                    $scope.checkedflag = false;
+                    filterArrayOnLoop(filterArray, $scope.variantsection.Variants);
+                }
+                /* shop drop down end here*/
+                /* shop filter section start here */
+                $scope.shopSection = function () {
 
+                };
+                $scope.shopApply = function () {
+                    filterArrayOnLoop(filterArray, $scope.variantsection.Variants);
+                };
+                $scope.clearShop = function () {
+                    filterArray = {};
+                    $scope.shopcheck = false;
+                };
+                /*shop filter section end  here */
         /*phone accessories end here*/
     }]);
-    //moose case page controller end  here 
-    angular.module("m1cp.eshop.moose").controller("mooseDevicePlanController", ["$scope", "$window", "httpHandler", "mooseDeviceService", "moosePlanService", function ($scope, $window, httpHandler, mooseDeviceService, moosePlanService) {
+    angular.module("m1cp.eshop.moose").controller("mooseDevicePlanController", ["$scope", "$window", "httpHandler", "mooseDeviceService", "moosePlanService", function($scope, $window, httpHandler, mooseDeviceService, moosePlanService) {
         var mdp = this;
         mdp.deviceDetails;
         mdp.planDetails;
         mdp.selectedPlan = "";
-        $scope.getDeviceData = function (selectedPlan, caseType, resultType) {
+        $scope.getDeviceData = function(selectedPlan, caseType, resultType) {
             //mdp.deviceDetails = reqObj;
             console.log(selectedPlan);
             console.log(caseType.name);
@@ -1585,32 +2244,32 @@
                 $scope.mooseDevicedata = mooseDeviceService.getDeviceList();
             }
             if (caseType.name == "FBB") {
-                $scope.mooseBundledata = { "a": "b" };
+            $scope.mooseBundledata = {"a":"b"};
             }
             // if(mdp.selectedPlan){
             // $scope.mooseDevicedata = mooseDeviceService.getDeviceList();
             // }
         }
-        $scope.getRouterData = function () {
-            $scope.mooseRouterdata = { "a": "b" };
+        $scope.getRouterData = function() {
+            $scope.mooseRouterdata = {"a":"b"};
         }
-        $scope.getPlanData = function (reqObj) {
+        $scope.getPlanData = function(reqObj) {
             console.log(reqObj)
             //mdp.planDetails = reqObj;
             $scope.moosePlandata = moosePlanService.getPlanList();
         }
-        $scope.showPlanDetails = function (item) {
+        $scope.showPlanDetails = function(item) {
         }
-        $scope.EditPlanData = function (item) {
+        $scope.EditPlanData = function(item) {
             delete $scope.mooseDevicedata;
         }
-        $scope.onlyPlanReq = function () {
+        $scope.onlyPlanReq = function() {
             if (mdp.onlyPlanReq) {
                 delete $scope.mooseDevicedata;
             }
         }
     }]);
-    angular.module("m1cp.eshop.moose").service("mooseDeviceService", ["$rootScope", "httpHandler", function ($rootScope, httpHandler) {
+    angular.module("m1cp.eshop.moose").service("mooseDeviceService", ["$rootScope", "httpHandler", function($rootScope, httpHandler) {
         var data = {
             "heading": "DEVICE AND PLAN",
             "devices": {
@@ -1738,23 +2397,23 @@
             }
         }
         var data_2 = {
-            "Id": "P201-231231-231",
-            "Title": "Apple iPhoneX.",
-            "Description": "Key USP.",
-            "FreeGift": "FreeGift Section",
-            "Specification": {
+              "Id": "P201-231231-231",
+              "Title": "Apple iPhoneX.", 
+              "Description": "Key USP.",
+              "FreeGift": "FreeGift Section",
+              "Specification": {
                 "Values": {
-                    "Camera": "Front:5MP, Rear:12MP",
-                    "Image": "{77565679-3B2D-4611-8E86-ECC2F8388F67}",
-                    "Memory": "",
-                    "Network": "LTE",
-                    "Operating System": "{EBC7BB0C-8A39-47EA-895B-149B385218C2}",
-                    "Processor": "MSM8953/2.0GHz",
-                    "Screen Size": "5.2\""
+                  "Camera": "Front:5MP, Rear:12MP",
+                  "Image": "{77565679-3B2D-4611-8E86-ECC2F8388F67}",
+                  "Memory": "",
+                  "Network": "LTE",
+                  "Operating System": "{EBC7BB0C-8A39-47EA-895B-149B385218C2}",
+                  "Processor": "MSM8953/2.0GHz",
+                  "Screen Size": "5.2\""
                 }
-            },
-            "Variants": [
-              {
+              },
+              "Variants": [
+                {
                   "VariantId": "2-3012-123012",
                   "Color": "Silver",
                   "Size": "64GB",
@@ -1764,11 +2423,11 @@
                     "../../images/Phone6-2x-desktop.png"
                   ],
                   "Price": {
-                      "ListPrice": "$1212",
-                      "Price": "$122"
+                    "ListPrice": "$1212",
+                    "Price": "$122"
                   },
-                  outOfStock: false
-              }, {
+                  outOfStock:false
+                },  {
                   "VariantId": "2-3012-123012",
                   "Color": "Silver",
                   "Size": "246 GB",
@@ -1778,12 +2437,12 @@
                     "../../images/Phone6-2x-desktop.png"
                   ],
                   "Price": {
-                      "ListPrice": "$1212",
-                      "Price": "$122"
+                    "ListPrice": "$1212",
+                    "Price": "$122"
                   },
-                  outOfStock: true
-              },
-              {
+                  outOfStock:true
+                },
+                {
                   "VariantId": "2-3012-123012",
                   "Color": "Red",
                   "Size": "252GB",
@@ -1793,27 +2452,27 @@
                     "../../images/Phone6-2x-desktop.png"
                   ],
                   "Price": {
-                      "ListPrice": "$1212",
-                      "Price": "$122"
+                    "ListPrice": "$1212",
+                    "Price": "$122"
                   },
-                  outOfStock: true
-              },
-                {
-                    "VariantId": "2-3012-123012",
-                    "Color": "Silver",
-                    "Size": "640 GB",
-                    "Images": [
-                      "../../images/Phone6-2x-desktop.png",
-                     "../../images/Phone4-2x-desktop.png",
-                      "../../images/Phone6-2x-desktop.png"
-                    ],
-                    "Price": {
-                        "ListPrice": "$1212",
-                        "Price": "$122"
-                    },
-                    outOfStock: false
+                  outOfStock:true
                 },
-              {
+                  {
+                  "VariantId": "2-3012-123012",
+                  "Color": "Silver",
+                  "Size": "640 GB",
+                  "Images": [
+                    "../../images/Phone6-2x-desktop.png",
+                   "../../images/Phone4-2x-desktop.png",
+                    "../../images/Phone6-2x-desktop.png"
+                  ],
+                  "Price": {
+                    "ListPrice": "$1212",
+                    "Price": "$122"
+                  },
+                  outOfStock:false
+                },
+                {
                   "VariantId": "2-3012-123012",
                   "Color": "Red",
                   "Size": "640GB",
@@ -1823,12 +2482,12 @@
                     "../../images/Phone6-2x-desktop.png"
                   ],
                   "Price": {
-                      "ListPrice": "$1212",
-                      "Price": "$122"
+                    "ListPrice": "$1212",
+                    "Price": "$122"
                   },
-                  outOfStock: false
-              },
-              {
+                  outOfStock:false
+                },
+                {
                   "VariantId": "2-3012-123013",
                   "Color": "Black",
                   "Size": "64GB",
@@ -1837,56 +2496,56 @@
                    "../../images/Phone6-2x-desktop.png",
                   ],
                   "Price": {
-                      "ListPrice": "$1212",
-                      "Price": "$122"
+                    "ListPrice": "$1212",
+                    "Price": "$122"
                   },
-                  outOfStock: false
-              },
-              {
+                  outOfStock:false
+                },
+                {
                   "VariantId": "2-3012-123014",
                   "Color": "Black",
                   "Size": "128GB",
-                  "Images": [
-                   "../../images/Phone6-2x-desktop.png",
-                  "../../images/Phone4-2x-desktop.png"
+                   "Images": [
+                    "../../images/Phone6-2x-desktop.png",
+                   "../../images/Phone4-2x-desktop.png"
                   ],
                   "Price": {
-                      "ListPrice": "$1212",
-                      "Price": "$122"
+                    "ListPrice": "$1212",
+                    "Price": "$122"
                   },
-                  outOfStock: true
-              },
-               {
-                   "VariantId": "2-3012-123015",
-                   "Color": "Blue",
-                   "Size": "128GB",
+                  outOfStock:true
+                },
+                 {
+                  "VariantId": "2-3012-123015",
+                  "Color": "Blue",
+                  "Size": "128GB",
                    "Images": [
                     "../../images/Phone6-2x-desktop.png",
                     "../../images/Phone6-2x-desktop.png",
                    "../../images/Phone4-2x-desktop.png",
                     "../../images/Phone6-2x-desktop.png"
-                   ],
-                   "Price": {
-                       "ListPrice": "$1212",
-                       "Price": "$122"
-                   },
-                   outOfStock: false
-               },
-              {
+                  ],
+                  "Price": {
+                    "ListPrice": "$1212",
+                    "Price": "$122"
+                  },
+                  outOfStock:false
+                },
+                {
                   "VariantId": "2-3012-123016",
                   "Color": "Gold",
                   "Size": "128GB",
-                  "Images": [
-                   "../../images/Phone6-2x-desktop.png",
-                   "../../images/Phone6-2x-desktop.png"
+                   "Images": [
+                    "../../images/Phone6-2x-desktop.png",
+                    "../../images/Phone6-2x-desktop.png"
                   ],
                   "Price": {
-                      "ListPrice": "$1212",
-                      "Price": "$122"
+                    "ListPrice": "$1212",
+                    "Price": "$122"
                   },
-                  outOfStock: true
-              },
-              {
+                  outOfStock:true
+                },
+                {
                   "VariantId": "2-3012-123017",
                   "Color": "Gold",
                   "Size": "108GB",
@@ -1895,28 +2554,28 @@
                     "../../images/Phone6-2x-desktop.png"
                   ],
                   "Price": {
-                      "ListPrice": "$1212",
-                      "Price": "$122"
+                    "ListPrice": "$1212",
+                    "Price": "$122"
                   },
-                  outOfStock: false
-              }
-            ],
-            "BrochureDownloadLink": "/-/media/documents/m1cp/product/applex.pdf",
-            "PromotionBanners": [
-              {
+                  outOfStock:false
+                }
+              ],
+              "BrochureDownloadLink": "/-/media/documents/m1cp/product/applex.pdf",
+              "PromotionBanners": [
+                {
                   "Title": "",
                   "Image": "",
                   "Description": "",
                   "Cta": ""
-              },
-              {
+                },
+                {
                   "Title": "",
                   "Image": "",
                   "Description": "",
                   "Cta": ""
-              }
-            ]
-        }
+                }
+              ]
+            }
         this.value = "";
         // this.getDeviceList= function(){
         //   var requestmethod = 'POST';
@@ -1933,11 +2592,11 @@
         //     }
         //   )
         // };
-        this.getDeviceList = function () {
+        this.getDeviceList = function() {
             return data;
         }
     }]);
-    angular.module("m1cp.eshop.moose").service("moosePlanService", ["$rootScope", function ($rootScope) {
+    angular.module("m1cp.eshop.moose").service("moosePlanService", ["$rootScope", function($rootScope) {
         var data = {
             "categoryProductData": [{
                 "__interceptors": [{}],
@@ -4034,66 +4693,753 @@
                 }
             }
         };
-        this.getPlanList = function () {
+        this.getPlanList = function() {
             return data;
         }
     }]);
     //start here moose waiver Controller
-    angular.module("m1cp.eshop.moose").service("mooseMainLineService", ["$rootScope", "httpHandler", function ($rootScope, httpHandler) {
-        this.getMainLineList = function () {
+	angular.module("m1cp.eshop.moose").service("mooseMainLineService", ["$rootScope", "httpHandler", function ($rootScope, httpHandler) {
+		this.getMainLineList = function () {
             var URL = "serviceLines.json";
             return httpHandler.fetchdata('GET', URL, "", "json");
         }
     }]);
 
-    angular.module("m1cp.eshop.moose").controller("moosewaiverController", ["$scope", "$window", "errorHandler", "httpHandler", function ($scope, $window, errorHandler, httpHandler) {
-        /*moose waiver start here*/
+	angular.module("m1cp.eshop.moose").controller("moosewaiverController", ["$scope", "$window", "errorHandler", "httpHandler",'navigationHandler', 'eshopSelection', function($scope, $window, errorHandler, httpHandler,navigationHandler,eshopSelection) {
+	    /*moose waiver start here*/
+	    var stickycontainer = {
+	        "SelectPhone": {
+	            "VariantColor": null,
+	            "VaritantSize": null,
+	            "Image": null,
+	            "VariantId": null,
+	            "StepId": "ecfe5080-db2a-4064-9b34-34a5f9ba323a",
+	            "IsActive": false,
+	            "IsEdit": false,
+	            "IsComplete": false,
+	            "Ignore": true,
+	            "Order": 0,
+	            "Selection": {},
+	            "CurrentUrl": "http://m1cpeshop/en/EShop/Gsm/Phones",
+	            "BackUrl": "",
+	            "PostUrl": "",
+	            "NavStyle": {
+	                "nextlabel": "NEXT",
+	                "previouslabel": "BACK",
+	                "buttontype": "arrow",
+	                "nextshow": true,
+	                "previousshow": false,
+	                "previousactive": true,
+	                "nextactive": true,
+	                "isform": false,
+	                "alignbutton": "right"
+	            },
+	            "Name": "PHONE",
+	            "Title": null,
+	            "ExternalId": null,
+	            "SelectedEntitySitecoreId": "{35de743a-42cc-4786-b739-8509bd1d7698}",
+	            "StickyBarText": "Alcatel PIXI4 7\" Smokey Grey Castle.Proxies.GlassBaseProxy 8GB",
+	            "CartText": null,
+	            "CartHelpText": "Alcatel PIXI4 7\" Smokey Grey",
+	            "Price": {
+	                "Monthly": null,
+	                "FirstTimeToBill": null,
+	                "SellingPrice": {
+	                    "CurrencyCode": null,
+	                    "Amount": 199.0000
+	                }
+	            },
+	            "ListPrice": null,
+	            "Value": null,
+	            "Values": [],
+	            "Documents": []
+	        },
+	        "SelectPlan": {
+	            "PlanName": "2-13-GSM11392",
+	            "Recontract": false,
+	            "StepId": "4708d452-2f11-400f-b1aa-e620b21de40c",
+	            "IsActive": false,
+	            "IsEdit": false,
+	            "IsComplete": false,
+	            "Ignore": true,
+	            "Order": 1,
+	            "Selection": {
+	                "Id": "00000000-0000-0000-0000-000000000000",
+	                "Contract": null,
+	                "IsCORI": false,
+	                "CORIEmail": null,
+	                "Recontract": false,
+	                "ListPrice": 28.0000,
+	                "CompanyBRName": null,
+	                "PlanName": "2-13-GSM11392",
+	                "DisplayName": "Lite"
+	            },
+	            "CurrentUrl": "http://m1cpeshop/en/EShop/Gsm/Phones",
+	            "BackUrl": null,
+	            "PostUrl": null,
+	            "NavStyle": {
+	                "nextlabel": "NEXT",
+	                "previouslabel": "BACK",
+	                "buttontype": "arrow",
+	                "nextshow": true,
+	                "previousshow": true,
+	                "previousactive": true,
+	                "nextactive": false,
+	                "isform": false,
+	                "alignbutton": "right"
+	            },
+	            "Name": "PLAN",
+	            "Title": null,
+	            "ExternalId": null,
+	            "SelectedEntitySitecoreId": "{00000000-0000-0000-0000-000000000000}",
+	            "StickyBarText": "2-13-GSM11392",
+	            "CartText": null,
+	            "CartHelpText": "Lite",
+	            "Price": {
+	                "Monthly": null,
+	                "FirstTimeToBill": null,
+	                "SellingPrice": null
+	            },
+	            "ListPrice": null,
+	            "Value": null,
+	            "Values": [],
+	            "Documents": []
+	        },
+	        "SelectNumber": {
+	            "Number": "97932399",
+	            "StepId": "49a3fb93-02cf-48f9-86a7-eaf370a570a3",
+	            "IsActive": false,
+	            "IsEdit": false,
+	            "IsComplete": false,
+	            "Ignore": true,
+	            "Order": 2,
+	            "Selection": {
+	                "Number": "97932399",
+	                "Price": 0.0,
+	                "Promotion": null,
+	                "PortIn": {
+	                    "Provider": null,
+	                    "IdType": 0,
+	                    "IdDocumentNumber": null,
+	                    "BillAccountNumber": null,
+	                    "SubscriberName": null
+	                },
+	                "NumberType": 3,
+	                "CartText": null,
+	                "PackageId": "d4f4f259d3074c43820ef664a6bffb1f"
+	            },
+	            "CurrentUrl": "http://m1cpeshop/en/EShop/Gsm/Phones",
+	            "BackUrl": null,
+	            "PostUrl": null,
+	            "NavStyle": {
+	                "nextlabel": "NEXT",
+	                "previouslabel": "BACK",
+	                "buttontype": "arrow",
+	                "nextshow": true,
+	                "previousshow": true,
+	                "previousactive": true,
+	                "nextactive": true,
+	                "isform": false,
+	                "alignbutton": "default"
+	            },
+	            "Name": "NUMBER",
+	            "Title": null,
+	            "ExternalId": null,
+	            "SelectedEntitySitecoreId": null,
+	            "StickyBarText": "PreferredNumber 97932399",
+	            "CartText": null,
+	            "CartHelpText": null,
+	            "Price": {
+	                "Monthly": null,
+	                "FirstTimeToBill": null,
+	                "SellingPrice": {
+	                    "CurrencyCode": null,
+	                    "Amount": 0.0
+	                }
+	            },
+	            "ListPrice": null,
+	            "Value": null,
+	            "Values": [],
+	            "Documents": []
+	        },
+	        "SelectAddon": {
+	            "addOn": null,
+	            "addonList": [],
+	            "StepId": "85dd7b74-ff6f-42c1-9624-506a61e8dd90",
+	            "IsActive": true,
+	            "IsEdit": false,
+	            "IsComplete": false,
+	            "Ignore": true,
+	            "Order": 3,
+	            "Selection": {},
+	            "CurrentUrl": "http://m1cpeshop/en/EShop/Gsm/Phones",
+	            "BackUrl": null,
+	            "PostUrl": null,
+	            "NavStyle": {
+	                "nextlabel": "NEXT",
+	                "previouslabel": "BACK",
+	                "buttontype": "arrow",
+	                "nextshow": true,
+	                "previousshow": true,
+	                "previousactive": true,
+	                "nextactive": false,
+	                "isform": false,
+	                "alignbutton": "default"
+	            },
+	            "Name": "ADDON",
+	            "Title": null,
+	            "ExternalId": null,
+	            "SelectedEntitySitecoreId": null,
+	            "StickyBarText": null,
+	            "CartText": null,
+	            "CartHelpText": null,
+	            "Price": {
+	                "Monthly": null,
+	                "FirstTimeToBill": null,
+	                "SellingPrice": null
+	            },
+	            "ListPrice": null,
+	            "Value": null,
+	            "Values": [],
+	            "Documents": []
+	        },
+	        "EntityId": "d4f4f259d3074c43820ef664a6bffb1f",
+	        "PackageType": 1,
+	        "Name": "PhoneEntry",
+	        "Identifier": "gsm.phoneentry",
+	        "CurrentStep": {
+	            "addOn": null,
+	            "addonList": [],
+	            "StepId": "85dd7b74-ff6f-42c1-9624-506a61e8dd90",
+	            "IsActive": true,
+	            "IsEdit": false,
+	            "IsComplete": false,
+	            "Ignore": true,
+	            "Order": 3,
+	            "Selection": {},
+	            "CurrentUrl": "http://m1cpeshop/en/EShop/Gsm/Phones",
+	            "BackUrl": null,
+	            "PostUrl": "https://jkgghkhhiljhljhljljl",
+	            "NavStyle": {
+	                "nextlabel": "NEXT",
+	                "previouslabel": "BACK",
+	                "buttontype": "button",
+	                "nextshow": true,
+	                "previousshow": true,
+	                "previousactive": true,
+	                "nextactive": true,
+	                "isform": false,
+	                "alignbutton": "default"
+	            },
+	            "Name": "ADDON",
+	            "Title": null,
+	            "ExternalId": null,
+	            "SelectedEntitySitecoreId": null,
+	            "StickyBarText": null,
+	            "CartText": null,
+	            "CartHelpText": null,
+	            "Price": {
+	                "Monthly": null,
+	                "FirstTimeToBill": null,
+	                "SellingPrice": null
+	            },
+	            "ListPrice": null,
+	            "Value": null,
+	            "Values": [],
+	            "Documents": []
+	        },
+	        "Steps": [{
+	            "StoreName": null,
+	            "DeliveryDate": null,
+	            "DeliveryTime": null,
+	            "DeliveryCharge": 0.0,
+	            "DeliveryType": 0,
+	            "CustomerInformation": null,
+	            "PopStationId": null,
+	            "StepId": "e0b84046-6d62-41b8-a4ab-5b555c5c8840",
+	            "IsActive": false,
+	            "IsEdit": false,
+	            "IsComplete": false,
+	            "Ignore": true,
+	            "Order": 4,
+	            "Selection": {},
+	            "CurrentUrl": "http://m1cpeshop/en/EShop/Gsm/Phones",
+	            "BackUrl": null,
+	            "PostUrl": null,
+	            "NavStyle": {
+	                "nextlabel": null,
+	                "previouslabel": null,
+	                "buttontype": null,
+	                "nextshow": false,
+	                "previousshow": false,
+	                "previousactive": false,
+	                "nextactive": false,
+	                "isform": false,
+	                "alignbutton": null
+	            },
+	            "Name": "DELIVERY",
+	            "Title": null,
+	            "ExternalId": null,
+	            "SelectedEntitySitecoreId": null,
+	            "StickyBarText": null,
+	            "CartText": null,
+	            "CartHelpText": null,
+	            "Price": {
+	                "Monthly": null,
+	                "FirstTimeToBill": null,
+	                "SellingPrice": null
+	            },
+	            "ListPrice": null,
+	            "Value": null,
+	            "Values": [],
+	            "Documents": []
+	        }, {
+	            "IsSunrise": false,
+	            "BillingAddress": null,
+	            "ResidentialAddress": null,
+	            "CustomerStatus": null,
+	            "FirstName": null,
+	            "LastName": null,
+	            "Email": null,
+	            "ContactNumber": null,
+	            "IsExistingCustomer": false,
+	            "StepId": "002b5a5f-fc2b-4501-bfb0-0f4914114b60",
+	            "IsActive": false,
+	            "IsEdit": false,
+	            "IsComplete": false,
+	            "Ignore": true,
+	            "Order": 5,
+	            "Selection": {},
+	            "CurrentUrl": "http://m1cpeshop/en/EShop/Gsm/Phones",
+	            "BackUrl": null,
+	            "PostUrl": null,
+	            "NavStyle": {
+	                "nextlabel": null,
+	                "previouslabel": null,
+	                "buttontype": null,
+	                "nextshow": false,
+	                "previousshow": false,
+	                "previousactive": false,
+	                "nextactive": false,
+	                "isform": false,
+	                "alignbutton": null
+	            },
+	            "Name": "VERIFYDETAIL",
+	            "Title": null,
+	            "ExternalId": null,
+	            "SelectedEntitySitecoreId": null,
+	            "StickyBarText": null,
+	            "CartText": null,
+	            "CartHelpText": null,
+	            "Price": {
+	                "Monthly": null,
+	                "FirstTimeToBill": null,
+	                "SellingPrice": null
+	            },
+	            "ListPrice": null,
+	            "Value": null,
+	            "Values": [],
+	            "Documents": []
+	        }, {
+	            "VariantColor": null,
+	            "VaritantSize": null,
+	            "Image": null,
+	            "VariantId": null,
+	            "StepId": "ecfe5080-db2a-4064-9b34-34a5f9ba323a",
+	            "IsActive": false,
+	            "IsEdit": false,
+	            "IsComplete": false,
+	            "Ignore": true,
+	            "Order": 0,
+	            "Selection": {},
+	            "CurrentUrl": "http://m1cpeshop/en/EShop/Gsm/Phones",
+	            "BackUrl": "",
+	            "PostUrl": "",
+	            "NavStyle": {
+	                "nextlabel": "NEXT",
+	                "previouslabel": "BACK",
+	                "buttontype": "arrow",
+	                "nextshow": true,
+	                "previousshow": false,
+	                "previousactive": true,
+	                "nextactive": true,
+	                "isform": false,
+	                "alignbutton": "right"
+	            },
+	            "Name": "PHONE",
+	            "Title": null,
+	            "ExternalId": null,
+	            "SelectedEntitySitecoreId": "{35de743a-42cc-4786-b739-8509bd1d7698}",
+	            "StickyBarText": "Alcatel PIXI4 7\" Smokey Grey Castle.Proxies.GlassBaseProxy 8GB",
+	            "CartText": null,
+	            "CartHelpText": "Alcatel PIXI4 7\" Smokey Grey",
+	            "Price": {
+	                "Monthly": null,
+	                "FirstTimeToBill": null,
+	                "SellingPrice": {
+	                    "CurrencyCode": null,
+	                    "Amount": 199.0000
+	                }
+	            },
+	            "ListPrice": null,
+	            "Value": null,
+	            "Values": [],
+	            "Documents": []
+	        }, {
+	            "PlanName": "2-13-GSM11392",
+	            "Recontract": false,
+	            "StepId": "4708d452-2f11-400f-b1aa-e620b21de40c",
+	            "IsActive": false,
+	            "IsEdit": false,
+	            "IsComplete": false,
+	            "Ignore": true,
+	            "Order": 1,
+	            "Selection": {
+	                "Id": "00000000-0000-0000-0000-000000000000",
+	                "Contract": null,
+	                "IsCORI": false,
+	                "CORIEmail": null,
+	                "Recontract": false,
+	                "ListPrice": 28.0000,
+	                "CompanyBRName": null,
+	                "PlanName": "2-13-GSM11392",
+	                "DisplayName": "Lite"
+	            },
+	            "CurrentUrl": "http://m1cpeshop/en/EShop/Gsm/Phones",
+	            "BackUrl": null,
+	            "PostUrl": null,
+	            "NavStyle": {
+	                "nextlabel": "NEXT",
+	                "previouslabel": "BACK",
+	                "buttontype": "arrow",
+	                "nextshow": true,
+	                "previousshow": true,
+	                "previousactive": true,
+	                "nextactive": false,
+	                "isform": false,
+	                "alignbutton": "right"
+	            },
+	            "Name": "PLAN",
+	            "Title": null,
+	            "ExternalId": null,
+	            "SelectedEntitySitecoreId": "{00000000-0000-0000-0000-000000000000}",
+	            "StickyBarText": "2-13-GSM11392",
+	            "CartText": null,
+	            "CartHelpText": "Lite",
+	            "Price": {
+	                "Monthly": null,
+	                "FirstTimeToBill": null,
+	                "SellingPrice": null
+	            },
+	            "ListPrice": null,
+	            "Value": null,
+	            "Values": [],
+	            "Documents": []
+	        }, {
+	            "addOn": null,
+	            "addonList": [],
+	            "StepId": "85dd7b74-ff6f-42c1-9624-506a61e8dd90",
+	            "IsActive": true,
+	            "IsEdit": false,
+	            "IsComplete": false,
+	            "Ignore": true,
+	            "Order": 3,
+	            "Selection": {},
+	            "CurrentUrl": "http://m1cpeshop/en/EShop/Gsm/Phones",
+	            "BackUrl": null,
+	            "PostUrl": null,
+	            "NavStyle": {
+	                "nextlabel": "NEXT",
+	                "previouslabel": "BACK",
+	                "buttontype": "arrow",
+	                "nextshow": true,
+	                "previousshow": true,
+	                "previousactive": true,
+	                "nextactive": false,
+	                "isform": false,
+	                "alignbutton": "default"
+	            },
+	            "Name": "ADDON",
+	            "Title": null,
+	            "ExternalId": null,
+	            "SelectedEntitySitecoreId": null,
+	            "StickyBarText": null,
+	            "CartText": null,
+	            "CartHelpText": null,
+	            "Price": {
+	                "Monthly": null,
+	                "FirstTimeToBill": null,
+	                "SellingPrice": null
+	            },
+	            "ListPrice": null,
+	            "Value": null,
+	            "Values": [],
+	            "Documents": []
+	        }, {
+	            "Number": "97932399",
+	            "StepId": "49a3fb93-02cf-48f9-86a7-eaf370a570a3",
+	            "IsActive": false,
+	            "IsEdit": false,
+	            "IsComplete": false,
+	            "Ignore": true,
+	            "Order": 2,
+	            "Selection": {
+	                "Number": "97932399",
+	                "Price": 0.0,
+	                "Promotion": null,
+	                "PortIn": {
+	                    "Provider": null,
+	                    "IdType": 0,
+	                    "IdDocumentNumber": null,
+	                    "BillAccountNumber": null,
+	                    "SubscriberName": null
+	                },
+	                "NumberType": 3,
+	                "CartText": null,
+	                "PackageId": "d4f4f259d3074c43820ef664a6bffb1f"
+	            },
+	            "CurrentUrl": "http://m1cpeshop/en/EShop/Gsm/Phones",
+	            "BackUrl": null,
+	            "PostUrl": null,
+	            "NavStyle": {
+	                "nextlabel": "NEXT",
+	                "previouslabel": "BACK",
+	                "buttontype": "arrow",
+	                "nextshow": true,
+	                "previousshow": true,
+	                "previousactive": true,
+	                "nextactive": true,
+	                "isform": false,
+	                "alignbutton": "default"
+	            },
+	            "Name": "NUMBER",
+	            "Title": null,
+	            "ExternalId": null,
+	            "SelectedEntitySitecoreId": null,
+	            "StickyBarText": "PreferredNumber 97932399",
+	            "CartText": null,
+	            "CartHelpText": null,
+	            "Price": {
+	                "Monthly": null,
+	                "FirstTimeToBill": null,
+	                "SellingPrice": {
+	                    "CurrencyCode": null,
+	                    "Amount": 0.0
+	                }
+	            },
+	            "ListPrice": null,
+	            "Value": null,
+	            "Values": [],
+	            "Documents": []
+	        }],
+	        "IsComplete": false,
+	        "IsRecontract": false,
+	        "IsCori": false,
+	        "IsEdit": true,
+	        "IsFreeGiftIncluded": false,
+	        "CustomerInfo": {
+	            "CustomerId": null,
+	            "FirstName": null,
+	            "LastName": null,
+	            "DateOfBirth": "0001-01-01T00:00:00",
+	            "Email": null,
+	            "Type": null,
+	            "NationUIdNo": null,
+	            "Nationality": null,
+	            "IdExpiryDate": "0001-01-01T00:00:00",
+	            "BillingAddress": {
+	                "AddressId": null,
+	                "PostalCode": null,
+	                "AddressLine1": null,
+	                "AddressLine2": null,
+	                "AddressLine3": null,
+	                "UnitNo": {
+	                    "FloorNumber": null,
+	                    "DoorNumber": null
+	                },
+	                "AddressTypeCd": null
+	            },
+	            "ResidentialAddress": {
+	                "AddressId": null,
+	                "PostalCode": null,
+	                "AddressLine1": null,
+	                "AddressLine2": null,
+	                "AddressLine3": null,
+	                "UnitNo": {
+	                    "FloorNumber": null,
+	                    "DoorNumber": null
+	                },
+	                "AddressTypeCd": null
+	            },
+	            "CustomerStatus": null,
+	            "Ebillsubscription": false,
+	            "SameAsRegisteredAddress": false,
+	            "AccountCollection": []
+	        },
+	        "DeliveryLocation": {
+	            "FulfillmentType": 0,
+	            "FulfillmentName": null,
+	            "PopStationId": null,
+	            "PopStationPostalCode": null,
+	            "ShopAddress": null,
+	            "DeliveryCharge": 0.0,
+	            "CustomeInfo": null,
+	            "Delivery": null,
+	            "Id": null,
+	            "Name": null,
+	            "Comments": null,
+	            "Policies": [],
+	            "ChildComponents": []
+	        },
+	        "SelectDelivery": {
+	            "StoreName": null,
+	            "DeliveryDate": null,
+	            "DeliveryTime": null,
+	            "DeliveryCharge": 0.0,
+	            "DeliveryType": 0,
+	            "CustomerInformation": null,
+	            "PopStationId": null,
+	            "StepId": "e0b84046-6d62-41b8-a4ab-5b555c5c8840",
+	            "IsActive": false,
+	            "IsEdit": false,
+	            "IsComplete": false,
+	            "Ignore": true,
+	            "Order": 4,
+	            "Selection": {},
+	            "CurrentUrl": "http://m1cpeshop/en/EShop/Gsm/Phones",
+	            "BackUrl": null,
+	            "PostUrl": null,
+	            "NavStyle": {
+	                "nextlabel": null,
+	                "previouslabel": null,
+	                "buttontype": null,
+	                "nextshow": false,
+	                "previousshow": false,
+	                "previousactive": false,
+	                "nextactive": false,
+	                "isform": false,
+	                "alignbutton": null
+	            },
+	            "Name": "DELIVERY",
+	            "Title": null,
+	            "ExternalId": null,
+	            "SelectedEntitySitecoreId": null,
+	            "StickyBarText": null,
+	            "CartText": null,
+	            "CartHelpText": null,
+	            "Price": {
+	                "Monthly": null,
+	                "FirstTimeToBill": null,
+	                "SellingPrice": null
+	            },
+	            "ListPrice": null,
+	            "Value": null,
+	            "Values": [],
+	            "Documents": []
+	        },
+	        "SelectVerifyDetail": {
+	            "IsSunrise": false,
+	            "BillingAddress": null,
+	            "ResidentialAddress": null,
+	            "CustomerStatus": null,
+	            "FirstName": null,
+	            "LastName": null,
+	            "Email": null,
+	            "ContactNumber": null,
+	            "IsExistingCustomer": false,
+	            "StepId": "002b5a5f-fc2b-4501-bfb0-0f4914114b60",
+	            "IsActive": false,
+	            "IsEdit": false,
+	            "IsComplete": false,
+	            "Ignore": true,
+	            "Order": 5,
+	            "Selection": {},
+	            "CurrentUrl": "http://m1cpeshop/en/EShop/Gsm/Phones",
+	            "BackUrl": null,
+	            "PostUrl": null,
+	            "NavStyle": {
+	                "nextlabel": null,
+	                "previouslabel": null,
+	                "buttontype": null,
+	                "nextshow": false,
+	                "previousshow": false,
+	                "previousactive": false,
+	                "nextactive": false,
+	                "isform": false,
+	                "alignbutton": null
+	            },
+	            "Name": "VERIFYDETAIL",
+	            "Title": null,
+	            "ExternalId": null,
+	            "SelectedEntitySitecoreId": null,
+	            "StickyBarText": null,
+	            "CartText": null,
+	            "CartHelpText": null,
+	            "Price": {
+	                "Monthly": null,
+	                "FirstTimeToBill": null,
+	                "SellingPrice": null
+	            },
+	            "ListPrice": null,
+	            "Value": null,
+	            "Values": [],
+	            "Documents": []
+	        },
+	        "checkCoverage": {
+	            "zipcode": 788889,
+	            "IsEdit": true,
+	            "unitNumber": {
+	                "floorNumber": null,
+	                "Doornumber": null
+	            }
+	        }
+	    };
         $scope.waivers = {
-            "charges": [
-                {
-                    "offlinecharges": "Delivery Charge -Reservation",
-                    "price": "$20.00",
-                    "url": "https://www.google.com/"
-                },
-                {
-                    "offlinecharges": "Cam Removal Warranty (Hard Bundle Promo)",
-                    "price": "$20.00",
-                    "url": "https://www.google.com/"
-                },
-                {
-                    "offlinecharges": "Cam Removal Warranty (Genral)",
-                    "price": "$20.00",
-                    "url": "https://www.google.com/"
-                },
-                {
-                    "offlinecharges": "Cam Removal Warranty $100 (Genral)",
-                    "price": "$20.00",
-                    "url": "https://www.google.com/"
-                },
-                {
-                    "offlinecharges": "Cam Removal Service",
-                    "price": "$20.00",
-                    "url": "https://www.google.com/"
-                },
-                {
-                    "offlinecharges": "Cam Removal Service and Warranty",
-                    "price": "$20.00",
-                    "url": "https://www.google.com/"
-                },
-                {
-                    "offlinecharges": "Cam Removal Warranty (Hard Bundle Promo)",
-                    "price": "$20.00",
-                    "url": "https://www.google.com/"
-                },
-                {
-                    "offlinecharges": "Cam Removal Warranty (Hard Bundle)",
-                    "price": "$70.00",
-                    "url": "https://www.google.com/"
-                }
-            ]
+                "charges": [
+                    {
+                        "offlinecharges": "Delivery Charge -Reservation",
+                        "price": "$20.00",
+                        "url": "https://www.google.com/"
+                    },
+                    {
+                        "offlinecharges": "Cam Removal Warranty (Hard Bundle Promo)",
+                        "price": "$20.00",
+                        "url": "https://www.google.com/"
+                    },
+                    {
+                        "offlinecharges": "Cam Removal Warranty (Genral)",
+                        "price": "$20.00",
+                        "url": "https://www.google.com/"
+                    },
+                    {
+                        "offlinecharges": "Cam Removal Warranty $100 (Genral)",
+                        "price": "$20.00",
+                        "url": "https://www.google.com/"
+                    },
+                    {
+                        "offlinecharges": "Cam Removal Service",
+                        "price": "$20.00",
+                        "url": "https://www.google.com/"
+                    },
+                    {
+                        "offlinecharges": "Cam Removal Service and Warranty",
+                        "price": "$20.00",
+                        "url": "https://www.google.com/"
+                    },
+                    {
+                        "offlinecharges": "Cam Removal Warranty (Hard Bundle Promo)",
+                        "price": "$20.00",
+                        "url": "https://www.google.com/"
+                    },
+                    {
+                        "offlinecharges": "Cam Removal Warranty (Hard Bundle)",
+                        "price": "$70.00",
+                        "url": "https://www.google.com/"
+                    }
+                ]
         };
         $scope.flag = false;
-        $scope.redirection = function (check, url) {
+        $scope.redirection = function(check, url) {
             $scope.disableFlag = check;
             if (check) {
                 $window.open(url, '_blank');
@@ -4103,75 +5449,94 @@
             "addionalchargesCount": 0,
             "additionalheading": "ADDITIONAL CHARGES",
             "addionaladdchargediscountbtn": "Add Charges",
-            "addionalchargesgrid": [
-                {
-                    "additionalcharegeslabel": "Additional Charges Description 1",
-                    "pricelabel": "price",
-                    "chargesDescription": "Pre payment",
-                    "price": "30",
-                    "buttonapply": "Apply",
-                    "buttonadd": "Add Charges",
-                    "voucherApplyFilter": false
-                }
-            ]
+                "addionalchargesgrid": [
+                    {
+                "additionalcharegeslabel": "Additional Charges Description 1",
+                "pricelabel": "price",
+                "chargesDescription": "Pre payment",
+                "price": "",
+                "buttonapply": "Apply",
+                "buttonadd": "Add Charges",
+                "voucherApplyFilter": false
+                    }
+                ]
         };
         $scope.addionalDiscount = {
             "addionalchargesCount": 0,
             "additionalheading": "ADDITIONAL DISCOUNT",
             "addionaladdchargediscountbtn": "Add Discount",
-            "addionalchargesgrid": [
-                {
-                    "additionalcharegeslabel": "Additional Charges Description 1",
-                    "pricelabel": "price",
-                    "chargesDescription": "Pre payment",
-                    "price": "30",
-                    "buttonapply": "Apply",
-                    "buttonadd": "Add Charges",
-                    "voucherApplyFilter": false
-                }
-            ]
+                "addionalchargesgrid": [
+                    {
+                "additionalcharegeslabel": "Additional Charges Description 1",
+                "pricelabel": "price",
+                "chargesDescription": "Pre payment",
+                "price": "",
+                "buttonapply": "Apply",
+                "buttonadd": "Add Charges",
+                "voucherApplyFilter": false
+                    }
+                ]
         };
+	    /*passing data on next button start here*/
+        navigationHandler.subscribeFormSubmit($scope, function formSubmitted() {
+            console.log("dddd");
+            $scope.nextButtonForCoverage();
+        });
+        $scope.nextButtonForCoverage = function () {
+            console.log($scope.addionalcharges);
+            console.log($scope.addionalDiscount);
+            eshopSelection.setselecttion($scope.addionalcharges);
+        };
+	    /*passing data on next button end here*/
+
         /*moose waiver end here*/
     }]);
-
-    angular.module("m1cp.eshop.moose").controller("mooseFlowController", ["$scope", "httpHandler", "$window", function ($scope, httpHandler, $window) {
-
-        $scope.checkViolations = function () {
-            var URL = "mooseManager.json";
-            if ($scope.isSkip == true) {
-                $scope.selection = "skip";
-            }
-            else {
-                $scope.selection = "approve";
-            }
-            $scope.approvalObj = {
-                username: $scope.approval.manager_username,
-                password: $scope.approval.manager_password,
-                selection: $scope.selection
-            }
+	
+	angular.module("m1cp.eshop.moose").controller("mooseFlowController", ["$scope", "httpHandler", "$window", function ($scope, httpHandler, $window) {
+		
+		$scope.checkViolations = function() {
+		var URL = "mooseManager.json";
+		if ($scope.isSkip == true) {
+			 $scope.selection = "skip";
+		}
+		else {
+			$scope.selection = "approve";
+		}
+		$scope.approvalObj = {
+			username : $scope.approval.manager_username,
+			password: $scope.approval.manager_password,
+			selection: $scope.selection
+		}
             var promise = httpHandler.fetchdata("GET", URL, $scope.approvalObj, "json");
             promise.then(
                 function success(response) {
-                    $scope.ErrorMsg = response.ErrorMessage;
-                    $scope.postUrl = response.postUrl;
-                    if (response.success == true) {
-                        $window.location.href = $scope.postUrl;
-                    }
-                    else {
-                        $scope.errorMsg = true;
-                    }
-                }
+					$scope.ErrorMsg = response.ErrorMessage;
+					$scope.postUrl = response.postUrl;
+					if (response.success == true) {
+						$window.location.href = $scope.postUrl;
+					}
+					else {
+						$scope.errorMsg = true;
+					}
+				}
 			);
-        }
-        $scope.skipViolations = function () {
-            $scope.isSkip = true;
-            $scope.checkViolations();
-        }
-        $scope.approveViolations = function () {
-            $scope.isSkip = false;
-            $scope.checkViolations();
-        }
-
-    }]);
+		}
+		$scope.skipViolations = function () {
+			$scope.isSkip = true;
+			$scope.checkViolations();
+		}
+		$scope.approveViolations = function () {
+			$scope.isSkip = false;
+			$scope.checkViolations();
+		}
+		
+	}]);
 
 })();
+
+///
+// m1cp.moose - main module
+// m1cp.moose.sidebar - child module
+// moose.header - child module
+// moose.case - child module
+// moose.device - child module
